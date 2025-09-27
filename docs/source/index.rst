@@ -3,9 +3,9 @@
    You can adapt this file completely to your liking, but it should at least
    contain the root `toctree` directive.
 
-=============================
-An MRI reconstruction toolbox 
-=============================
+=========================================================
+MRI Reconstructions from the Theory to the Implementation 
+=========================================================
 
 
 .. image:: ./images/Bastien.jpeg
