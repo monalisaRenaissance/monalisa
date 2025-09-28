@@ -4,7 +4,7 @@
    contain the root `toctree` directive.
 
 =========================================================
-MRI Reconstructions from the Theory to the Implementation 
+MRI Reconstructions : from the Theory to the Implementation 
 =========================================================
 
 
