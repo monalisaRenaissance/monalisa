@@ -14,7 +14,9 @@ author      = 'Bastien Milani'
 # -- General configuration ---------------------------------------------------
 # https://www.sphinx-doc.org/en/master/usage/configuration.html#general-configuration
 
-extensions = ['sphinx.ext.githubpages']
+extensions = ['sphinx.ext.githubpages', 
+              'sphinxcontrib.matlab',
+              'sphinx.ext.mathjax']
 
 templates_path = ['_templates']
 exclude_patterns = []
