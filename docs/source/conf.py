@@ -6,7 +6,7 @@
 # -- Project information -----------------------------------------------------
 # https://www.sphinx-doc.org/en/master/usage/configuration.html#project-information
 
-project     = 'Monalisa Documentation'
+project     = 'Monalisa Renaissance'
 copyright   = '2023, Bastien Milani'
 author      = 'Bastien Milani'
 
