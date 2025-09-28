@@ -22,7 +22,7 @@ jobs:
         run: |
           python -m pip install --upgrade pip
           pip install sphinx
-          pip install -r requirements.txt || true  # Optional
+          pip install -r .docs/requirements.txt || true  # Optional
       - name: Build HTML
         run: |
           cd docs
