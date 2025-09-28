@@ -3,9 +3,12 @@
    You can adapt this file completely to your liking, but it should at least
    contain the root `toctree` directive.
 
-=========================================================
-MRI Reconstructions : from the Theory to the Implementation 
-=========================================================
+===================
+MRI Reconstructions 
+===================
+-------------------------------------
+From the Theory to the Implementation
+-------------------------------------
 
 
 .. image:: ./images/Bastien.jpeg
