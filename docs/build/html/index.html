@@ -36,15 +36,24 @@
 <section id="from-the-theory-to-the-implementation">
 <h2>From the Theory to the Implementation<a class="headerlink" href="#from-the-theory-to-the-implementation" title="Link to this heading">¶</a></h2>
 <a class="reference internal image-reference" href="_images/Bastien.jpeg"><img alt="_images/Bastien.jpeg" src="_images/Bastien.jpeg" style="width: 100%;" /></a>
-<p>The Monalisa toolbox has been developed at CIBM-CHUV between 2018 and 2023.
-Bastien Milani originally developed the toolbox with non-cartesian reconstructions
-in the context of cardiac MRI. These are mostly iterative reconstruction with
-the exception of one gridded reconstruction. he implemented then iterative cartesian
-reconstructions on the same model that the non-iterative ones and Berk Can Açikgöz added GRAPPA
+<p>The Monalisa toolbox has been developed at CIBM-CHUV between 2018 and 2023 by Bastien Milani. It continued
+to evovled until now, notably by the contribution of Berk Can Açikgöz who contributed with 2D and 3D GRAPPA
 reconstructions while working in QIS lab at university hospital of Bern.</p>
+<p>Originally, the toolbox included mainly non-cartesian reconstructions that were implemented for
+the purpose of 3D-CINE cardiac MRI (4D and 5D). Iterative cartesian reconstructions were then implemented on the same
+model. Other conventional non-iterative reconstructions, such as gridded and simple “inverse Fourier” reconstruction,
+are also implemented.</p>
 <div class="toctree-wrapper compound">
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="1_instalation.html">Instalation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="1_instalation.html">Instalation</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="1_instalation.html#install-git">Install Git</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="1_instalation.html#on-windows">On Windows</a></li>
+<li class="toctree-l3"><a class="reference internal" href="1_instalation.html#on-linux">On Linux</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="1_instalation.html#clone-the-repository">Clone the repository</a></li>
+</ul>
+</li>
 <li class="toctree-l1"><a class="reference internal" href="2_introduction.html">Introduction</a></li>
 <li class="toctree-l1"><a class="reference internal" href="3_demos.html">Demos</a></li>
 </ul>

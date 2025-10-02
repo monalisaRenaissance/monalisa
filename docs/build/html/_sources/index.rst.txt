@@ -13,12 +13,14 @@ From the Theory to the Implementation
    :width: 100 %
 
 
-The Monalisa toolbox has been developed at CIBM-CHUV between 2018 and 2023. 
-Bastien Milani originally developed the toolbox with non-cartesian reconstructions 
-in the context of cardiac MRI. These are mostly iterative reconstruction with 
-the exception of one gridded reconstruction. he implemented then iterative cartesian 
-reconstructions on the same model that the non-iterative ones and Berk Can Açikgöz added GRAPPA 
-reconstructions while working in QIS lab at university hospital of Bern.    
+The Monalisa toolbox has been developed at CIBM-CHUV between 2018 and 2023 by Bastien Milani. It continued 
+to evovled until now, notably by the contribution of Berk Can Açikgöz who contributed with 2D and 3D GRAPPA 
+reconstructions while working in QIS lab at university hospital of Bern. 
+
+Originally, the toolbox included mainly non-cartesian reconstructions that were implemented for 
+the purpose of 3D-CINE cardiac MRI (4D and 5D). Iterative cartesian reconstructions were then implemented on the same 
+model. Other conventional non-iterative reconstructions, such as gridded and simple "inverse Fourier" reconstruction, 
+are also implemented.     
 
 
 

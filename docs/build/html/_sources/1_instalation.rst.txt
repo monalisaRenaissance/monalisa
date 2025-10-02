@@ -2,6 +2,67 @@
 Instalation
 ===========
 
+Since the code of *Monalisa* is stored in a Github repository, you have to use git to install the toolbox on your computer. 
+If you are used to git, you can skip the following two subsections and directliy go to the *Compilation* step. 
+In the other case, just follow the two simple steps hereafter.    
+
+Install Git
+===========
+
+----------
+On Windows
+----------
+
+To install git on *Windows*, go to the `git page <https://git-scm.com/downloads/win>`_, download the installer and run it. 
+Then open a terminal. You can run a *powershell* terminal or the *command prompt* terminal. 
+Just search for one of those two by typing *powershell* or *command prompt* in the text zone in the start menu. 
+In order to check it Git is installed correclty, type in your terminal
+
+.. code-block:: powershell
+
+    git -v
+
+If the installation succeded you should see an answer like
+
+.. code-block:: powershell
+
+    git version 2.49.0.windows.1
+
+
+----------
+On Linux
+----------
+
+Write here for Linux.   
+
+
+
+Clone the repository
+====================
+
+First create a folder on your computer were the toolbox will be downloaded. 
+For example, name that folder *monalisaRenaissance*. 
+
+Then open a terminal and go into the folder you just created. For me, this was 
+done by running the command
+
+.. code-block:: powershell
+
+    cd C:\main\repos\monalisaRenaissance
+
+
+We are going to clone the monalisa repository inside. For that, go 
+to `monalisaRenaissance <https://github.com/monalisaRenaissance/monalisa>`_ and
+Click on the green button ``<>Code`` and copy from there the URL of the repository. Go back to you terminal and type
+
+.. code-block:: powershell
+
+    git clone <the URL you just copied>
+
+It should take a few seconds (or minutes if your connection is slow) but after that you should see the 
+directory *monalisa* inside the directory you chose to clone it (for me *monalisaRenaissance*). 
+
+
 
 here is some text
 
@@ -17,3 +78,6 @@ here is some text
 .. code-block:: matlab
 
    here is some matlab code
+
+   a = 3; 
+   b = 6; 
