@@ -52,8 +52,8 @@ done by running the command
 
 
 We are going to clone the monalisa repository inside. For that, go 
-to `monalisaRenaissance <https://github.com/monalisaRenaissance/monalisa>`_ and
-Click on the green button ``<>Code`` and copy from there the URL of the repository. Go back to you terminal and type
+to `monalisaRenaissance <https://github.com/monalisaRenaissance/monalisa>`_. Then
+click on the green button ``<>Code`` and copy from there the URL of the repository. Go back to you terminal and type
 
 .. code-block:: powershell
 
