@@ -3,13 +3,14 @@
 <html lang="en" data-content_root="./">
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
     <title>MRI Reconstructions &#8212; Monalisa Renaissance  documentation</title>
-    <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=61cd365c" />
-    <link rel="stylesheet" type="text/css" href="_static/alabaster.css?v=12dfc556" />
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=5ecbeea2" />
+    <link rel="stylesheet" type="text/css" href="_static/basic.css?v=b08954a9" />
+    <link rel="stylesheet" type="text/css" href="_static/alabaster.css?v=27fed22d" />
     <script src="_static/documentation_options.js?v=5929fcd5"></script>
-    <script src="_static/doctools.js?v=9a2dae69"></script>
+    <script src="_static/doctools.js?v=9bcbadda"></script>
     <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
@@ -35,18 +36,19 @@
 <h1>MRI Reconstructions<a class="headerlink" href="#mri-reconstructions" title="Link to this heading">¶</a></h1>
 <section id="from-the-theory-to-the-implementation">
 <h2>From the Theory to the Implementation<a class="headerlink" href="#from-the-theory-to-the-implementation" title="Link to this heading">¶</a></h2>
-<a class="reference internal image-reference" href="_images/Bastien.jpeg"><img alt="_images/Bastien.jpeg" src="_images/Bastien.jpeg" style="width: 100%;" /></a>
-<p>The Monalisa toolbox for MRI reconstruciton has been originaly developed at CIBM-CHUV between 2018 and 2023
+<a class="reference internal image-reference" href="_images/Bastien.jpeg"><img alt="_images/Bastien.jpeg" src="_images/Bastien.jpeg" style="width: 100%;" />
+</a>
+<p>The <a class="reference external" href="https://github.com/monalisaRenaissance/monalisa.git">Monalisa</a> toolbox for MRI reconstruction has been originaly developed at CIBM-CHUV between 2018 and 2023
 by Bastien Milani. It continued to evovled until now, notably by the contribution of Berk Can Açikgöz
 who contributed with 2D and 3D GRAPPA reconstructions while working in QIS lab at Inselspital and university
 of Bern.</p>
 <p>Originally, the development of the toolbox began by the implementation of non-cartesian reconstructions.
-The first reconstruction implenented was a gridded reconstruction which is part of the static non-iterative
+The first reconstruction implemented was a gridded reconstruction which is part of the static non-iterative
 familly. After that, some static iterative reconstruction were added and later 3D-CINE iterative reconstruciton
 were implemented (4D and 5D), all for non-cartesian data. Iterative 3D-CINE reconstruction for cartesian
 data were then implemented on the same model. In order to be able to compare all kind of reconstructions,
 it would be ideal to have one example of each main representant. Thank to Berk we have now a GAPPA implementation,
-which is one of the most used reconstruction for partially sample cartesian data.</p>
+which is one of the most used static non-iterative reconstruction for partially sample cartesian data.</p>
 <div class="toctree-wrapper compound">
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="1_instalation.html">Instalation</a><ul>
@@ -70,7 +72,7 @@ which is one of the most used reconstruction for partially sample cartesian data
           
         </div>
       </div>
-      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+      <div class="sphinxsidebar" role="navigation" aria-label="Main">
         <div class="sphinxsidebarwrapper">
 <h1 class="logo"><a href="#">Monalisa Renaissance</a></h1>
 
@@ -81,7 +83,16 @@ which is one of the most used reconstruction for partially sample cartesian data
 
 
 
-<h3>Navigation</h3>
+
+<search id="searchbox" style="display: none" role="search">
+    <div class="searchformwrapper">
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" placeholder="Search"/>
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</search>
+<script>document.getElementById('searchbox').style.display = "block"</script><h3>Navigation</h3>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="1_instalation.html">Instalation</a></li>
 <li class="toctree-l1"><a class="reference internal" href="2_introduction.html">Introduction</a></li>
@@ -96,16 +107,6 @@ which is one of the most used reconstruction for partially sample cartesian data
   </ul></li>
 </ul>
 </div>
-<search id="searchbox" style="display: none" role="search">
-  <h3 id="searchlabel">Quick search</h3>
-    <div class="searchformwrapper">
-    <form class="search" action="search.html" method="get">
-      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
-      <input type="submit" value="Go" />
-    </form>
-    </div>
-</search>
-<script>document.getElementById('searchbox').style.display = "block"</script>
 
 
 
@@ -122,8 +123,8 @@ which is one of the most used reconstruction for partially sample cartesian data
       &#169;2023, Bastien Milani.
       
       |
-      Powered by <a href="https://www.sphinx-doc.org/">Sphinx 7.3.7</a>
-      &amp; <a href="https://alabaster.readthedocs.io">Alabaster 0.7.16</a>
+      Powered by <a href="https://www.sphinx-doc.org/">Sphinx 8.2.3</a>
+      &amp; <a href="https://alabaster.readthedocs.io">Alabaster 1.0.0</a>
       
       |
       <a href="_sources/index.rst.txt"
