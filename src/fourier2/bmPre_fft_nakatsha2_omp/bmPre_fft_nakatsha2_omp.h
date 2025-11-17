@@ -1,0 +1,16 @@
+// Bastien Milani
+// CHUV and UNIL
+// Lausanne - Switzerland
+// May 2023
+
+#ifndef __bmPre_fft_nakatsha2_omp_H__
+#define __bmPre_fft_nakatsha2_omp_H__
+ 
+extern void bmPre_fft_nakatsha2_omp(float* in_complex_ptr_0,
+									float* in_real_ptr_0,
+									float* in_imag_ptr_0,
+									int Nx_u,
+									int Ny_u, 
+									int nCh); 
+
+#endif // __bmPre_fft_nakatsha2_omp_H__

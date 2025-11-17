@@ -1,0 +1,225 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="./">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Instalation &mdash; Monalisa Renaissance  documentation</title>
+      <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="_static/css/theme.css?v=e59714d7" />
+
+  
+      <script src="_static/jquery.js?v=5d32c60e"></script>
+      <script src="_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="_static/documentation_options.js?v=5929fcd5"></script>
+      <script src="_static/doctools.js?v=9bcbadda"></script>
+      <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Introduction" href="2_introduction.html" />
+    <link rel="prev" title="MRI Reconstructions" href="index.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="index.html" class="icon icon-home">
+            Monalisa Renaissance
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul class="current">
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Instalation</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#install-git">Install Git</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#on-windows">On Windows</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#on-linux">On Linux</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#clone-the-repository">Clone the repository</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#take-a-first-look-at-the-monalisa-folder">Take a first look at the Monalisa folder</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#install-a-c-compiler">Install a c++ compiler</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#id1">On Windows</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id2">On Linux</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#compilation-in-matlab">Compilation in Matlab</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="2_introduction.html">Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="3_demos.html">Demos</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">Monalisa Renaissance</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="index.html" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">Instalation</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="_sources/1_instalation.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="instalation">
+<h1>Instalation<a class="headerlink" href="#instalation" title="Link to this heading"></a></h1>
+<p>Since the code of <em>Monalisa</em> is stored in a Github repository, you have to use Git to install the toolbox on your computer.
+If you are used to Git and to command prompt interfaces (terminals), you can directly go to the step <em>Compilation in Matlab</em>.</p>
+<p>In the other case, just follow the two simple steps hereafter. Note that you will need to open a terminal to use git properly.
+On Windows, you can use the <strong>powershell</strong> or the <strong>command prompt</strong> terminals. Just search for one of those two by
+typing <em>powershell</em> or <em>command prompt</em> in the search text box in the start menu. To run a terminal on Linux,
+type <em>terminal</em> in the research text box in the start menu.</p>
+<section id="install-git">
+<h2>Install Git<a class="headerlink" href="#install-git" title="Link to this heading"></a></h2>
+<section id="on-windows">
+<h3>On Windows<a class="headerlink" href="#on-windows" title="Link to this heading"></a></h3>
+<p>To install git on <em>Windows</em>, go to the <a class="reference external" href="https://git-scm.com/downloads/win">git page</a>, download the installer and run it.
+In order to check it Git is installed correclty, open a terminal and type the command</p>
+<div class="highlight-powershell notranslate"><div class="highlight"><pre><span></span><span class="n">git</span> <span class="n">-v</span>
+</pre></div>
+</div>
+<p>If the installation succeded you should see an answer like</p>
+<div class="highlight-powershell notranslate"><div class="highlight"><pre><span></span><span class="n">git</span> <span class="n">version</span> <span class="n">2</span><span class="p">.</span><span class="n">49</span><span class="p">.</span><span class="n">0</span><span class="p">.</span><span class="n">windows</span><span class="p">.</span><span class="n">1</span>
+</pre></div>
+</div>
+</section>
+<section id="on-linux">
+<h3>On Linux<a class="headerlink" href="#on-linux" title="Link to this heading"></a></h3>
+<p>If you work on Linux, you probably already know how to install git. In case your are not a specialist of UNIX systems just like me,
+but you try to use Linux, you are probably working on Ubuntu. Then the following command should install Git :</p>
+<div class="highlight-powershell notranslate"><div class="highlight"><pre><span></span><span class="n">sudo</span> <span class="n">apt</span> <span class="n">update</span>
+<span class="n">sudo</span> <span class="n">apt</span> <span class="n">install</span> <span class="n">git</span>
+</pre></div>
+</div>
+<p>In any case, if one of your friends is an LLM (Large Language Model), it will typically gives you a greate help for those kind of things.
+In order to check it Git is installed correclty, open a terminal and type the command</p>
+<div class="highlight-powershell notranslate"><div class="highlight"><pre><span></span><span class="n">git</span> <span class="n">-v</span>
+</pre></div>
+</div>
+<p>If the installation succeded you should see an answer like</p>
+<div class="highlight-powershell notranslate"><div class="highlight"><pre><span></span><span class="n">git</span> <span class="n">version</span> <span class="n">2</span><span class="p">.</span><span class="n">48</span><span class="p">.</span><span class="n">1</span>
+</pre></div>
+</div>
+</section>
+</section>
+<section id="clone-the-repository">
+<h2>Clone the repository<a class="headerlink" href="#clone-the-repository" title="Link to this heading"></a></h2>
+<p>First create a folder on your computer were the toolbox will be downloaded.
+For example, name that folder <em>monalisaRenaissance</em>.</p>
+<p>Then open a terminal and go into the folder you just created. For me, this was
+done by running the command</p>
+<div class="highlight-powershell notranslate"><div class="highlight"><pre><span></span><span class="nb">cd </span><span class="n">C</span><span class="p">:\</span><span class="n">main</span><span class="p">\</span><span class="n">repos</span><span class="p">\</span><span class="n">monalisaRenaissance</span>
+</pre></div>
+</div>
+<p>We are going to clone the monalisa repository inside. For that, go
+to <a class="reference external" href="https://github.com/monalisaRenaissance/monalisa">monalisaRenaissance</a>. Then
+click on the green button <code class="docutils literal notranslate"><span class="pre">&lt;&gt;Code</span></code> and copy from there the URL of the repository. Go back to you terminal and type</p>
+<div class="highlight-powershell notranslate"><div class="highlight"><pre><span></span><span class="n">git</span> <span class="n">clone</span> <span class="p">&lt;</span><span class="n">the</span> <span class="n">URL</span> <span class="n">you</span> <span class="n">just</span> <span class="n">copied</span><span class="p">&gt;</span>
+</pre></div>
+</div>
+<p>It should take a few seconds (or minutes if your connection is slow) but after that you should see the
+directory <em>monalisa</em> inside the directory you chose to clone it (for me <em>monalisaRenaissance</em>).</p>
+</section>
+<section id="take-a-first-look-at-the-monalisa-folder">
+<h2>Take a first look at the Monalisa folder<a class="headerlink" href="#take-a-first-look-at-the-monalisa-folder" title="Link to this heading"></a></h2>
+<p>You can now open the Monalisa folder in a graphical navigator and you should be able to see the following content:</p>
+<a class="reference internal image-reference" href="_images/monalisa_cloned_folder.jpg"><img alt="_images/monalisa_cloned_folder.jpg" src="_images/monalisa_cloned_folder.jpg" style="width: 100%;" />
+</a>
+<p>All the functional code of the toolbox is made of functions (matlab or c++), classes, text files and maltab-apps files, which
+are all stored in the <code class="docutils literal notranslate"><span class="pre">src</span></code> folder. No scripts, nor data nor any other kind of files are part of the toolbox. Don’t modify the
+content of the <code class="docutils literal notranslate"><span class="pre">scr</span></code> folder unless you are an advanced user. Only the <code class="docutils literal notranslate"><span class="pre">src</span></code> folder, its content and its nested content are
+affected by the license.</p>
+<p>Demonstration scripts and demonstrations data are included in the <code class="docutils literal notranslate"><span class="pre">demo</span></code> folder. Playing in this folder is probably the best way
+to go in touch with the toolbox (but you have first to complie the c++ code as described in the next section).</p>
+<p>The <code class="docutils literal notranslate"><span class="pre">third_part</span></code> folder contains some files written by other authors and are possibly (probably) protected by their own license.
+Some of the Monalisa functions call some function of the <code class="docutils literal notranslate"><span class="pre">third_part</span></code> folder to perform some technical tasks, such as data extraction from
+rawdata files.</p>
+<p>The <code class="docutils literal notranslate"><span class="pre">docs</span></code> folder contains the content of the documentation as well as the material to build it, while the folder <code class="docutils literal notranslate"><span class="pre">unit_tests</span></code>
+remains empty for the moment. You don’t have to care about <code class="docutils literal notranslate"><span class="pre">.git</span></code>, <code class="docutils literal notranslate"><span class="pre">.github</span></code> or the file <code class="docutils literal notranslate"><span class="pre">.gitignore</span></code>. These folders and file
+serve for the internal git mechanic. The <code class="docutils literal notranslate"><span class="pre">README.md</span></code> file is the one displayed in the git-repository and the <code class="docutils literal notranslate"><span class="pre">LICENSE</span></code> is a text file
+that contains the license.</p>
+</section>
+<section id="install-a-c-compiler">
+<h2>Install a c++ compiler<a class="headerlink" href="#install-a-c-compiler" title="Link to this heading"></a></h2>
+<p>We cannot give a detailed explanation for that step. It depends mainly on your operating system. Here are however some hints.</p>
+<section id="id1">
+<h3>On Windows<a class="headerlink" href="#id1" title="Link to this heading"></a></h3>
+<p>Expanation for Windows…</p>
+</section>
+<section id="id2">
+<h3>On Linux<a class="headerlink" href="#id2" title="Link to this heading"></a></h3>
+<p>Expanation for Linux…..</p>
+</section>
+</section>
+<section id="compilation-in-matlab">
+<h2>Compilation in Matlab<a class="headerlink" href="#compilation-in-matlab" title="Link to this heading"></a></h2>
+<p>Open matlab and open the Monalisa in the Matlab consol bu typing</p>
+<div class="highlight-matlab notranslate"><div class="highlight"><pre><span></span><span class="nb">cd</span><span class="w"> </span><span class="o">&lt;</span><span class="n">your</span><span class="w"> </span><span class="n">monalisa</span><span class="w"> </span><span class="n">folder</span><span class="o">&gt;</span>
+</pre></div>
+</div>
+<p>For me, that was done by the command</p>
+<div class="highlight-matlab notranslate"><div class="highlight"><pre><span></span><span class="nb">cd</span><span class="w"> </span><span class="n">C</span><span class="p">:</span><span class="o">\</span><span class="n">main</span><span class="o">\</span><span class="n">repos</span><span class="o">\</span><span class="n">monalisaRenaissance</span><span class="o">\</span><span class="n">monalisa</span>
+</pre></div>
+</div>
+<p>You have then if Matlab recognizes one or many c++ compilers intalled on your systems. For that …</p>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="index.html" class="btn btn-neutral float-left" title="MRI Reconstructions" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="2_introduction.html" class="btn btn-neutral float-right" title="Introduction" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2023, Bastien Milani.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>
