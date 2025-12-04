@@ -10,10 +10,10 @@ function bmMex(argDir, varargin)
 
 if length(varargin) == 0
     myOS            = 'windows';
-    mex_dir_file    = [argDir, '/bmMex/txt/bmMex_dir_blanc.txt']; 
+    mex_dir_file    = []; 
 elseif length(varargin) == 1
     myOS            = varargin{1};
-    mex_dir_file    = [argDir, '/bmMex/txt/bmMex_dir_blanc.txt'];
+    mex_dir_file    = [];
 elseif length(varargin) == 2
     myOS            = varargin{1};
     mex_dir_file    = varargin{2}; 
@@ -39,6 +39,8 @@ for i = 1:length(myDirList)
         command_file = [myDirList{i}, '/mex_command_windows.txt'];
     elseif strcmp(myOS, 'linux')
         command_file = [myDirList{i}, '/mex_command_linux.txt'];
+    elseif strcmp(myOS, 'mac')
+        command_file = [myDirList{i}, '/mex_command_mac_llvm.txt'];
     end
     
     if (exist(command_file) == 2)
