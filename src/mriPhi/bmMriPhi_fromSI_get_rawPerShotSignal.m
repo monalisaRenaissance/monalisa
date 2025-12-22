@@ -13,7 +13,7 @@ N = size(rmsSI, 1);
 L = size(rmsSI, 2); 
 
 temp_x  = repmat(bmCol(1:N), [1, L]);
-s      = rmsSI(ind_SI_min:ind_SI_max,  :);
+s       = rmsSI(ind_SI_min:ind_SI_max,  :);
 temp_x  = temp_x(ind_SI_min:ind_SI_max, :);
 
 

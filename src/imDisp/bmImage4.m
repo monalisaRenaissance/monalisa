@@ -186,17 +186,17 @@ return;
                 controlFlag = 0; 
                 shiftFlag   = 0;
                 
-            case 'X'
+            case 'x'
                     myParam.permutation = [2, 3, 1];
                     update_image;
                     refresh_image;             
                 
-            case 'Y'
+            case 'y'
                     myParam.permutation = [3, 1, 2];
                     update_image;
                     refresh_image;
 
-            case 'Z'
+            case 'z'
                     myParam.permutation = [1, 2, 3];
                     update_image;
                     refresh_image;
