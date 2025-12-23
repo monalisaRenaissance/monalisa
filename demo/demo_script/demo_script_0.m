@@ -1,0 +1,54 @@
+%% Creating a sparse-matrix G
+
+% Don't pay attention to the code of this section. 
+% It is just to creat a large sprse-matrix G, which is a gridding matrix in
+% the following case. 
+
+% You need at least 32 Go memory. 
+
+N_u     = [384, 384, 384]; 
+dK_u    = [1, 1, 1]./440; 
+
+t       = bmTraj_fullRadial3_phyllotaxis_lineAssym2(384, 22, 5749, 1/440, true, 0);
+t       = reshape(t, [3, 384, 21, 5749]);
+myMask  = (rand(1, 5759) < 1/100); 
+t       = t(:, :, :, myMask); 
+ve      = bmVolumeElement_voronoi_full_radial3(t); 
+ve      = min(ve, prod(dK_u)); 
+G       = bmTraj2SparseMat(t, ve, N_u, dK_u); 
+
+%% One-channel random data
+
+% We create here a random vector y with one channel. 
+
+nCh = 1; 
+
+y_real = rand(size(t, 2)*size(t, 3)*size(t, 4), nCh, 'single');  
+y_imag = rand(size(t, 2)*size(t, 3)*size(t, 4), nCh, 'single'); 
+y = y_real + 1i*y_imag; 
+
+%% sparse-matrix multiplication
+
+% We multiply vector y by matrix G. 
+
+x = bmSparseMat_vec(G, y, 'omp', 'complex', false); 
+
+%% 32-channels random data
+
+% We create here a list of random vectors y with 32 channels. 
+
+y_real = rand(size(t, 2)*size(t, 3)*size(t, 4), 32, 'single');  
+y_imag = rand(size(t, 2)*size(t, 3)*size(t, 4), 32, 'single'); 
+y = y_real + 1i*y_imag; 
+
+
+%% sparse-matrix multiplication
+
+% We multiply the list of vectors y by matrix G. 
+
+x = bmSparseMat_vec(G, y, 'omp', 'complex', false); 
+
+
+% Observe the peak of processor activity in you process monitor. 
+
+
