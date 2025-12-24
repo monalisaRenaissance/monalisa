@@ -6,7 +6,7 @@
   <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>demo_script_0 &mdash; Monalisa Renaissance  documentation</title>
+  <title>demo_script_0 : testing of installation and multi-threading &mdash; Monalisa Renaissance  documentation</title>
       <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=b86133f3" />
       <link rel="stylesheet" type="text/css" href="_static/css/theme.css?v=e59714d7" />
 
@@ -19,7 +19,7 @@
     <script src="_static/js/theme.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="next" title="demo_script_0" href="demo_script_1.html" />
+    <link rel="next" title="demo_script_1" href="demo_script_1.html" />
     <link rel="prev" title="Demos" href="3_demos.html" /> 
 </head>
 
@@ -46,10 +46,10 @@
 <li class="toctree-l1"><a class="reference internal" href="1_instalation.html">Instalation</a></li>
 <li class="toctree-l1"><a class="reference internal" href="2_introduction.html">Introduction</a></li>
 <li class="toctree-l1 current"><a class="reference internal" href="3_demos.html">Demos</a><ul class="current">
-<li class="toctree-l2 current"><a class="current reference internal" href="#">demo_script_0</a></li>
-<li class="toctree-l2"><a class="reference internal" href="demo_script_1.html">demo_script_0</a></li>
-<li class="toctree-l2"><a class="reference internal" href="demo_script_2.html">demo_script_0</a></li>
-<li class="toctree-l2"><a class="reference internal" href="demo_script_3.html">demo_script_0</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">demo_script_0 : testing of installation and multi-threading</a></li>
+<li class="toctree-l2"><a class="reference internal" href="demo_script_1.html">demo_script_1</a></li>
+<li class="toctree-l2"><a class="reference internal" href="demo_script_2.html">demo_script_2</a></li>
+<li class="toctree-l2"><a class="reference internal" href="demo_script_3.html">demo_script_3</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="4_thermodynInfo.html">Sketching a Classical Thermodynamic Theory of Information for MRI Reconstructions</a></li>
@@ -70,7 +70,7 @@
   <ul class="wy-breadcrumbs">
       <li><a href="index.html" class="icon icon-home" aria-label="Home"></a></li>
           <li class="breadcrumb-item"><a href="3_demos.html">Demos</a></li>
-      <li class="breadcrumb-item active">demo_script_0</li>
+      <li class="breadcrumb-item active">demo_script_0 : testing of installation and multi-threading</li>
       <li class="wy-breadcrumbs-aside">
             <a href="_sources/demo_script_0.rst.txt" rel="nofollow"> View page source</a>
       </li>
@@ -80,8 +80,85 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
              
-  <section id="demo-script-0">
-<h1>demo_script_0<a class="headerlink" href="#demo-script-0" title="Link to this heading"></a></h1>
+  <section id="demo-script-0-testing-of-installation-and-multi-threading">
+<h1>demo_script_0 : testing of installation and multi-threading<a class="headerlink" href="#demo-script-0-testing-of-installation-and-multi-threading" title="Link to this heading"></a></h1>
+<p>The present script is written in the file <cite>demo_script_0.m</cite> in the demonstration folder. Just open it in your matlab and run it.
+It is a basic example that tests the sparse matrix-vector multiplication with multi-threading (one thread per channel). This script is kind
+of the test of the installation. If it runs smooths like described here, then you can consider the toolbox is installed. Just make sure you
+have at least 32 Go of memory to run that script.</p>
+<ol class="arabic">
+<li><p><strong>Initialization</strong></p>
+<blockquote>
+<div><p>The first section creates a relatively large sparse matrix <cite>G</cite> that will serve for the sparse matrix-vector multiplication.
+You don’t need to understand that code. If you are curious, you may just want to know that <cite>G</cite> in the present case is a gridding
+matrix from a radial trajectory <cite>t</cite> to a Cartesian gridd with size <cite>N_u</cite> and gridd spacing <cite>dK_u (= 1/FoV)</cite>.</p>
+<div class="highlight-matlab notranslate"><div class="highlight"><pre><span></span><span class="n">N_u</span><span class="w">     </span><span class="p">=</span><span class="w"> </span><span class="p">[</span><span class="mi">384</span><span class="p">,</span><span class="w"> </span><span class="mi">384</span><span class="p">,</span><span class="w"> </span><span class="mi">384</span><span class="p">];</span>
+<span class="n">dK_u</span><span class="w">    </span><span class="p">=</span><span class="w"> </span><span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="mi">1</span><span class="p">]</span><span class="o">./</span><span class="mi">440</span><span class="p">;</span>
+
+<span class="n">t</span><span class="w">       </span><span class="p">=</span><span class="w"> </span><span class="n">bmTraj_fullRadial3_phyllotaxis_lineAssym2</span><span class="p">(</span><span class="mi">384</span><span class="p">,</span><span class="w"> </span><span class="mi">22</span><span class="p">,</span><span class="w"> </span><span class="mi">5749</span><span class="p">,</span><span class="w"> </span><span class="mi">1</span><span class="o">/</span><span class="mi">440</span><span class="p">,</span><span class="w"> </span><span class="nb">true</span><span class="p">,</span><span class="w"> </span><span class="mi">0</span><span class="p">);</span>
+<span class="n">t</span><span class="w">       </span><span class="p">=</span><span class="w"> </span><span class="nb">reshape</span><span class="p">(</span><span class="n">t</span><span class="p">,</span><span class="w"> </span><span class="p">[</span><span class="mi">3</span><span class="p">,</span><span class="w"> </span><span class="mi">384</span><span class="p">,</span><span class="w"> </span><span class="mi">21</span><span class="p">,</span><span class="w"> </span><span class="mi">5749</span><span class="p">]);</span>
+<span class="n">myMask</span><span class="w">  </span><span class="p">=</span><span class="w"> </span><span class="p">(</span><span class="nb">rand</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="mi">5759</span><span class="p">)</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="mi">1</span><span class="o">/</span><span class="mi">100</span><span class="p">);</span>
+<span class="n">t</span><span class="w">       </span><span class="p">=</span><span class="w"> </span><span class="n">t</span><span class="p">(:,</span><span class="w"> </span><span class="p">:,</span><span class="w"> </span><span class="p">:,</span><span class="w"> </span><span class="n">myMask</span><span class="p">);</span>
+<span class="n">ve</span><span class="w">      </span><span class="p">=</span><span class="w"> </span><span class="n">bmVolumeElement_voronoi_full_radial3</span><span class="p">(</span><span class="n">t</span><span class="p">);</span>
+<span class="n">ve</span><span class="w">      </span><span class="p">=</span><span class="w"> </span><span class="nb">min</span><span class="p">(</span><span class="n">ve</span><span class="p">,</span><span class="w"> </span><span class="nb">prod</span><span class="p">(</span><span class="n">dK_u</span><span class="p">));</span>
+<span class="n">G</span><span class="w">       </span><span class="p">=</span><span class="w"> </span><span class="n">bmTraj2SparseMat</span><span class="p">(</span><span class="n">t</span><span class="p">,</span><span class="w"> </span><span class="n">ve</span><span class="p">,</span><span class="w"> </span><span class="n">N_u</span><span class="p">,</span><span class="w"> </span><span class="n">dK_u</span><span class="p">);</span>
+</pre></div>
+</div>
+</div></blockquote>
+</li>
+<li><p><strong>Random data vector with one channel</strong></p>
+<blockquote>
+<div><p>The second section creates a random data vector <cite>y</cite> with only one channel but with appropriate size to be multiplied by <cite>G</cite>.</p>
+<div class="highlight-matlab notranslate"><div class="highlight"><pre><span></span><span class="n">nCh</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="mi">1</span><span class="p">;</span>
+
+<span class="n">y_real</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="nb">rand</span><span class="p">(</span><span class="nb">size</span><span class="p">(</span><span class="n">t</span><span class="p">,</span><span class="w"> </span><span class="mi">2</span><span class="p">)</span><span class="o">*</span><span class="nb">size</span><span class="p">(</span><span class="n">t</span><span class="p">,</span><span class="w"> </span><span class="mi">3</span><span class="p">)</span><span class="o">*</span><span class="nb">size</span><span class="p">(</span><span class="n">t</span><span class="p">,</span><span class="w"> </span><span class="mi">4</span><span class="p">),</span><span class="w"> </span><span class="n">nCh</span><span class="p">,</span><span class="w"> </span><span class="s">&#39;single&#39;</span><span class="p">);</span>
+<span class="n">y_imag</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="nb">rand</span><span class="p">(</span><span class="nb">size</span><span class="p">(</span><span class="n">t</span><span class="p">,</span><span class="w"> </span><span class="mi">2</span><span class="p">)</span><span class="o">*</span><span class="nb">size</span><span class="p">(</span><span class="n">t</span><span class="p">,</span><span class="w"> </span><span class="mi">3</span><span class="p">)</span><span class="o">*</span><span class="nb">size</span><span class="p">(</span><span class="n">t</span><span class="p">,</span><span class="w"> </span><span class="mi">4</span><span class="p">),</span><span class="w"> </span><span class="n">nCh</span><span class="p">,</span><span class="w"> </span><span class="s">&#39;single&#39;</span><span class="p">);</span>
+<span class="n">y</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="n">y_real</span><span class="w"> </span><span class="o">+</span><span class="w"> </span>1<span class="nb">i</span><span class="o">*</span><span class="n">y_imag</span><span class="p">;</span>
+</pre></div>
+</div>
+</div></blockquote>
+</li>
+<li><p><strong>Matrix-vector multiplication with one channel</strong></p>
+<blockquote>
+<div><p>Open your system monitor and observe the activity of your CPUs while evaluating the following section:</p>
+<div class="highlight-matlab notranslate"><div class="highlight"><pre><span></span><span class="n">x</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="n">bmSparseMat_vec</span><span class="p">(</span><span class="n">G</span><span class="p">,</span><span class="w"> </span><span class="n">y</span><span class="p">,</span><span class="w"> </span><span class="s">&#39;omp&#39;</span><span class="p">,</span><span class="w"> </span><span class="s">&#39;complex&#39;</span><span class="p">,</span><span class="w"> </span><span class="nb">false</span><span class="p">);</span>
+</pre></div>
+</div>
+<p>You should not observe anything special actually, maybe just a small peak like on the following figure:</p>
+<a class="reference internal image-reference" href="_images/single_channel_activity.png"><img alt="_images/single_channel_activity.png" class="align-center" src="_images/single_channel_activity.png" style="width: 60%;" />
+</a>
+</div></blockquote>
+<p>This experiment serves as comparison for the follwing two sections.</p>
+</li>
+<li><p><strong>Random data vector with multiple channels</strong></p>
+<blockquote>
+<div><p>As previously, we create a random data vector <cite>y</cite> but with 32 channels this time. Said differently, we creat a list of 32 random vectors
+with appropriate size to be multiplied by <cite>G</cite>.</p>
+<div class="highlight-matlab notranslate"><div class="highlight"><pre><span></span><span class="n">nCh</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="mi">32</span><span class="p">;</span>
+
+<span class="n">y_real</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="nb">rand</span><span class="p">(</span><span class="nb">size</span><span class="p">(</span><span class="n">t</span><span class="p">,</span><span class="w"> </span><span class="mi">2</span><span class="p">)</span><span class="o">*</span><span class="nb">size</span><span class="p">(</span><span class="n">t</span><span class="p">,</span><span class="w"> </span><span class="mi">3</span><span class="p">)</span><span class="o">*</span><span class="nb">size</span><span class="p">(</span><span class="n">t</span><span class="p">,</span><span class="w"> </span><span class="mi">4</span><span class="p">),</span><span class="w"> </span><span class="n">nCh</span><span class="p">,</span><span class="w"> </span><span class="s">&#39;single&#39;</span><span class="p">);</span>
+<span class="n">y_imag</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="nb">rand</span><span class="p">(</span><span class="nb">size</span><span class="p">(</span><span class="n">t</span><span class="p">,</span><span class="w"> </span><span class="mi">2</span><span class="p">)</span><span class="o">*</span><span class="nb">size</span><span class="p">(</span><span class="n">t</span><span class="p">,</span><span class="w"> </span><span class="mi">3</span><span class="p">)</span><span class="o">*</span><span class="nb">size</span><span class="p">(</span><span class="n">t</span><span class="p">,</span><span class="w"> </span><span class="mi">4</span><span class="p">),</span><span class="w"> </span><span class="n">nCh</span><span class="p">,</span><span class="w"> </span><span class="s">&#39;single&#39;</span><span class="p">);</span>
+<span class="n">y</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="n">y_real</span><span class="w"> </span><span class="o">+</span><span class="w"> </span>1<span class="nb">i</span><span class="o">*</span><span class="n">y_imag</span><span class="p">;</span>
+</pre></div>
+</div>
+</div></blockquote>
+</li>
+<li><p><strong>Matrix-vector multiplication with multiple channels</strong></p>
+<blockquote>
+<div><p>Open your system monitor and launch again the matrix-vector multiplication as previously. Observe again the activity of your CPUs
+while evaluating the.</p>
+<div class="highlight-matlab notranslate"><div class="highlight"><pre><span></span><span class="n">x</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="n">bmSparseMat_vec</span><span class="p">(</span><span class="n">G</span><span class="p">,</span><span class="w"> </span><span class="n">y</span><span class="p">,</span><span class="w"> </span><span class="s">&#39;omp&#39;</span><span class="p">,</span><span class="w"> </span><span class="s">&#39;complex&#39;</span><span class="p">,</span><span class="w"> </span><span class="nb">false</span><span class="p">);</span>
+</pre></div>
+</div>
+<p>You should now observe a large peak of CPU activity that corresponds to the parallel execution of multiple threads (one per channel) as on the following
+figure:</p>
+<a class="reference internal image-reference" href="_images/multiple_channel_activity.png"><img alt="_images/multiple_channel_activity.png" class="align-center" src="_images/multiple_channel_activity.png" style="width: 60%;" />
+</a>
+<p>If you could successfully run that experiment, congratulation ! Your installation is working. Go directly to the next demonstration scripts to
+reconstruct your first MR images.</p>
+</div></blockquote>
+</li>
+</ol>
 </section>
 
 
@@ -89,7 +166,7 @@
           </div>
           <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
         <a href="3_demos.html" class="btn btn-neutral float-left" title="Demos" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
-        <a href="demo_script_1.html" class="btn btn-neutral float-right" title="demo_script_0" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="demo_script_1.html" class="btn btn-neutral float-right" title="demo_script_1" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
     </div>
 
   <hr/>
