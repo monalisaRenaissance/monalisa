@@ -4,7 +4,7 @@ myCurrent_script_file = matlab.desktop.editor.getActiveFilename;
 d = fileparts(myCurrent_script_file); 
 load([d, filesep, '..', filesep, 'demo_data', filesep, 'demo_data_1']); 
 
-%% performing a gridded-zero-padded reconstruction
+%% gridded-zero-padded reconstruction without coil combination
 
 % t is the trajectory
 
@@ -19,6 +19,11 @@ load([d, filesep, '..', filesep, 'demo_data', filesep, 'demo_data_1']);
 % also the size of the reconstructed image. 
 
 % dK_u is the step size of the k-space gridd. 
+
+x = bmMathilda(y, t, ve, [], N_u, N_u, dK_u);
+bmImage(x); 
+
+%% gridded-zero-padded reconstruction with coil combination
 
 x = bmMathilda(y, t, ve, C, N_u, N_u, dK_u);
 bmImage(x); 
