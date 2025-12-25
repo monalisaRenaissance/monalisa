@@ -1,5 +1,5 @@
-demo_script_0 : testing of installation and multi-threading
-===========================================================
+demo_script_0 : testing of the installation and the multi-threading
+===================================================================
 
 The present script is written in the file `demo_script_0.m` in the demonstration folder. Just open it in your matlab and run it. 
 It is a basic example that tests the sparse matrix-vector multiplication with multi-threading (one thread per channel). This script is kind
