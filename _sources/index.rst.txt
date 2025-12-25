@@ -32,7 +32,7 @@ or commercial usage must be done in collaboration with lincensors (see the LICEN
 .. toctree::
    :maxdepth: 3
 
-   1_instalation
+   1_installation
    2_introduction
    3_demos
    4_thermodynInfo

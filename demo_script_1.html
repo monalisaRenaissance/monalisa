@@ -6,7 +6,7 @@
   <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>demo_script_1 &mdash; Monalisa Renaissance  documentation</title>
+  <title>demo_script_1 : A first gridded-zero-padded reconstrcution for non-cartesian data &mdash; Monalisa Renaissance  documentation</title>
       <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=b86133f3" />
       <link rel="stylesheet" type="text/css" href="_static/css/theme.css?v=e59714d7" />
 
@@ -19,7 +19,7 @@
     <script src="_static/js/theme.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="next" title="demo_script_2" href="demo_script_2.html" />
+    <link rel="next" title="demo_script_2 : Some static, iterative, non-cartesian reconstructions" href="demo_script_2.html" />
     <link rel="prev" title="demo_script_0 : testing of installation and multi-threading" href="demo_script_0.html" /> 
 </head>
 
@@ -43,12 +43,12 @@
 </div>
         </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
               <ul class="current">
-<li class="toctree-l1"><a class="reference internal" href="1_instalation.html">Instalation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="1_installation.html">Instalation</a></li>
 <li class="toctree-l1"><a class="reference internal" href="2_introduction.html">Introduction</a></li>
 <li class="toctree-l1 current"><a class="reference internal" href="3_demos.html">Demos</a><ul class="current">
 <li class="toctree-l2"><a class="reference internal" href="demo_script_0.html">demo_script_0 : testing of installation and multi-threading</a></li>
-<li class="toctree-l2 current"><a class="current reference internal" href="#">demo_script_1</a></li>
-<li class="toctree-l2"><a class="reference internal" href="demo_script_2.html">demo_script_2</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">demo_script_1 : A first gridded-zero-padded reconstrcution for non-cartesian data</a></li>
+<li class="toctree-l2"><a class="reference internal" href="demo_script_2.html">demo_script_2 : Some static, iterative, non-cartesian reconstructions</a></li>
 <li class="toctree-l2"><a class="reference internal" href="demo_script_3.html">demo_script_3</a></li>
 </ul>
 </li>
@@ -70,7 +70,7 @@
   <ul class="wy-breadcrumbs">
       <li><a href="index.html" class="icon icon-home" aria-label="Home"></a></li>
           <li class="breadcrumb-item"><a href="3_demos.html">Demos</a></li>
-      <li class="breadcrumb-item active">demo_script_1</li>
+      <li class="breadcrumb-item active">demo_script_1 : A first gridded-zero-padded reconstrcution for non-cartesian data</li>
       <li class="wy-breadcrumbs-aside">
             <a href="_sources/demo_script_1.rst.txt" rel="nofollow"> View page source</a>
       </li>
@@ -80,8 +80,72 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
              
-  <section id="demo-script-1">
-<h1>demo_script_1<a class="headerlink" href="#demo-script-1" title="Link to this heading"></a></h1>
+  <section id="demo-script-1-a-first-gridded-zero-padded-reconstrcution-for-non-cartesian-data">
+<h1>demo_script_1 : A first gridded-zero-padded reconstrcution for non-cartesian data<a class="headerlink" href="#demo-script-1-a-first-gridded-zero-padded-reconstrcution-for-non-cartesian-data" title="Link to this heading"></a></h1>
+<p>The present script is written in the file <cite>demo_script_1.m</cite> in the demonstration folder. You can open it and run it right away.</p>
+<p>We present here <strong>Mathilda</strong>: a non-iterative reconstruction for non-cartesian data. When using Monalisa, this is usually the reconstruction we start with to make a first image of the
+data we want to work on.</p>
+<p>The script contains the following section.</p>
+<ol class="arabic">
+<li><p><strong>Initialization</strong></p>
+<blockquote>
+<div><p>The first section identify where the running script is located and deduces to location of
+the demonstration data in order to load it.</p>
+<div class="highlight-matlab notranslate"><div class="highlight"><pre><span></span><span class="n">myCurrent_script_file</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="n">matlab</span><span class="p">.</span><span class="n">desktop</span><span class="p">.</span><span class="n">editor</span><span class="p">.</span><span class="n">getActiveFilename</span><span class="p">;</span>
+<span class="n">d</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="nb">fileparts</span><span class="p">(</span><span class="n">myCurrent_script_file</span><span class="p">);</span>
+<span class="nb">load</span><span class="p">([</span><span class="n">d</span><span class="p">,</span><span class="w"> </span><span class="nb">filesep</span><span class="p">,</span><span class="w"> </span><span class="s">&#39;..&#39;</span><span class="p">,</span><span class="w"> </span><span class="nb">filesep</span><span class="p">,</span><span class="w"> </span><span class="s">&#39;demo_data&#39;</span><span class="p">,</span><span class="w"> </span><span class="nb">filesep</span><span class="p">,</span><span class="w"> </span><span class="s">&#39;demo_data_1&#39;</span><span class="p">]);</span>
+</pre></div>
+</div>
+</div></blockquote>
+</li>
+<li><p><strong>Gridded-zeropadded reconstruction without coil combination</strong></p>
+<blockquote>
+<div><p>The reconstruction function for gridded-zero-padded reconstruction in <em>Monalisa</em> is called
+<cite>bmMathilda</cite>. In abscence of coil-sensitivity estimation <em>C</em>, the function can be called as follows:</p>
+<div class="highlight-matlab notranslate"><div class="highlight"><pre><span></span><span class="n">x</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="n">bmMathilda</span><span class="p">(</span><span class="n">y</span><span class="p">,</span><span class="w"> </span><span class="n">t</span><span class="p">,</span><span class="w"> </span><span class="n">ve</span><span class="p">,</span><span class="w"> </span><span class="p">[],</span><span class="w"> </span><span class="n">N_u</span><span class="p">,</span><span class="w"> </span><span class="n">N_u</span><span class="p">,</span><span class="w"> </span><span class="n">dK_u</span><span class="p">);</span>
+<span class="n">bmImage</span><span class="p">(</span><span class="n">x</span><span class="p">);</span>
+</pre></div>
+</div>
+<p>The viewer (<cite>bmImage</cite>) displays then the the resulting list of images. You can brows through the list with the up- and down-arrows. The following figure shows
+a fiew of them:</p>
+<a class="reference internal image-reference" href="_images/coil_images_demo_1.png"><img alt="_images/coil_images_demo_1.png" class="align-center" src="_images/coil_images_demo_1.png" style="width: 100%;" />
+</a>
+<p>There is one image for each coil (i.e. each channel). This is why we call these images the “coil-images”. In some sense, if a coil was an eye,
+its coil-image would be the image that this coil “sees”. You can combine all coil-images by a sum-of-squares operation but
+then the phase would be lost and the result would not spacially homogeneous. You need a coil-sensitivity estimation in order to combine them properly as
+in the next section.</p>
+</div></blockquote>
+</li>
+<li><p><strong>Gridded-zeropadded reconstruction with coil combination</strong></p>
+<blockquote>
+<div><p>If a coil-sensitivity estimation <em>C</em> is present, it can be passed to <em>Mathilda</em> as follows:</p>
+<div class="highlight-matlab notranslate"><div class="highlight"><pre><span></span><span class="n">x</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="n">bmMathilda</span><span class="p">(</span><span class="n">y</span><span class="p">,</span><span class="w"> </span><span class="n">t</span><span class="p">,</span><span class="w"> </span><span class="n">ve</span><span class="p">,</span><span class="w"> </span><span class="n">C</span><span class="p">,</span><span class="w"> </span><span class="n">N_u</span><span class="p">,</span><span class="w"> </span><span class="n">N_u</span><span class="p">,</span><span class="w"> </span><span class="n">dK_u</span><span class="p">);</span>
+<span class="n">bmImage</span><span class="p">(</span><span class="n">x</span><span class="p">);</span>
+</pre></div>
+</div>
+<p>The obtained image is the a coil-combined image of all coil-images obtained at step 2 and it magnitude and phase looks as follows:</p>
+<a class="reference internal image-reference" href="_images/magn_phase_demo_1.png"><img alt="_images/magn_phase_demo_1.png" class="align-center" src="_images/magn_phase_demo_1.png" style="width: 100%;" />
+</a>
+<p>The coil-combination is performed by applying the coil-sensitivity pseudo-inverse to the list of coil-images.</p>
+</div></blockquote>
+</li>
+</ol>
+<p><strong>Further Explanation</strong></p>
+<p>You did your first image reconstruction with Monalisa ! That is an event.</p>
+<p>We want to take that opportunity to introduce a few basic important definitions and some vocabulary of Monalisa. We will do that by
+giving first a brief description of each argument passed to Mathilda:</p>
+<blockquote>
+<div><ul class="simple">
+<li><p><cite>y</cite>       : List of data vectors. Each entry of that table is complex-vamued. We shape it in the size <cite>nPt x nCh</cite> when passed to a reconstruction function, where <cite>nPt</cite> stands for ‘number of points’ and <cite>nCh</cite> for ‘number of channels’.</p></li>
+<li><p><cite>t</cite>       : List of k-space trajectory points. Each entry is real-valued. We shape it usually in the size <cite>frDim x nPt</cite> or a reshapable size. Here stands <cite>frDim</cite> for ‘frame dimension’ and can be 1, 2 or 3. It is the number of spatial dimensions in the image.</p></li>
+<li><p><cite>ve</cite>      : List of volume element. Each entry is real-valued. There is one volume element for each point of the k-space trajectory and can be considered to be 1 divided by the k-space density compensation.</p></li>
+<li><p><cite>C</cite>       : List of estimated coil-sensitivity maps. Each entry is complex-valued. There is one map for each channel. Each map has <cite>frDim</cite> dimension.</p></li>
+<li><p><cite>N_u</cite>     : This is the grid-size of the k-space Cartesian grid used for regridding. It is a vector with <cite>frDim</cite> components. In our example it was <cite>[512, 512]</cite>.</p></li>
+<li><p><cite>dK_u</cite>    : This is the grid-spacing of the k-space Cartesian grid used for regridding. It is a vector with <cite>frDim</cite> components. In our case, <cite>frDim</cite> equals 2 and we will write <cite>dK_u</cite> as <cite>[dKx, dKy]</cite>. The field of view (FoV) resulting of that grid is <cite>[1/dKx, 1/dKy]</cite>.</p></li>
+</ul>
+</div></blockquote>
+<p>Another quantity that is not explicitely present among that list is the <em>frame-size</em> that we write <cite>frSize</cite>. It is a vector with <cite>frDim</cite> entries like <cite>N_u</cite> and <cite>dK_u</cite>. The frame-size
+epresses the spatial size of the finale reconstructed image(s). In the present case (and actually in almost all our example), we have set the frame size equal to <cite>N_u</cite>.</p>
 </section>
 
 
@@ -89,7 +153,7 @@
           </div>
           <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
         <a href="demo_script_0.html" class="btn btn-neutral float-left" title="demo_script_0 : testing of installation and multi-threading" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
-        <a href="demo_script_2.html" class="btn btn-neutral float-right" title="demo_script_2" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="demo_script_2.html" class="btn btn-neutral float-right" title="demo_script_2 : Some static, iterative, non-cartesian reconstructions" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
     </div>
 
   <hr/>
