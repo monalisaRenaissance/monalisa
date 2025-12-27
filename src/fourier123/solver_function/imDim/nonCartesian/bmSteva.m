@@ -4,8 +4,8 @@
 % May 2023
 
 function x = bmSteva(  x, z, u, y, ve, C, Gu, Gut, frSize, ...
-                               delta, rho, nCGD, ve_max, ...
-                               nIter, witnessInfo)
+                       delta, rho, nCGD, ve_max, ...
+                       nIter, witnessInfo)
 
 % initial -----------------------------------------------------------------
 myEps   = 10*eps('single'); % -------------------------------------------------- magic number
@@ -237,13 +237,13 @@ end
 
 
 
-% forward_sparsifier
+% forward_regularizer
 function F_x = private_F(x, frSize, dX_u)
     F_x     = bmBackGradient(x, frSize, dX_u); 
 end
 
 
-% adjoint_sparsifier
+% adjoint_regularizer
 function dagF_z = private_dagF(z, HX, HZ, frSize, dX_u)
     dagF_z = (1./HX).*bmBackGradientT(HZ.*z, frSize, dX_u); 
 end

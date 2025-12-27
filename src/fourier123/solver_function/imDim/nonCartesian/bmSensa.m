@@ -13,7 +13,7 @@ myEps       = 10*eps('single'); % --------------------------------------------- 
 y           = single(y);  
 nCh         = size(y, 2); 
 N_u         = double(single(Gu.N_u(:)')); 
-frSize         = double(single(frSize(:)'));
+frSize      = double(single(frSize(:)'));
 dK_u        = double(single(Gu.d_u(:)'));
 C           = single(bmColReshape(C, N_u));  
 ve          = single(bmY_ve_reshape(ve, size(y)));  
@@ -49,6 +49,7 @@ witnessInfo.watch(c, x, frSize, 'initial');
 % main_loop ---------------------------------------------------------------
 for c = 1:nIter
     
+    % L'Aube
     res_next            = y - private_M(x, Gu, frSize, KFC);
     dagM_res_next       = private_dagM(res_next, Gut, HX, HY, frSize, KFC_conj); 
     sqn_dagM_res_next   = real(   dagM_res_next(:)'*(HX.*dagM_res_next(:))   );
@@ -56,6 +57,7 @@ for c = 1:nIter
     
     for i = 1:nCGD
         
+        % Le Matin
         res_curr    = res_next;
         sqn_dagM_res_curr = sqn_dagM_res_next; 
         p_curr      = p_next;
@@ -64,19 +66,19 @@ for c = 1:nIter
             break;
         end
         
+        % Le Midi
         Mp_curr         = private_M(p_curr, Gu, frSize, KFC);
         sqn_Mp_curr     = real(   Mp_curr(:)'*(HY(:).*Mp_curr(:))   );
         
+        % Le Soir
         a   = sqn_dagM_res_curr/sqn_Mp_curr;
-        
         x = x + a*p_curr;
-        
-        
                 
         if (i == nCGD)
            break;  
         end
         
+        % La Nouvelle Aube
         res_next            = res_curr - a*Mp_curr;
         dagM_res_next       = private_dagM(res_next, Gut, HX, HY, frSize, KFC_conj);
         sqn_dagM_res_next   = real(   dagM_res_next(:)'*(HX.*dagM_res_next(:))   );

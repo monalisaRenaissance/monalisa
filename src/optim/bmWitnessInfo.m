@@ -154,7 +154,7 @@ classdef bmWitnessInfo < handle
                         temp_im_y       = squeeze(  (temp_im(:, temp_im_ind, :))  );
                         temp_im_x       = squeeze(  (temp_im(temp_im_ind, :, :))  );
                         temp_im         = cat(2, temp_im_x, temp_im_y, temp_im_z);
-                        temp_im         = temp_im_z;
+                        % temp_im         = temp_im_z;
 
                         obj.witness_im  = cat(3, obj.witness_im, temp_im);
 

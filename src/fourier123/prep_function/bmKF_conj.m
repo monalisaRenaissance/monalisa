@@ -7,8 +7,8 @@ function KF_conj = bmKF_conj(C_conj, N_u, n_u, dK_u, nCh, varargin)
 
 % argin_initial -----------------------------------------------------------
 
-warning(['In KF_conj : make sure you gave ''conj(C)'' ',...
-         'as argument and not C !']); 
+% warning(['In KF_conj : make sure you gave ''conj(C)'' ',...
+%          'as argument and not C !']); 
 
 [kernelType, nWin, kernelParam] = bmVarargin(varargin); 
 [kernelType, nWin, kernelParam] = bmVarargin_kernelType_nWin_kernelParam(kernelType, nWin, kernelParam);  

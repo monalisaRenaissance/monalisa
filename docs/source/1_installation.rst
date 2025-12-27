@@ -92,6 +92,10 @@ You can now open the Monalisa folder in a graphical navigator and you should be 
 .. image:: ./images/monalisa_cloned_folder.jpg
    :width: 100 %
 
+.. raw:: html
+
+   <div style="margin-bottom: 30px;"></div>
+   
 All the functional code of the toolbox is made of functions (matlab or c++), classes, text files and maltab-apps files, which 
 are all stored in the ``src`` folder. No scripts, nor data nor any other kind of files are part of the toolbox. Don't modify the 
 content of the ``scr`` folder unless you are an advanced user. Only the ``src`` folder, its content and its nested content are 

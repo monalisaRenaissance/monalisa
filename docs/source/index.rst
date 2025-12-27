@@ -10,6 +10,9 @@ From the Theory to the Implementation
    :width: 60 %
    :align: center
 
+.. raw:: html
+
+   <div style="margin-bottom: 30px;"></div>
 
 The `Monalisa <https://github.com/monalisaRenaissance/monalisa.git>`_ toolbox for MRI reconstruction has been originaly developed at CIBM-CHUV between 2018 and 2023 
 by Bastien Milani. It continued to evovled until now, notably by the contribution of Berk Can Açikgöz while working in QIS lab at Inselspital and university 
@@ -29,12 +32,16 @@ or commercial usage must be done in collaboration with lincensors (see the LICEN
 .. image:: ./images/Bastien.jpeg
    :width: 100 %
 
+.. raw:: html
+
+   <div style="margin-bottom: 30px;"></div>
+   
 .. toctree::
    :maxdepth: 3
 
    1_installation
    2_introduction
-   3_demos
+   3_tutorials
    4_thermodynInfo
 
 

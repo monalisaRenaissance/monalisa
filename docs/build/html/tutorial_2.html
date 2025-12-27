@@ -1,0 +1,291 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="./">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Tutorial 2 : Some static, iterative, non-cartesian reconstructions &mdash; Monalisa Renaissance  documentation</title>
+      <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="_static/css/theme.css?v=e59714d7" />
+
+  
+      <script src="_static/jquery.js?v=5d32c60e"></script>
+      <script src="_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="_static/documentation_options.js?v=5929fcd5"></script>
+      <script src="_static/doctools.js?v=9bcbadda"></script>
+      <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Sketching a Classical Thermodynamic Theory of Information for MRI Reconstructions" href="4_thermodynInfo.html" />
+    <link rel="prev" title="Tutorial 1 : A first gridded-zero-padded reconstrcution for non-cartesian data" href="tutorial_1.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="index.html" class="icon icon-home">
+            Monalisa Renaissance
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="1_installation.html">Instalation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="2_introduction.html">Introduction</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="3_tutorials.html">Tutorials</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="tutorial_0.html">Tutorial 0 : testing of the installation and of the multi-threading</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tutorial_1.html">Tutorial 1 : A first gridded-zero-padded reconstrcution for non-cartesian data</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">Tutorial 2 : Some static, iterative, non-cartesian reconstructions</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="4_thermodynInfo.html">Sketching a Classical Thermodynamic Theory of Information for MRI Reconstructions</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">Monalisa Renaissance</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="3_tutorials.html">Tutorials</a></li>
+      <li class="breadcrumb-item active">Tutorial 2 : Some static, iterative, non-cartesian reconstructions</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="_sources/tutorial_2.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="tutorial-2-some-static-iterative-non-cartesian-reconstructions">
+<h1>Tutorial 2 : Some static, iterative, non-cartesian reconstructions<a class="headerlink" href="#tutorial-2-some-static-iterative-non-cartesian-reconstructions" title="Link to this heading"></a></h1>
+<p>The code of this tutorial is written in the file <cite>demo_script_2.m</cite> in the demonstration folder. As any demonstration script, you can open it and run it right away.</p>
+<p>We describe here how to call the static iterative reconstructions of Monalisa for non-cartesian data. They are called <strong>Sensa</strong>, <strong>Steva</strong> and <strong>Sensitiva</strong>.
+These reconstructions are not very efficient in practice but are of historical and theoretical interest. In particular, you can start from them to try
+coding novel reconstructions.</p>
+<p>The script contains the following section.</p>
+<ol class="arabic">
+<li><p><strong>Initialization</strong></p>
+<blockquote>
+<div><p>The first section identify where the running script is located and deduces to location of
+the demonstration data in order to load it.</p>
+<div class="highlight-matlab notranslate"><div class="highlight"><pre><span></span><span class="c">% Loading demonstration data</span>
+<span class="n">myCurrent_script_file</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="n">matlab</span><span class="p">.</span><span class="n">desktop</span><span class="p">.</span><span class="n">editor</span><span class="p">.</span><span class="n">getActiveFilename</span><span class="p">;</span>
+<span class="n">d</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="nb">fileparts</span><span class="p">(</span><span class="n">myCurrent_script_file</span><span class="p">);</span>
+<span class="nb">load</span><span class="p">([</span><span class="n">d</span><span class="p">,</span><span class="w"> </span><span class="nb">filesep</span><span class="p">,</span><span class="w"> </span><span class="s">&#39;..&#39;</span><span class="p">,</span><span class="w"> </span><span class="nb">filesep</span><span class="p">,</span><span class="w"> </span><span class="s">&#39;demo_data&#39;</span><span class="p">,</span><span class="w"> </span><span class="nb">filesep</span><span class="p">,</span><span class="w"> </span><span class="s">&#39;demo_data_2&#39;</span><span class="p">]);</span>
+
+<span class="c">% Creating a folder for reconstruciton result and seting it as current</span>
+<span class="c">% directory.</span>
+<span class="nb">cd</span><span class="p">([</span><span class="n">d</span><span class="p">,</span><span class="w"> </span><span class="nb">filesep</span><span class="p">,</span><span class="w"> </span><span class="s">&#39;..&#39;</span><span class="p">,</span><span class="w"> </span><span class="nb">filesep</span><span class="p">,</span><span class="w"> </span><span class="s">&#39;..&#39;</span><span class="p">,</span><span class="w"> </span><span class="nb">filesep</span><span class="p">,</span><span class="w"> </span><span class="s">&#39;..&#39;</span><span class="p">]);</span>
+<span class="n">bmCreateDir</span><span class="p">(</span><span class="s">&#39;recon_folder&#39;</span><span class="p">);</span>
+<span class="nb">cd</span><span class="p">(</span><span class="s">&#39;recon_folder&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>This first section also creates a folder <code class="docutils literal notranslate"><span class="pre">recon_folder</span></code> and set it as current directory in order to store the results of the iterative reconstructions.
+This folder is created just one level higher than the <code class="docutils literal notranslate"><span class="pre">monalisa</span></code> folder.</p>
+</div></blockquote>
+</li>
+<li><p><strong>Evaluating the initial image for iterative reconstructions</strong></p>
+<blockquote>
+<div><p>The data set loaded for this tutorial is a radial data set where many data line of a fully sample set where discarded. Or if you prefere, only a few lines
+of a fully sampled data set where selected (20 % actually). This second section performes a gridded-zero-padded reconstructionn that will serve as initial image
+for further iterative reconstructions.</p>
+<div class="highlight-matlab notranslate"><div class="highlight"><pre><span></span><span class="n">x0</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="n">bmMathilda</span><span class="p">(</span><span class="n">y</span><span class="p">,</span><span class="w"> </span><span class="n">t</span><span class="p">,</span><span class="w"> </span><span class="n">ve</span><span class="p">,</span><span class="w"> </span><span class="n">C</span><span class="p">,</span><span class="w"> </span><span class="n">N_u</span><span class="p">,</span><span class="w"> </span><span class="n">N_u</span><span class="p">,</span><span class="w"> </span><span class="n">dK_u</span><span class="p">);</span>
+<span class="n">bmImage</span><span class="p">(</span><span class="n">x0</span><span class="p">);</span>
+</pre></div>
+</div>
+<a class="reference internal image-reference" href="_images/data_2_mathilda.png"><img alt="_images/data_2_mathilda.png" class="align-center" src="_images/data_2_mathilda.png" style="width: 60%;" />
+</a>
+<div style="margin-bottom: 30px;"></div><p>You note the massive presense of undersampling artefacts over the image. They can be interpreted as the result of a convolution between the unkown groundtruth
+image and a convolution kernel equal to the inverse Fourier transform of the zero-padding mask of the data.</p>
+<p>You may also ask yourself why don’t we just deconvolve that image to recover the ground-truth ? The undersampling of data is like multiplying the data with the
+zero-pading mask and replacing many data values by zero and this is an non-reversible operation. There is a loss of information.</p>
+</div></blockquote>
+</li>
+<li><p><strong>Evaluating gridding matrices for iterative reconstructions</strong></p>
+<blockquote>
+<div><p>Iterative reconstructions involves the repeated gridding of Cartesian data on the sampling non-cartesian (non-uniform) grid as well as its transpose operation
+at each iteration. These two operations are linear and can therefor be written as matrix multiplications.</p>
+<p>We write <cite>Gu</cite> the gridding matrix from the Cartesian (uniform) grid to the non-cartesian one. And we write <cite>Gut</cite> its tranpose matrix.
+We will call both <em>Gridding matrices</em>. We evaluate them as follows.</p>
+<div class="highlight-matlab notranslate"><div class="highlight"><pre><span></span><span class="p">[</span><span class="n">Gu</span><span class="p">,</span><span class="w"> </span><span class="n">Gut</span><span class="p">]</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="n">bmTraj2SparseMat</span><span class="p">(</span><span class="n">t</span><span class="p">,</span><span class="w"> </span><span class="n">ve</span><span class="p">,</span><span class="w"> </span><span class="n">N_u</span><span class="p">,</span><span class="w"> </span><span class="n">dK_u</span><span class="p">);</span>
+</pre></div>
+</div>
+</div></blockquote>
+</li>
+<li><p><strong>The least-square reconstruction: iterative-SENSE (Sensa)</strong></p>
+<blockquote>
+<div><p>The iterative-SENSE implementation of Monalisa is called ‘Sensa’. It solves a non-regularized least-square porblem and is called as follows.</p>
+<div class="highlight-matlab notranslate"><div class="highlight"><pre><span></span><span class="n">file_label</span><span class="w">   </span><span class="p">=</span><span class="w"> </span><span class="s">&#39;sensa&#39;</span><span class="p">;</span>
+<span class="n">frSize</span><span class="w">      </span><span class="p">=</span><span class="w"> </span><span class="n">N_u</span><span class="p">;</span>
+<span class="n">nCGD</span><span class="w">        </span><span class="p">=</span><span class="w"> </span><span class="mi">4</span><span class="p">;</span>
+<span class="n">ve_max</span><span class="w">      </span><span class="p">=</span><span class="w"> </span><span class="mi">5</span><span class="o">*</span><span class="nb">prod</span><span class="p">(</span><span class="n">dK_u</span><span class="p">(:));</span>
+<span class="n">nIter</span><span class="w">       </span><span class="p">=</span><span class="w"> </span><span class="mi">20</span><span class="p">;</span>
+<span class="n">witness_ind</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="mi">1</span><span class="p">:</span><span class="mi">5</span><span class="p">:</span><span class="n">nIter</span><span class="p">;</span>
+
+
+<span class="n">witnessInfo</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="n">bmWitnessInfo</span><span class="p">(</span><span class="n">file_label</span><span class="p">,</span><span class="w"> </span><span class="n">witness_ind</span><span class="p">);</span>
+
+
+<span class="n">x_sensa</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="n">bmSensa</span><span class="p">(</span><span class="n">x0</span><span class="p">,</span><span class="w"> </span><span class="n">y</span><span class="p">,</span><span class="w"> </span><span class="n">ve</span><span class="p">,</span><span class="w"> </span><span class="n">C</span><span class="p">,</span><span class="w"> </span><span class="n">Gu</span><span class="p">,</span><span class="w"> </span><span class="n">Gut</span><span class="p">,</span><span class="w"> </span><span class="n">frSize</span><span class="p">,</span><span class="w"> </span><span class="k">...</span>
+<span class="w">            </span><span class="n">nCGD</span><span class="p">,</span><span class="w"> </span><span class="n">ve_max</span><span class="p">,</span><span class="w"> </span><span class="k">...</span>
+<span class="w">            </span><span class="n">nIter</span><span class="p">,</span><span class="w"> </span><span class="n">witnessInfo</span><span class="p">);</span>
+
+<span class="n">bmImage</span><span class="p">(</span><span class="n">x_sensa</span><span class="p">);</span>
+</pre></div>
+</div>
+<a class="reference internal image-reference" href="_images/data_2_sensa.png"><img alt="_images/data_2_sensa.png" class="align-center" src="_images/data_2_sensa.png" style="width: 60%;" />
+</a>
+<div style="margin-bottom: 30px;"></div></div></blockquote>
+</li>
+<li><p><strong>Regularized least-square reconstruction with l1-norm of spatial derivative regularisation (Steva)</strong></p>
+<blockquote>
+<div><p>The following reconstruction is a regularized least-square reconstruciton where the regularization is the <em>l1</em>-norm of the spatial
+derivative of the image.</p>
+<div class="highlight-matlab notranslate"><div class="highlight"><pre><span></span><span class="n">file_label</span><span class="w">   </span><span class="p">=</span><span class="w"> </span><span class="s">&#39;steva&#39;</span><span class="p">;</span>
+<span class="n">frSize</span><span class="w">      </span><span class="p">=</span><span class="w"> </span><span class="n">N_u</span><span class="p">;</span>
+<span class="n">nCGD</span><span class="w">        </span><span class="p">=</span><span class="w"> </span><span class="mi">4</span><span class="p">;</span>
+<span class="n">delta</span><span class="w">       </span><span class="p">=</span><span class="w"> </span><span class="mf">0.2</span><span class="p">;</span>
+<span class="n">rho</span><span class="w">         </span><span class="p">=</span><span class="w"> </span><span class="mi">10</span><span class="o">*</span><span class="n">delta</span><span class="p">;</span>
+<span class="n">ve_max</span><span class="w">      </span><span class="p">=</span><span class="w"> </span><span class="mi">5</span><span class="o">*</span><span class="nb">prod</span><span class="p">(</span><span class="n">dK_u</span><span class="p">(:));</span>
+<span class="n">nIter</span><span class="w">       </span><span class="p">=</span><span class="w"> </span><span class="mi">20</span><span class="p">;</span>
+<span class="n">witness_ind</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="mi">1</span><span class="p">:</span><span class="mi">5</span><span class="p">:</span><span class="n">nIter</span><span class="p">;</span>
+
+
+<span class="n">witnessInfo</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="n">bmWitnessInfo</span><span class="p">(</span><span class="n">file_label</span><span class="p">,</span><span class="w"> </span><span class="n">witness_ind</span><span class="p">);</span>
+
+
+<span class="n">x_steva</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="n">bmSteva</span><span class="p">(</span><span class="n">x0</span><span class="p">,</span><span class="w"> </span><span class="p">[],</span><span class="w"> </span><span class="p">[],</span><span class="w"> </span><span class="n">y</span><span class="p">,</span><span class="w"> </span><span class="n">ve</span><span class="p">,</span><span class="w"> </span><span class="n">C</span><span class="p">,</span><span class="w"> </span><span class="n">Gu</span><span class="p">,</span><span class="w"> </span><span class="n">Gut</span><span class="p">,</span><span class="w"> </span><span class="n">frSize</span><span class="p">,</span><span class="w"> </span><span class="k">...</span>
+<span class="w">            </span><span class="n">delta</span><span class="p">,</span><span class="w"> </span><span class="n">rho</span><span class="p">,</span><span class="w"> </span><span class="n">nCGD</span><span class="p">,</span><span class="w"> </span><span class="n">ve_max</span><span class="p">,</span><span class="w"> </span><span class="k">...</span>
+<span class="w">            </span><span class="n">nIter</span><span class="p">,</span><span class="w"> </span><span class="n">witnessInfo</span><span class="p">);</span>
+
+<span class="n">bmImage</span><span class="p">(</span><span class="n">x_steva</span><span class="p">);</span>
+</pre></div>
+</div>
+<a class="reference internal image-reference" href="_images/data_2_steva.png"><img alt="_images/data_2_steva.png" class="align-center" src="_images/data_2_steva.png" style="width: 60%;" />
+</a>
+<div style="margin-bottom: 30px;"></div></div></blockquote>
+</li>
+<li><p><strong>Regularized least-square reconstruction with l2-norm of spatial derivative regularisation (Sensitiva)</strong></p>
+<blockquote>
+<div><p>The cousin of Setva is <em>Sensitiva</em>, which is also a regularized least-square reconstruction but where the regularization is the <em>l2</em>-norm of some linear function
+of the image: either the spatial derivative of the image, or the image itself. We call it here with the option <cite>regularizer</cite> set to <cite>spatial_derivative</cite>.
+That means that the regularization is the <em>l2</em>-norm of the spatial derivative of the image.</p>
+<div class="highlight-matlab notranslate"><div class="highlight"><pre><span></span><span class="c">%% Iterative least-square regularized reconstruction</span>
+<span class="c">%  with l2 norm of spatial derivative regularization</span>
+
+
+<span class="n">file_label</span><span class="w">   </span><span class="p">=</span><span class="w"> </span><span class="s">&#39;sensitiva_spatialD&#39;</span><span class="p">;</span>
+<span class="n">frSize</span><span class="w">      </span><span class="p">=</span><span class="w"> </span><span class="n">N_u</span><span class="p">;</span>
+<span class="n">nCGD</span><span class="w">        </span><span class="p">=</span><span class="w"> </span><span class="mi">4</span><span class="p">;</span>
+<span class="n">delta</span><span class="w">       </span><span class="p">=</span><span class="w"> </span><span class="mi">2</span><span class="p">;</span>
+<span class="n">regularizer</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="s">&#39;spatial_derivative&#39;</span><span class="p">;</span><span class="w"> </span><span class="c">% &#39;identity&#39; or &#39;spatial_derivative&#39;</span>
+<span class="n">ve_max</span><span class="w">      </span><span class="p">=</span><span class="w"> </span><span class="mi">5</span><span class="o">*</span><span class="nb">prod</span><span class="p">(</span><span class="n">dK_u</span><span class="p">(:));</span>
+<span class="n">nIter</span><span class="w">       </span><span class="p">=</span><span class="w"> </span><span class="mi">20</span><span class="p">;</span>
+<span class="n">witness_ind</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="mi">1</span><span class="p">:</span><span class="mi">5</span><span class="p">:</span><span class="n">nIter</span><span class="p">;</span>
+
+
+<span class="n">witnessInfo</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="n">bmWitnessInfo</span><span class="p">(</span><span class="n">file_label</span><span class="p">,</span><span class="w"> </span><span class="n">witness_ind</span><span class="p">);</span>
+
+
+<span class="n">x</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="n">bmSensitiva</span><span class="p">(</span><span class="n">x0</span><span class="p">,</span><span class="w"> </span><span class="n">y</span><span class="p">,</span><span class="w"> </span><span class="n">ve</span><span class="p">,</span><span class="w"> </span><span class="n">C</span><span class="p">,</span><span class="w"> </span><span class="n">Gu</span><span class="p">,</span><span class="w"> </span><span class="n">Gut</span><span class="p">,</span><span class="w"> </span><span class="n">frSize</span><span class="p">,</span><span class="w"> </span><span class="k">...</span>
+<span class="w">                </span><span class="n">delta</span><span class="p">,</span><span class="w"> </span><span class="n">nCGD</span><span class="p">,</span><span class="w"> </span><span class="n">ve_max</span><span class="p">,</span><span class="w"> </span><span class="k">...</span>
+<span class="w">                </span><span class="n">regularizer</span><span class="p">,</span><span class="w"> </span><span class="k">...</span>
+<span class="w">                </span><span class="n">nIter</span><span class="p">,</span><span class="w"> </span><span class="n">witnessInfo</span><span class="p">);</span>
+
+<span class="n">bmImage</span><span class="p">(</span><span class="n">x</span><span class="p">);</span>
+</pre></div>
+</div>
+<a class="reference internal image-reference" href="_images/data_2_sensitiva_1.png"><img alt="_images/data_2_sensitiva_1.png" class="align-center" src="_images/data_2_sensitiva_1.png" style="width: 60%;" />
+</a>
+<div style="margin-bottom: 30px;"></div></div></blockquote>
+</li>
+<li><p><strong>Regularized least-square reconstruction with l2-norm of image regularisation (Sensitiva)</strong></p>
+<blockquote>
+<div><p>We call here Sensitiva again by choosing option <cite>regularizer</cite> set to <cite>identity</cite>. That means that the regularization is the <em>l2</em>-norm of the of the image itself.</p>
+<div class="highlight-matlab notranslate"><div class="highlight"><pre><span></span><span class="c">%% Iterative least-square regularized reconstruction</span>
+<span class="c">%  with l2 norm of image regularization</span>
+
+
+<span class="n">file_label</span><span class="w">   </span><span class="p">=</span><span class="w"> </span><span class="s">&#39;sensitiva_id&#39;</span><span class="p">;</span>
+<span class="n">frSize</span><span class="w">      </span><span class="p">=</span><span class="w"> </span><span class="n">N_u</span><span class="p">;</span>
+<span class="n">nCGD</span><span class="w">        </span><span class="p">=</span><span class="w"> </span><span class="mi">4</span><span class="p">;</span>
+<span class="n">delta</span><span class="w">       </span><span class="p">=</span><span class="w"> </span><span class="mi">2</span><span class="p">;</span>
+<span class="n">regularizer</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="s">&#39;identity&#39;</span><span class="p">;</span><span class="w"> </span><span class="c">% &#39;identity&#39; or &#39;spatial_derivative&#39;</span>
+<span class="n">ve_max</span><span class="w">      </span><span class="p">=</span><span class="w"> </span><span class="mi">5</span><span class="o">*</span><span class="nb">prod</span><span class="p">(</span><span class="n">dK_u</span><span class="p">(:));</span>
+<span class="n">nIter</span><span class="w">       </span><span class="p">=</span><span class="w"> </span><span class="mi">20</span><span class="p">;</span>
+<span class="n">witness_ind</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="mi">1</span><span class="p">:</span><span class="mi">5</span><span class="p">:</span><span class="n">nIter</span><span class="p">;</span>
+
+
+<span class="n">witnessInfo</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="n">bmWitnessInfo</span><span class="p">(</span><span class="n">file_label</span><span class="p">,</span><span class="w"> </span><span class="n">witness_ind</span><span class="p">);</span>
+
+
+<span class="n">x</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="n">bmSensitiva</span><span class="p">(</span><span class="n">x0</span><span class="p">,</span><span class="w"> </span><span class="n">y</span><span class="p">,</span><span class="w"> </span><span class="n">ve</span><span class="p">,</span><span class="w"> </span><span class="n">C</span><span class="p">,</span><span class="w"> </span><span class="n">Gu</span><span class="p">,</span><span class="w"> </span><span class="n">Gut</span><span class="p">,</span><span class="w"> </span><span class="n">frSize</span><span class="p">,</span><span class="w"> </span><span class="k">...</span>
+<span class="w">                </span><span class="n">delta</span><span class="p">,</span><span class="w"> </span><span class="n">nCGD</span><span class="p">,</span><span class="w"> </span><span class="n">ve_max</span><span class="p">,</span><span class="w"> </span><span class="k">...</span>
+<span class="w">                </span><span class="n">regularizer</span><span class="p">,</span><span class="w"> </span><span class="k">...</span>
+<span class="w">                </span><span class="n">nIter</span><span class="p">,</span><span class="w"> </span><span class="n">witnessInfo</span><span class="p">);</span>
+
+<span class="n">bmImage</span><span class="p">(</span><span class="n">x</span><span class="p">);</span>
+</pre></div>
+</div>
+<a class="reference internal image-reference" href="_images/data_2_sensitiva_2.png"><img alt="_images/data_2_sensitiva_2.png" class="align-center" src="_images/data_2_sensitiva_2.png" style="width: 60%;" />
+</a>
+<div style="margin-bottom: 30px;"></div></div></blockquote>
+</li>
+</ol>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="tutorial_1.html" class="btn btn-neutral float-left" title="Tutorial 1 : A first gridded-zero-padded reconstrcution for non-cartesian data" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="4_thermodynInfo.html" class="btn btn-neutral float-right" title="Sketching a Classical Thermodynamic Theory of Information for MRI Reconstructions" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2023, Bastien Milani.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>
