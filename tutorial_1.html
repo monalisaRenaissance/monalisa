@@ -6,7 +6,7 @@
   <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>demo_script_1 : A first gridded-zero-padded reconstrcution for non-cartesian data &mdash; Monalisa Renaissance  documentation</title>
+  <title>Tutorial 1 : A first gridded-zero-padded reconstrcution for non-cartesian data &mdash; Monalisa Renaissance  documentation</title>
       <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=b86133f3" />
       <link rel="stylesheet" type="text/css" href="_static/css/theme.css?v=e59714d7" />
 
@@ -19,8 +19,8 @@
     <script src="_static/js/theme.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="next" title="demo_script_2 : Some static, iterative, non-cartesian reconstructions" href="demo_script_2.html" />
-    <link rel="prev" title="demo_script_0 : testing of the installation and the multi-threading" href="demo_script_0.html" /> 
+    <link rel="next" title="Tutorial 2 : Some static, iterative, non-cartesian reconstructions" href="tutorial_2.html" />
+    <link rel="prev" title="Tutorial 0 : testing of the installation and of the multi-threading" href="tutorial_0.html" /> 
 </head>
 
 <body class="wy-body-for-nav"> 
@@ -45,10 +45,10 @@
               <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="1_installation.html">Instalation</a></li>
 <li class="toctree-l1"><a class="reference internal" href="2_introduction.html">Introduction</a></li>
-<li class="toctree-l1 current"><a class="reference internal" href="3_demos.html">Demos</a><ul class="current">
-<li class="toctree-l2"><a class="reference internal" href="demo_script_0.html">demo_script_0 : testing of the installation and the multi-threading</a></li>
-<li class="toctree-l2 current"><a class="current reference internal" href="#">demo_script_1 : A first gridded-zero-padded reconstrcution for non-cartesian data</a></li>
-<li class="toctree-l2"><a class="reference internal" href="demo_script_2.html">demo_script_2 : Some static, iterative, non-cartesian reconstructions</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="3_tutorials.html">Tutorials</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="tutorial_0.html">Tutorial 0 : testing of the installation and of the multi-threading</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">Tutorial 1 : A first gridded-zero-padded reconstrcution for non-cartesian data</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tutorial_2.html">Tutorial 2 : Some static, iterative, non-cartesian reconstructions</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="4_thermodynInfo.html">Sketching a Classical Thermodynamic Theory of Information for MRI Reconstructions</a></li>
@@ -68,10 +68,10 @@
           <div role="navigation" aria-label="Page navigation">
   <ul class="wy-breadcrumbs">
       <li><a href="index.html" class="icon icon-home" aria-label="Home"></a></li>
-          <li class="breadcrumb-item"><a href="3_demos.html">Demos</a></li>
-      <li class="breadcrumb-item active">demo_script_1 : A first gridded-zero-padded reconstrcution for non-cartesian data</li>
+          <li class="breadcrumb-item"><a href="3_tutorials.html">Tutorials</a></li>
+      <li class="breadcrumb-item active">Tutorial 1 : A first gridded-zero-padded reconstrcution for non-cartesian data</li>
       <li class="wy-breadcrumbs-aside">
-            <a href="_sources/demo_script_1.rst.txt" rel="nofollow"> View page source</a>
+            <a href="_sources/tutorial_1.rst.txt" rel="nofollow"> View page source</a>
       </li>
   </ul>
   <hr/>
@@ -79,8 +79,8 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
              
-  <section id="demo-script-1-a-first-gridded-zero-padded-reconstrcution-for-non-cartesian-data">
-<h1>demo_script_1 : A first gridded-zero-padded reconstrcution for non-cartesian data<a class="headerlink" href="#demo-script-1-a-first-gridded-zero-padded-reconstrcution-for-non-cartesian-data" title="Link to this heading"></a></h1>
+  <section id="tutorial-1-a-first-gridded-zero-padded-reconstrcution-for-non-cartesian-data">
+<h1>Tutorial 1 : A first gridded-zero-padded reconstrcution for non-cartesian data<a class="headerlink" href="#tutorial-1-a-first-gridded-zero-padded-reconstrcution-for-non-cartesian-data" title="Link to this heading"></a></h1>
 <p>The present script is written in the file <cite>demo_script_1.m</cite> in the demonstration folder. You can open it and run it right away.</p>
 <p>We present here <strong>Mathilda</strong>: a non-iterative reconstruction for non-cartesian data. When using Monalisa, this is usually the reconstruction we start with to make a first image of the
 data we want to work on.</p>
@@ -109,7 +109,7 @@ the demonstration data in order to load it.</p>
 a fiew of them:</p>
 <a class="reference internal image-reference" href="_images/coil_images_demo_1.png"><img alt="_images/coil_images_demo_1.png" class="align-center" src="_images/coil_images_demo_1.png" style="width: 100%;" />
 </a>
-<p>There is one image for each coil (i.e. each channel). This is why we call these images the “coil-images”. In some sense, if a coil was an eye,
+<div style="margin-bottom: 30px;"></div><p>There is one image for each coil (i.e. each channel). This is why we call these images the “coil-images”. In some sense, if a coil was an eye,
 its coil-image would be the image that this coil “sees”. You can combine all coil-images by a sum-of-squares operation but
 then the phase would be lost and the result would not spacially homogeneous. You need a coil-sensitivity estimation in order to combine them properly as
 in the next section.</p>
@@ -125,7 +125,7 @@ in the next section.</p>
 <p>The obtained image is the a coil-combined image of all coil-images obtained at step 2 and it magnitude and phase looks as follows:</p>
 <a class="reference internal image-reference" href="_images/magn_phase_demo_1.png"><img alt="_images/magn_phase_demo_1.png" class="align-center" src="_images/magn_phase_demo_1.png" style="width: 100%;" />
 </a>
-<p>The coil-combination is performed by applying the coil-sensitivity pseudo-inverse to the list of coil-images.</p>
+<div style="margin-bottom: 30px;"></div><p>The coil-combination is performed by applying the coil-sensitivity pseudo-inverse to the list of coil-images.</p>
 </div></blockquote>
 </li>
 </ol>
@@ -151,8 +151,8 @@ epresses the spatial size of the finale reconstructed image(s). In the present c
            </div>
           </div>
           <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
-        <a href="demo_script_0.html" class="btn btn-neutral float-left" title="demo_script_0 : testing of the installation and the multi-threading" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
-        <a href="demo_script_2.html" class="btn btn-neutral float-right" title="demo_script_2 : Some static, iterative, non-cartesian reconstructions" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="tutorial_0.html" class="btn btn-neutral float-left" title="Tutorial 0 : testing of the installation and of the multi-threading" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="tutorial_2.html" class="btn btn-neutral float-right" title="Tutorial 2 : Some static, iterative, non-cartesian reconstructions" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
     </div>
 
   <hr/>

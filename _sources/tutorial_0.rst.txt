@@ -1,4 +1,4 @@
-demo_script_0 : testing of the installation and the multi-threading
+Tutorial 0 : testing of the installation and of the multi-threading
 ===================================================================
 
 The present script is written in the file `demo_script_0.m` in the demonstration folder. Just open it in your matlab and run it. 
@@ -52,6 +52,10 @@ have at least 32 Go of memory to run that script.
         :width: 60 %
         :align: center
 
+    .. raw:: html
+
+        <div style="margin-bottom: 30px;"></div>
+
    This experiment serves as comparison for the follwing two sections. 
 
 4. **Random data vector with multiple channels**
@@ -83,6 +87,10 @@ have at least 32 Go of memory to run that script.
     .. image:: ./images/multiple_channel_activity.png
         :width: 60 %
         :align: center
+
+    .. raw:: html
+
+        <div style="margin-bottom: 30px;"></div>
 
     If you could successfully run that experiment, congratulation ! Your installation is working. Go directly to the next demonstration scripts to 
     reconstruct your first MR images. 

@@ -1,5 +1,5 @@
-demo_script_1 : A first gridded-zero-padded reconstrcution for non-cartesian data
-=================================================================================
+Tutorial 1 : A first gridded-zero-padded reconstrcution for non-cartesian data
+==============================================================================
 
 The present script is written in the file `demo_script_1.m` in the demonstration folder. You can open it and run it right away. 
 
@@ -36,6 +36,10 @@ The script contains the following section.
         :width: 100 %
         :align: center
 
+    .. raw:: html
+
+        <div style="margin-bottom: 30px;"></div>
+
 
     There is one image for each coil (i.e. each channel). This is why we call these images the "coil-images". In some sense, if a coil was an eye, 
     its coil-image would be the image that this coil "sees". You can combine all coil-images by a sum-of-squares operation but
@@ -57,6 +61,10 @@ The script contains the following section.
     .. image:: ./images/magn_phase_demo_1.png
         :width: 100 %
         :align: center
+
+    .. raw:: html
+
+        <div style="margin-bottom: 30px;"></div>
 
     The coil-combination is performed by applying the coil-sensitivity pseudo-inverse to the list of coil-images. 
 
