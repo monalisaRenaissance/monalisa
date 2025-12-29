@@ -1,6 +1,6 @@
-===========
-Instalation
-===========
+============
+Installation
+============
 
 Since the code of *Monalisa* is stored in a Github repository, you have to use Git to install the toolbox on your computer. 
 If you are used to Git and to command prompt interfaces (terminals), you can directly go to the step *Compilation in Matlab*. 

@@ -37,11 +37,11 @@ witness_ind = 1:5:nIter;
 witnessInfo = bmWitnessInfo(file_label, witness_ind); 
 
 
-x_sensa = bmSensa(x0, y, ve, C, Gu, Gut, frSize, ...
+x       = bmSensa(x0, y, ve, C, Gu, Gut, frSize, ...
             nCGD, ve_max, ...
             nIter, witnessInfo); 
 
-bmImage(x_sensa); 
+bmImage(x); 
 
 
 %% Iterative least-square regularized reconstruction 
@@ -60,11 +60,11 @@ witness_ind = 1:5:nIter;
 witnessInfo = bmWitnessInfo(file_label, witness_ind); 
 
 
-x_steva = bmSteva(x0, [], [], y, ve, C, Gu, Gut, frSize, ...
+x       = bmSteva(x0, [], [], y, ve, C, Gu, Gut, frSize, ...
             delta, rho, nCGD, ve_max, ...
             nIter, witnessInfo); 
 
-bmImage(x_steva); 
+bmImage(x); 
 
 
 %% Iterative least-square regularized reconstruction 
