@@ -16,6 +16,7 @@
       <script src="_static/documentation_options.js?v=5929fcd5"></script>
       <script src="_static/doctools.js?v=9bcbadda"></script>
       <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+      <script async="async" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
     <script src="_static/js/theme.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
@@ -43,12 +44,13 @@
 </div>
         </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
               <ul class="current">
-<li class="toctree-l1"><a class="reference internal" href="1_installation.html">Instalation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="1_installation.html">Installation</a></li>
 <li class="toctree-l1"><a class="reference internal" href="2_introduction.html">Introduction</a></li>
 <li class="toctree-l1 current"><a class="reference internal" href="3_tutorials.html">Tutorials</a><ul class="current">
 <li class="toctree-l2"><a class="reference internal" href="tutorial_0.html">Tutorial 0 : testing of the installation and of the multi-threading</a></li>
 <li class="toctree-l2 current"><a class="current reference internal" href="#">Tutorial 1 : A first gridded-zero-padded reconstrcution for non-cartesian data</a></li>
 <li class="toctree-l2"><a class="reference internal" href="tutorial_2.html">Tutorial 2 : Some static, iterative, non-cartesian reconstructions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tutorial_3.html">Tutorial 3 : Iterative CINE reconstructions with 1 temporal dimension for non-cartesian data</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="4_thermodynInfo.html">Sketching a Classical Thermodynamic Theory of Information for MRI Reconstructions</a></li>
@@ -95,12 +97,25 @@ the demonstration data in order to load it.</p>
 <span class="nb">load</span><span class="p">([</span><span class="n">d</span><span class="p">,</span><span class="w"> </span><span class="nb">filesep</span><span class="p">,</span><span class="w"> </span><span class="s">&#39;..&#39;</span><span class="p">,</span><span class="w"> </span><span class="nb">filesep</span><span class="p">,</span><span class="w"> </span><span class="s">&#39;demo_data&#39;</span><span class="p">,</span><span class="w"> </span><span class="nb">filesep</span><span class="p">,</span><span class="w"> </span><span class="s">&#39;demo_data_1&#39;</span><span class="p">]);</span>
 </pre></div>
 </div>
+<p>You can plot the sampling trajectory <cite>t</cite> to have an idea of how good the data are sampled.
+You may get someting as follows:</p>
+<a class="reference internal image-reference" href="_images/t_radial_fullySamp.png"><img alt="_images/t_radial_fullySamp.png" class="align-center" src="_images/t_radial_fullySamp.png" style="width: 100%;" />
+</a>
+<div style="margin-bottom: 30px;"></div><p>This trajectory contains 256 lines of 512 points each covering a disk homogeneously. There is no well known notion
+of “full sampling” for non-cartesian (non-uniform) trejectories for the simple reason that there exist no well known
+sampling theorem for non-cartesian trajectory.</p>
+<p>We will however qualify informally a non-cartesian trajectory as <strong>fully sampled</strong> with respect to a k-space
+step-size <span class="math notranslate nohighlight">\(\Delta k\)</span> if the trajectory is sufficiently well sampled so that the
+interpolation of the non-cartesian data on a cartesian gridd of step-size
+<span class="math notranslate nohighlight">\(\Delta k\)</span> is very close to fully sampled data. Just keep in mind that it is a somewhat abusive language.</p>
+<p>This being said, we will considere that the above trajectory is fully sampled for a field of view (FoV) of
+<em>600 mm</em> (i.e. <span class="math notranslate nohighlight">\(\Delta k = \frac{1}{600} \frac{1}{mm}\)</span>)</p>
 </div></blockquote>
 </li>
 <li><p><strong>Gridded-zeropadded reconstruction without coil combination</strong></p>
 <blockquote>
-<div><p>The reconstruction function for gridded-zero-padded reconstruction in <em>Monalisa</em> is called
-<cite>bmMathilda</cite>. In abscence of coil-sensitivity estimation <em>C</em>, the function can be called as follows:</p>
+<div><p>The reconstruction for gridded-zero-padded reconstruction in <em>Monalisa</em> is called <em>Mathilda</em>
+(function <cite>bmMathilda</cite>). In abscence of coil-sensitivity estimation <em>C</em>, the function can be called as follows:</p>
 <div class="highlight-matlab notranslate"><div class="highlight"><pre><span></span><span class="n">x</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="n">bmMathilda</span><span class="p">(</span><span class="n">y</span><span class="p">,</span><span class="w"> </span><span class="n">t</span><span class="p">,</span><span class="w"> </span><span class="n">ve</span><span class="p">,</span><span class="w"> </span><span class="p">[],</span><span class="w"> </span><span class="n">N_u</span><span class="p">,</span><span class="w"> </span><span class="n">N_u</span><span class="p">,</span><span class="w"> </span><span class="n">dK_u</span><span class="p">);</span>
 <span class="n">bmImage</span><span class="p">(</span><span class="n">x</span><span class="p">);</span>
 </pre></div>
@@ -135,7 +150,7 @@ in the next section.</p>
 giving first a brief description of each argument passed to Mathilda:</p>
 <blockquote>
 <div><ul class="simple">
-<li><p><cite>y</cite>       : List of data vectors. Each entry of that table is complex-vamued. We shape it in the size <cite>nPt x nCh</cite> when passed to a reconstruction function, where <cite>nPt</cite> stands for ‘number of points’ and <cite>nCh</cite> for ‘number of channels’.</p></li>
+<li><p><cite>y</cite>       : List of data vectors. Each entry of that table is complex-valued. We shape it in the size <cite>nPt x nCh</cite> when passed to a reconstruction function, where <cite>nPt</cite> stands for ‘number of points’ and <cite>nCh</cite> for ‘number of channels’.</p></li>
 <li><p><cite>t</cite>       : List of k-space trajectory points. Each entry is real-valued. We shape it usually in the size <cite>frDim x nPt</cite> or a reshapable size. Here stands <cite>frDim</cite> for ‘frame dimension’ and can be 1, 2 or 3. It is the number of spatial dimensions in the image.</p></li>
 <li><p><cite>ve</cite>      : List of volume element. Each entry is real-valued. There is one volume element for each point of the k-space trajectory and can be considered to be 1 divided by the k-space density compensation.</p></li>
 <li><p><cite>C</cite>       : List of estimated coil-sensitivity maps. Each entry is complex-valued. There is one map for each channel. Each map has <cite>frDim</cite> dimension.</p></li>

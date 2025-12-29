@@ -31,6 +31,20 @@ The script contains the following section.
     This first section also creates a folder ``recon_folder`` and set it as current directory in order to store the results of the iterative reconstructions. 
     This folder is created just one level higher than the ``monalisa`` folder.  
 
+    You can plot the sampling trajectory `t` to have an idea of how good the data are sampled. 
+    You may get someting as follows:      
+
+    .. image:: ./images/t_radial_partialSamp.png
+        :width: 100 %
+        :align: center
+
+    .. raw:: html
+
+        <div style="margin-bottom: 30px;"></div>
+
+    This trajectory contains only 52 of the 256 original lines (20 %), still with 512 points each. It is
+    obviously not fully sampled.  
+
 
 2. **Evaluating the initial image for iterative reconstructions**
 

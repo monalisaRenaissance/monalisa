@@ -1,0 +1,523 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="./">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Tutorial 3 : Iterative CINE reconstructions with 1 temporal dimension for non-cartesian data &mdash; Monalisa Renaissance  documentation</title>
+      <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="_static/css/theme.css?v=e59714d7" />
+
+  
+      <script src="_static/jquery.js?v=5d32c60e"></script>
+      <script src="_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="_static/documentation_options.js?v=5929fcd5"></script>
+      <script src="_static/doctools.js?v=9bcbadda"></script>
+      <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+      <script async="async" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script src="_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Sketching a Classical Thermodynamic Theory of Information for MRI Reconstructions" href="4_thermodynInfo.html" />
+    <link rel="prev" title="Tutorial 2 : Some static, iterative, non-cartesian reconstructions" href="tutorial_2.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="index.html" class="icon icon-home">
+            Monalisa Renaissance
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="1_installation.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="2_introduction.html">Introduction</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="3_tutorials.html">Tutorials</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="tutorial_0.html">Tutorial 0 : testing of the installation and of the multi-threading</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tutorial_1.html">Tutorial 1 : A first gridded-zero-padded reconstrcution for non-cartesian data</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tutorial_2.html">Tutorial 2 : Some static, iterative, non-cartesian reconstructions</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">Tutorial 3 : Iterative CINE reconstructions with 1 temporal dimension for non-cartesian data</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="4_thermodynInfo.html">Sketching a Classical Thermodynamic Theory of Information for MRI Reconstructions</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">Monalisa Renaissance</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="3_tutorials.html">Tutorials</a></li>
+      <li class="breadcrumb-item active">Tutorial 3 : Iterative CINE reconstructions with 1 temporal dimension for non-cartesian data</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="_sources/tutorial_3.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="tutorial-3-iterative-cine-reconstructions-with-1-temporal-dimension-for-non-cartesian-data">
+<h1>Tutorial 3 : Iterative CINE reconstructions with 1 temporal dimension for non-cartesian data<a class="headerlink" href="#tutorial-3-iterative-cine-reconstructions-with-1-temporal-dimension-for-non-cartesian-data" title="Link to this heading"></a></h1>
+<p>The code of this tutorial is written in the file <cite>demo_script_3.m</cite> in the demonstration folder.
+As any demonstration script, you can open it and run it right away.</p>
+<p>We describe here how to call the iterative CINE reconstructions of Monalisa for 1 temporal dimension
+for non-cartesian data. They are called <strong>TevaMorphosia_chain</strong>, <strong>TevaDuoMorphosia_chain</strong>, <strong>SensitivaMorphosia_chain</strong> and
+<strong>SensitivaDuoMorphosia_chain</strong>.
+These reconstructions are quit efficient….</p>
+<p>The script contains the following section.</p>
+<blockquote>
+<div><p>You can plot the sampling trajectory <cite>t</cite> to have an idea of how good the data are sampled.
+You may get someting as follows:</p>
+<a class="reference internal image-reference" href="_images/data_3_t_partialSamp.gif"><img alt="_images/data_3_t_partialSamp.gif" class="align-center" src="_images/data_3_t_partialSamp.gif" style="width: 60%;" />
+</a>
+<div style="margin-bottom: 30px;"></div><p>This lis of trajectories contains in average 15% of the 256 original lines, still with 512 points each. It is
+obviously not fully sampled.</p>
+</div></blockquote>
+<ol class="arabic">
+<li><p><strong>Initialisation</strong></p>
+<blockquote>
+<div><div class="highlight-matlab notranslate"><div class="highlight"><pre><span></span><span class="c">% Loading demonstration data</span>
+<span class="n">myCurrent_script_file</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="n">matlab</span><span class="p">.</span><span class="n">desktop</span><span class="p">.</span><span class="n">editor</span><span class="p">.</span><span class="n">getActiveFilename</span><span class="p">;</span>
+<span class="n">d</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="nb">fileparts</span><span class="p">(</span><span class="n">myCurrent_script_file</span><span class="p">);</span>
+<span class="nb">load</span><span class="p">([</span><span class="n">d</span><span class="p">,</span><span class="w"> </span><span class="nb">filesep</span><span class="p">,</span><span class="w"> </span><span class="s">&#39;..&#39;</span><span class="p">,</span><span class="w"> </span><span class="nb">filesep</span><span class="p">,</span><span class="w"> </span><span class="s">&#39;demo_data&#39;</span><span class="p">,</span><span class="w"> </span><span class="nb">filesep</span><span class="p">,</span><span class="w"> </span><span class="s">&#39;demo_data_3&#39;</span><span class="p">]);</span>
+
+
+<span class="c">% Creating a folder for reconstruciton result and seting it as current</span>
+<span class="c">% directory.</span>
+<span class="nb">cd</span><span class="p">([</span><span class="n">d</span><span class="p">,</span><span class="w"> </span><span class="nb">filesep</span><span class="p">,</span><span class="w"> </span><span class="s">&#39;..&#39;</span><span class="p">,</span><span class="w"> </span><span class="nb">filesep</span><span class="p">,</span><span class="w"> </span><span class="s">&#39;..&#39;</span><span class="p">,</span><span class="w"> </span><span class="nb">filesep</span><span class="p">,</span><span class="w"> </span><span class="s">&#39;..&#39;</span><span class="p">]);</span>
+<span class="n">bmCreateDir</span><span class="p">(</span><span class="s">&#39;recon_folder&#39;</span><span class="p">);</span>
+<span class="nb">cd</span><span class="p">(</span><span class="s">&#39;recon_folder&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div></blockquote>
+</li>
+<li><p><strong>Resizing `C`, computing `ve` and permuting `y`</strong></p>
+<blockquote>
+<div><div class="highlight-matlab notranslate"><div class="highlight"><pre><span></span><span class="c">% resizing C</span>
+<span class="n">C</span><span class="w">       </span><span class="p">=</span><span class="w"> </span><span class="n">bmImResize</span><span class="p">(</span><span class="n">C</span><span class="p">,</span><span class="w"> </span><span class="p">[</span><span class="mi">48</span><span class="p">,</span><span class="w"> </span><span class="mi">48</span><span class="p">],</span><span class="w"> </span><span class="n">N_u</span><span class="p">);</span>
+
+
+<span class="c">% computing ve for 2D radial</span>
+<span class="n">ve</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="nb">cell</span><span class="p">(</span><span class="n">nFr</span><span class="p">,</span><span class="w"> </span><span class="mi">1</span><span class="p">);</span>
+<span class="n">ve_max</span><span class="w">  </span><span class="p">=</span><span class="w"> </span><span class="mi">5</span><span class="o">*</span><span class="nb">prod</span><span class="p">(</span><span class="n">dK_u</span><span class="p">(:));</span>
+<span class="k">for</span><span class="w"> </span><span class="nb">i</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="mi">1</span><span class="p">:</span><span class="n">nFr</span>
+<span class="w">    </span><span class="n">ve</span><span class="p">{</span><span class="nb">i</span><span class="p">}</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="n">bmVolumeElement_voronoi_full_radial2</span><span class="p">(</span><span class="n">t</span><span class="p">{</span><span class="nb">i</span><span class="p">});</span>
+<span class="w">    </span><span class="n">ve</span><span class="p">{</span><span class="nb">i</span><span class="p">}</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="nb">min</span><span class="p">(</span><span class="n">ve</span><span class="p">{</span><span class="nb">i</span><span class="p">},</span><span class="w"> </span><span class="n">ve_max</span><span class="p">);</span>
+<span class="k">end</span>
+
+
+<span class="c">% putting data in column shape for reconstruction</span>
+<span class="k">for</span><span class="w"> </span><span class="nb">i</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="mi">1</span><span class="p">:</span><span class="n">nFr</span>
+<span class="w">    </span><span class="n">y</span><span class="p">{</span><span class="nb">i</span><span class="p">}</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="n">bmPermuteToCol</span><span class="p">(</span><span class="n">y</span><span class="p">{</span><span class="nb">i</span><span class="p">});</span>
+<span class="k">end</span>
+</pre></div>
+</div>
+</div></blockquote>
+</li>
+<li><p><strong>Evaluating the initial image for further iterative reconstructions</strong></p>
+<blockquote>
+<div><div class="highlight-matlab notranslate"><div class="highlight"><pre><span></span><span class="n">x0</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="nb">cell</span><span class="p">(</span><span class="n">nFr</span><span class="p">,</span><span class="w"> </span><span class="mi">1</span><span class="p">);</span>
+<span class="k">for</span><span class="w"> </span><span class="nb">i</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="mi">1</span><span class="p">:</span><span class="n">nFr</span>
+<span class="w">    </span><span class="n">x0</span><span class="p">{</span><span class="nb">i</span><span class="p">}</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="n">bmMathilda</span><span class="p">(</span><span class="n">y</span><span class="p">{</span><span class="nb">i</span><span class="p">},</span><span class="w"> </span><span class="n">t</span><span class="p">{</span><span class="nb">i</span><span class="p">},</span><span class="w"> </span><span class="n">ve</span><span class="p">{</span><span class="nb">i</span><span class="p">},</span><span class="w"> </span><span class="n">C</span><span class="p">,</span><span class="w"> </span><span class="n">N_u</span><span class="p">,</span><span class="w"> </span><span class="n">N_u</span><span class="p">,</span><span class="w"> </span><span class="n">dK_u</span><span class="p">);</span>
+<span class="k">end</span>
+
+<span class="n">bmImage</span><span class="p">(</span><span class="n">x0</span><span class="p">);</span>
+</pre></div>
+</div>
+<a class="reference internal image-reference" href="_images/data_3_mathilda.gif"><img alt="_images/data_3_mathilda.gif" class="align-center" src="_images/data_3_mathilda.gif" style="width: 100%;" />
+</a>
+<div style="margin-bottom: 30px;"></div></div></blockquote>
+</li>
+<li><p><strong>Evaluating gridding matrices</strong></p>
+<blockquote>
+<div><div class="highlight-matlab notranslate"><div class="highlight"><pre><span></span><span class="p">[</span><span class="n">Gu</span><span class="p">,</span><span class="w"> </span><span class="n">Gut</span><span class="p">]</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="n">bmTraj2SparseMat</span><span class="p">(</span><span class="n">t</span><span class="p">,</span><span class="w"> </span><span class="n">ve</span><span class="p">,</span><span class="w"> </span><span class="n">N_u</span><span class="p">,</span><span class="w"> </span><span class="n">dK_u</span><span class="p">);</span>
+</pre></div>
+</div>
+</div></blockquote>
+</li>
+<li><p><strong>Regularized least-square reconstruction with (non-motion-corrected) temporal</strong> <span class="math notranslate nohighlight">\(l_1\)</span>- <strong>regularization for non-cartesian data (TevaMorphosia_chain)</strong></p>
+<blockquote>
+<div><div class="highlight-matlab notranslate"><div class="highlight"><pre><span></span><span class="n">file_label</span><span class="w">      </span><span class="p">=</span><span class="w"> </span><span class="s">&#39;tevaMorphosia_chain&#39;</span><span class="p">;</span><span class="w"> </span><span class="c">% label to name the file containing the result</span>
+<span class="n">frSize</span><span class="w">          </span><span class="p">=</span><span class="w"> </span><span class="n">N_u</span><span class="p">;</span>
+<span class="n">nCGD</span><span class="w">            </span><span class="p">=</span><span class="w"> </span><span class="mi">4</span><span class="p">;</span>
+<span class="n">nIter</span><span class="w">           </span><span class="p">=</span><span class="w"> </span><span class="mi">30</span><span class="p">;</span>
+
+<span class="n">delta</span><span class="w">           </span><span class="p">=</span><span class="w"> </span><span class="mf">0.5</span><span class="p">;</span>
+<span class="n">rho</span><span class="w">             </span><span class="p">=</span><span class="w"> </span><span class="mi">10</span><span class="o">*</span><span class="n">delta</span><span class="p">;</span>
+
+<span class="n">regul_mode</span><span class="w">      </span><span class="p">=</span><span class="w"> </span><span class="s">&#39;normal&#39;</span><span class="p">;</span>
+
+<span class="n">witness_ind</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="mi">1</span><span class="p">:</span><span class="mi">5</span><span class="p">:</span><span class="n">nIter</span><span class="p">;</span>
+<span class="n">witnessInfo</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="n">bmWitnessInfo</span><span class="p">(</span><span class="n">file_label</span><span class="p">,</span><span class="w"> </span><span class="n">witness_ind</span><span class="p">);</span>
+
+
+
+<span class="n">x</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="n">bmTevaMorphosia_chain</span><span class="p">(</span><span class="n">x0</span><span class="p">,</span><span class="w"> </span><span class="k">...</span>
+<span class="w">                        </span><span class="p">[],</span><span class="w"> </span><span class="p">[],</span><span class="w"> </span><span class="k">...</span>
+<span class="w">                        </span><span class="n">y</span><span class="p">,</span><span class="w"> </span><span class="n">ve</span><span class="p">,</span><span class="w"> </span><span class="n">C</span><span class="p">,</span><span class="w"> </span><span class="k">...</span>
+<span class="w">                        </span><span class="n">Gu</span><span class="p">,</span><span class="w"> </span><span class="n">Gut</span><span class="p">,</span><span class="w"> </span><span class="n">frSize</span><span class="p">,</span><span class="w"> </span><span class="k">...</span>
+<span class="w">                        </span><span class="p">[],</span><span class="w"> </span><span class="p">[],</span><span class="w"> </span><span class="k">...</span>
+<span class="w">                        </span><span class="n">delta</span><span class="p">,</span><span class="w"> </span><span class="n">rho</span><span class="p">,</span><span class="w"> </span><span class="n">regul_mode</span><span class="p">,</span><span class="w"> </span><span class="k">...</span>
+<span class="w">                        </span><span class="n">nCGD</span><span class="p">,</span><span class="w"> </span><span class="n">ve_max</span><span class="p">,</span><span class="w"> </span><span class="k">...</span>
+<span class="w">                        </span><span class="n">nIter</span><span class="p">,</span><span class="w"> </span><span class="n">witnessInfo</span><span class="p">);</span>
+
+
+<span class="n">bmImage</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+</pre></div>
+</div>
+<a class="reference internal image-reference" href="_images/data_3_tevaMorph.gif"><img alt="_images/data_3_tevaMorph.gif" class="align-center" src="_images/data_3_tevaMorph.gif" style="width: 100%;" />
+</a>
+<div style="margin-bottom: 30px;"></div></div></blockquote>
+</li>
+<li><p><strong>Estimation of deformation fields</strong></p>
+<blockquote>
+<div><div class="highlight-matlab notranslate"><div class="highlight"><pre><span></span><span class="n">maxPixDisplacement</span><span class="w">  </span><span class="p">=</span><span class="w"> </span><span class="mi">10</span><span class="p">;</span>
+<span class="n">nIter</span><span class="w">               </span><span class="p">=</span><span class="w"> </span><span class="mi">500</span><span class="p">;</span>
+<span class="n">reg_file</span><span class="w">            </span><span class="p">=</span><span class="w"> </span><span class="p">[];</span>
+<span class="n">reg_mask</span><span class="w">            </span><span class="p">=</span><span class="w"> </span><span class="p">[];</span>
+
+<span class="n">h</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="n">x</span><span class="p">;</span>
+<span class="p">[</span><span class="n">DF_to_prev</span><span class="p">,</span><span class="w"> </span><span class="n">imReg_to_prev</span><span class="p">]</span><span class="w">    </span><span class="p">=</span><span class="w"> </span><span class="n">bmImDeformFieldChain_imRegDemons23</span><span class="p">(</span><span class="w">  </span><span class="n">h</span><span class="p">,</span><span class="w"> </span><span class="n">frSize</span><span class="p">,</span><span class="w"> </span><span class="s">&#39;curr_to_prev&#39;</span><span class="p">,</span><span class="w"> </span><span class="n">nIter</span><span class="p">,</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="n">reg_file</span><span class="p">,</span><span class="w"> </span><span class="n">reg_mask</span><span class="p">,</span><span class="w"> </span><span class="n">maxPixDisplacement</span><span class="p">);</span>
+</pre></div>
+</div>
+</div></blockquote>
+</li>
+<li><p><strong>Evaluation of deformation matrices</strong></p>
+<blockquote>
+<div><div class="highlight-matlab notranslate"><div class="highlight"><pre><span></span><span class="p">[</span><span class="n">Tu</span><span class="p">,</span><span class="w"> </span><span class="n">Tut</span><span class="p">]</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="n">bmImDeformField2SparseMat</span><span class="p">(</span><span class="n">DF_to_prev</span><span class="p">,</span><span class="w"> </span><span class="n">N_u</span><span class="p">,</span><span class="w"> </span><span class="p">[],</span><span class="w"> </span><span class="nb">true</span><span class="p">);</span>
+</pre></div>
+</div>
+</div></blockquote>
+</li>
+<li><p><strong>Regularized least-square reconstruction with motion-corrected temporal</strong> <span class="math notranslate nohighlight">\(l_1\)</span>- <strong>regularization for non-cartesian data (TevaMorphosia_chain)</strong></p>
+<blockquote>
+<div><div class="highlight-matlab notranslate"><div class="highlight"><pre><span></span><span class="n">file_label</span><span class="w">      </span><span class="p">=</span><span class="w"> </span><span class="s">&#39;tevaMorphosia_chain_DF&#39;</span><span class="p">;</span><span class="w"> </span><span class="c">% label to name the file containing the result</span>
+<span class="n">frSize</span><span class="w">          </span><span class="p">=</span><span class="w"> </span><span class="n">N_u</span><span class="p">;</span>
+<span class="n">nCGD</span><span class="w">            </span><span class="p">=</span><span class="w"> </span><span class="mi">4</span><span class="p">;</span>
+<span class="n">nIter</span><span class="w">           </span><span class="p">=</span><span class="w"> </span><span class="mi">30</span><span class="p">;</span>
+
+<span class="n">delta</span><span class="w">           </span><span class="p">=</span><span class="w"> </span><span class="mf">1.5</span><span class="p">;</span>
+<span class="n">rho</span><span class="w">             </span><span class="p">=</span><span class="w"> </span><span class="mi">10</span><span class="o">*</span><span class="n">delta</span><span class="p">;</span>
+
+<span class="n">regul_mode</span><span class="w">      </span><span class="p">=</span><span class="w"> </span><span class="s">&#39;normal&#39;</span><span class="p">;</span>
+
+<span class="n">witness_ind</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="mi">1</span><span class="p">:</span><span class="mi">5</span><span class="p">:</span><span class="n">nIter</span><span class="p">;</span>
+<span class="n">witnessInfo</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="n">bmWitnessInfo</span><span class="p">(</span><span class="n">file_label</span><span class="p">,</span><span class="w"> </span><span class="n">witness_ind</span><span class="p">);</span>
+
+
+
+<span class="n">x</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="n">bmTevaMorphosia_chain</span><span class="p">(</span><span class="n">x0</span><span class="p">,</span><span class="w"> </span><span class="k">...</span>
+<span class="w">                        </span><span class="p">[],</span><span class="w"> </span><span class="p">[],</span><span class="w"> </span><span class="k">...</span>
+<span class="w">                        </span><span class="n">y</span><span class="p">,</span><span class="w"> </span><span class="n">ve</span><span class="p">,</span><span class="w"> </span><span class="n">C</span><span class="p">,</span><span class="w"> </span><span class="k">...</span>
+<span class="w">                        </span><span class="n">Gu</span><span class="p">,</span><span class="w"> </span><span class="n">Gut</span><span class="p">,</span><span class="w"> </span><span class="n">frSize</span><span class="p">,</span><span class="w"> </span><span class="k">...</span>
+<span class="w">                        </span><span class="n">Tu</span><span class="p">,</span><span class="w"> </span><span class="n">Tut</span><span class="p">,</span><span class="w"> </span><span class="k">...</span>
+<span class="w">                        </span><span class="n">delta</span><span class="p">,</span><span class="w"> </span><span class="n">rho</span><span class="p">,</span><span class="w"> </span><span class="n">regul_mode</span><span class="p">,</span><span class="w"> </span><span class="k">...</span>
+<span class="w">                        </span><span class="n">nCGD</span><span class="p">,</span><span class="w"> </span><span class="n">ve_max</span><span class="p">,</span><span class="w"> </span><span class="k">...</span>
+<span class="w">                        </span><span class="n">nIter</span><span class="p">,</span><span class="w"> </span><span class="n">witnessInfo</span><span class="p">);</span>
+
+
+<span class="n">bmImage</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+</pre></div>
+</div>
+<a class="reference internal image-reference" href="_images/data_3_tevaMorph_DF.gif"><img alt="_images/data_3_tevaMorph_DF.gif" class="align-center" src="_images/data_3_tevaMorph_DF.gif" style="width: 100%;" />
+</a>
+<div style="margin-bottom: 30px;"></div></div></blockquote>
+</li>
+<li><p><strong>Regularized least-square reconstruction with backward and forward (non-motion-corrected) temporal</strong> <span class="math notranslate nohighlight">\(l_1\)</span>- <strong>regularization for non-cartesian data (TevaDuoMorphosia_chain)</strong></p>
+<blockquote>
+<div><div class="highlight-matlab notranslate"><div class="highlight"><pre><span></span><span class="n">file_label</span><span class="w">      </span><span class="p">=</span><span class="w"> </span><span class="s">&#39;tevaDuoMorphosia_chain&#39;</span><span class="p">;</span><span class="w"> </span><span class="c">% label to name the file containing the result</span>
+<span class="n">frSize</span><span class="w">          </span><span class="p">=</span><span class="w"> </span><span class="n">N_u</span><span class="p">;</span>
+<span class="n">nCGD</span><span class="w">            </span><span class="p">=</span><span class="w"> </span><span class="mi">4</span><span class="p">;</span>
+<span class="n">nIter</span><span class="w">           </span><span class="p">=</span><span class="w"> </span><span class="mi">30</span><span class="p">;</span>
+
+<span class="n">delta</span><span class="w">           </span><span class="p">=</span><span class="w"> </span><span class="mf">0.5</span><span class="p">;</span>
+<span class="n">rho</span><span class="w">             </span><span class="p">=</span><span class="w"> </span><span class="mi">10</span><span class="o">*</span><span class="n">delta</span><span class="p">;</span>
+
+<span class="n">regul_mode</span><span class="w">      </span><span class="p">=</span><span class="w"> </span><span class="s">&#39;normal&#39;</span><span class="p">;</span>
+
+<span class="n">witness_ind</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="mi">1</span><span class="p">:</span><span class="mi">5</span><span class="p">:</span><span class="n">nIter</span><span class="p">;</span>
+<span class="n">witnessInfo</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="n">bmWitnessInfo</span><span class="p">(</span><span class="n">file_label</span><span class="p">,</span><span class="w"> </span><span class="n">witness_ind</span><span class="p">);</span>
+
+
+
+<span class="n">x</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="n">bmTevaDuoMorphosia_chain</span><span class="p">(</span><span class="n">x0</span><span class="p">,</span><span class="w"> </span><span class="k">...</span>
+<span class="w">                            </span><span class="p">[],</span><span class="w"> </span><span class="p">[],</span><span class="w"> </span><span class="p">[],</span><span class="w"> </span><span class="p">[],</span><span class="w"> </span><span class="k">...</span>
+<span class="w">                            </span><span class="n">y</span><span class="p">,</span><span class="w"> </span><span class="n">ve</span><span class="p">,</span><span class="w"> </span><span class="n">C</span><span class="p">,</span><span class="w"> </span><span class="k">...</span>
+<span class="w">                            </span><span class="n">Gu</span><span class="p">,</span><span class="w"> </span><span class="n">Gut</span><span class="p">,</span><span class="w"> </span><span class="n">frSize</span><span class="p">,</span><span class="w"> </span><span class="k">...</span>
+<span class="w">                            </span><span class="p">[],</span><span class="w"> </span><span class="p">[],</span><span class="w"> </span><span class="p">[],</span><span class="w"> </span><span class="p">[],</span><span class="w"> </span><span class="k">...</span>
+<span class="w">                            </span><span class="n">delta</span><span class="p">,</span><span class="w"> </span><span class="n">rho</span><span class="p">,</span><span class="w"> </span><span class="n">regul_mode</span><span class="p">,</span><span class="w"> </span><span class="k">...</span>
+<span class="w">                            </span><span class="n">nCGD</span><span class="p">,</span><span class="w"> </span><span class="n">ve_max</span><span class="p">,</span><span class="w"> </span><span class="k">...</span>
+<span class="w">                            </span><span class="n">nIter</span><span class="p">,</span><span class="w"> </span><span class="n">witnessInfo</span><span class="p">);</span>
+
+
+<span class="n">bmImage</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+</pre></div>
+</div>
+<a class="reference internal image-reference" href="_images/data_3_tevaDuoMorph.gif"><img alt="_images/data_3_tevaDuoMorph.gif" class="align-center" src="_images/data_3_tevaDuoMorph.gif" style="width: 100%;" />
+</a>
+<div style="margin-bottom: 30px;"></div></div></blockquote>
+</li>
+<li><p><strong>Estimation of deformation fields</strong></p>
+<div class="highlight-matlab notranslate"><div class="highlight"><pre><span></span><span class="n">maxPixDisplacement</span><span class="w">  </span><span class="p">=</span><span class="w"> </span><span class="mi">10</span><span class="p">;</span>
+<span class="n">nIter</span><span class="w">               </span><span class="p">=</span><span class="w"> </span><span class="mi">500</span><span class="p">;</span>
+<span class="n">reg_file</span><span class="w">            </span><span class="p">=</span><span class="w"> </span><span class="p">[];</span>
+<span class="n">reg_mask</span><span class="w">            </span><span class="p">=</span><span class="w"> </span><span class="p">[];</span>
+
+<span class="n">h</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="n">x</span><span class="p">;</span>
+<span class="p">[</span><span class="n">DF_to_prev</span><span class="p">,</span><span class="w"> </span><span class="n">imReg_to_prev</span><span class="p">]</span><span class="w">    </span><span class="p">=</span><span class="w"> </span><span class="n">bmImDeformFieldChain_imRegDemons23</span><span class="p">(</span><span class="w">  </span><span class="n">h</span><span class="p">,</span><span class="w"> </span><span class="n">frSize</span><span class="p">,</span><span class="w"> </span><span class="s">&#39;curr_to_prev&#39;</span><span class="p">,</span><span class="w"> </span><span class="n">nIter</span><span class="p">,</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="n">reg_file</span><span class="p">,</span><span class="w"> </span><span class="n">reg_mask</span><span class="p">,</span><span class="w"> </span><span class="n">maxPixDisplacement</span><span class="p">);</span>
+<span class="p">[</span><span class="n">DF_to_next</span><span class="p">,</span><span class="w"> </span><span class="n">imReg_to_next</span><span class="p">]</span><span class="w">    </span><span class="p">=</span><span class="w"> </span><span class="n">bmImDeformFieldChain_imRegDemons23</span><span class="p">(</span><span class="w">  </span><span class="n">h</span><span class="p">,</span><span class="w"> </span><span class="n">frSize</span><span class="p">,</span><span class="w"> </span><span class="s">&#39;curr_to_next&#39;</span><span class="p">,</span><span class="w"> </span><span class="n">nIter</span><span class="p">,</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="n">reg_file</span><span class="p">,</span><span class="w"> </span><span class="n">reg_mask</span><span class="p">,</span><span class="w"> </span><span class="n">maxPixDisplacement</span><span class="p">);</span>
+</pre></div>
+</div>
+</li>
+<li><p><strong>Evaluating deformation matrices</strong></p>
+<div class="highlight-matlab notranslate"><div class="highlight"><pre><span></span><span class="p">[</span><span class="n">Tu1</span><span class="p">,</span><span class="w"> </span><span class="n">Tu1t</span><span class="p">]</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="n">bmImDeformField2SparseMat</span><span class="p">(</span><span class="n">DF_to_prev</span><span class="p">,</span><span class="w"> </span><span class="n">N_u</span><span class="p">,</span><span class="w"> </span><span class="p">[],</span><span class="w"> </span><span class="nb">true</span><span class="p">);</span>
+<span class="p">[</span><span class="n">Tu2</span><span class="p">,</span><span class="w"> </span><span class="n">Tu2t</span><span class="p">]</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="n">bmImDeformField2SparseMat</span><span class="p">(</span><span class="n">DF_to_next</span><span class="p">,</span><span class="w"> </span><span class="n">N_u</span><span class="p">,</span><span class="w"> </span><span class="p">[],</span><span class="w"> </span><span class="nb">true</span><span class="p">);</span>
+</pre></div>
+</div>
+</li>
+<li><p><strong>Regularized least-square reconstruction with backward and forward motion-corrected temporal</strong> <span class="math notranslate nohighlight">\(l_1\)</span>- <strong>regularization for non-cartesian data (TevaDuoMorphosia_chain)</strong></p>
+<div class="highlight-matlab notranslate"><div class="highlight"><pre><span></span><span class="n">file_label</span><span class="w">      </span><span class="p">=</span><span class="w"> </span><span class="s">&#39;tevaDuoMorphosia_chain_DF&#39;</span><span class="p">;</span><span class="w"> </span><span class="c">% label to name the file containing the result</span>
+<span class="n">frSize</span><span class="w">          </span><span class="p">=</span><span class="w"> </span><span class="n">N_u</span><span class="p">;</span>
+<span class="n">nCGD</span><span class="w">            </span><span class="p">=</span><span class="w"> </span><span class="mi">4</span><span class="p">;</span>
+<span class="n">nIter</span><span class="w">           </span><span class="p">=</span><span class="w"> </span><span class="mi">30</span><span class="p">;</span>
+
+<span class="n">delta</span><span class="w">           </span><span class="p">=</span><span class="w"> </span><span class="mf">1.5</span><span class="p">;</span>
+<span class="n">rho</span><span class="w">             </span><span class="p">=</span><span class="w"> </span><span class="mi">10</span><span class="o">*</span><span class="n">delta</span><span class="p">;</span>
+
+<span class="n">regul_mode</span><span class="w">      </span><span class="p">=</span><span class="w"> </span><span class="s">&#39;normal&#39;</span><span class="p">;</span>
+
+<span class="n">witness_ind</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="mi">1</span><span class="p">:</span><span class="mi">5</span><span class="p">:</span><span class="n">nIter</span><span class="p">;</span>
+<span class="n">witnessInfo</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="n">bmWitnessInfo</span><span class="p">(</span><span class="n">file_label</span><span class="p">,</span><span class="w"> </span><span class="n">witness_ind</span><span class="p">);</span>
+
+
+
+<span class="n">x</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="n">bmTevaDuoMorphosia_chain</span><span class="p">(</span><span class="n">x0</span><span class="p">,</span><span class="w"> </span><span class="k">...</span>
+<span class="w">                            </span><span class="p">[],</span><span class="w"> </span><span class="p">[],</span><span class="w"> </span><span class="p">[],</span><span class="w"> </span><span class="p">[],</span><span class="w"> </span><span class="k">...</span>
+<span class="w">                            </span><span class="n">y</span><span class="p">,</span><span class="w"> </span><span class="n">ve</span><span class="p">,</span><span class="w"> </span><span class="n">C</span><span class="p">,</span><span class="w"> </span><span class="k">...</span>
+<span class="w">                            </span><span class="n">Gu</span><span class="p">,</span><span class="w"> </span><span class="n">Gut</span><span class="p">,</span><span class="w"> </span><span class="n">frSize</span><span class="p">,</span><span class="w"> </span><span class="k">...</span>
+<span class="w">                            </span><span class="n">Tu1</span><span class="p">,</span><span class="w"> </span><span class="n">Tu1t</span><span class="p">,</span><span class="w"> </span><span class="n">Tu2</span><span class="p">,</span><span class="w"> </span><span class="n">Tu2t</span><span class="p">,</span><span class="w"> </span><span class="k">...</span>
+<span class="w">                            </span><span class="n">delta</span><span class="p">,</span><span class="w"> </span><span class="n">rho</span><span class="p">,</span><span class="w"> </span><span class="n">regul_mode</span><span class="p">,</span><span class="w"> </span><span class="k">...</span>
+<span class="w">                            </span><span class="n">nCGD</span><span class="p">,</span><span class="w"> </span><span class="n">ve_max</span><span class="p">,</span><span class="w"> </span><span class="k">...</span>
+<span class="w">                            </span><span class="n">nIter</span><span class="p">,</span><span class="w"> </span><span class="n">witnessInfo</span><span class="p">);</span>
+
+
+<span class="n">bmImage</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+</pre></div>
+</div>
+<a class="reference internal image-reference" href="_images/data_3_tevaDuoMorph_DF.gif"><img alt="_images/data_3_tevaDuoMorph_DF.gif" class="align-center" src="_images/data_3_tevaDuoMorph_DF.gif" style="width: 100%;" />
+</a>
+<div style="margin-bottom: 30px;"></div></li>
+<li><p><strong>Regularized least-square reconstruction with (non-motion-corrected) temporal</strong> <span class="math notranslate nohighlight">\(l_2\)</span>- <strong>regularization for non-cartesian data (SensitivaMorphosia_chain)</strong></p>
+<div class="highlight-matlab notranslate"><div class="highlight"><pre><span></span><span class="n">file_label</span><span class="w">      </span><span class="p">=</span><span class="w"> </span><span class="s">&#39;sensitivaMorphosia_chain&#39;</span><span class="p">;</span><span class="w"> </span><span class="c">% label to name the file containing the result</span>
+<span class="n">frSize</span><span class="w">          </span><span class="p">=</span><span class="w"> </span><span class="n">N_u</span><span class="p">;</span>
+<span class="n">nCGD</span><span class="w">            </span><span class="p">=</span><span class="w"> </span><span class="mi">4</span><span class="p">;</span>
+<span class="n">nIter</span><span class="w">           </span><span class="p">=</span><span class="w"> </span><span class="mi">30</span><span class="p">;</span>
+
+<span class="n">delta</span><span class="w">           </span><span class="p">=</span><span class="w"> </span><span class="mi">5</span><span class="p">;</span>
+
+<span class="n">regul_mode</span><span class="w">      </span><span class="p">=</span><span class="w"> </span><span class="s">&#39;normal&#39;</span><span class="p">;</span>
+
+<span class="n">witness_ind</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="mi">1</span><span class="p">:</span><span class="mi">5</span><span class="p">:</span><span class="n">nIter</span><span class="p">;</span>
+<span class="n">witnessInfo</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="n">bmWitnessInfo</span><span class="p">(</span><span class="n">file_label</span><span class="p">,</span><span class="w"> </span><span class="n">witness_ind</span><span class="p">);</span>
+
+
+
+<span class="n">x</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="n">bmSensitivaMorphosia_chain</span><span class="p">(</span><span class="w">  </span><span class="n">x0</span><span class="p">,</span><span class="w"> </span><span class="k">...</span>
+<span class="w">                                </span><span class="n">y</span><span class="p">,</span><span class="w"> </span><span class="n">ve</span><span class="p">,</span><span class="w"> </span><span class="n">C</span><span class="p">,</span><span class="w"> </span><span class="k">...</span>
+<span class="w">                                </span><span class="n">Gu</span><span class="p">,</span><span class="w"> </span><span class="n">Gut</span><span class="p">,</span><span class="w"> </span><span class="n">frSize</span><span class="p">,</span><span class="w"> </span><span class="k">...</span>
+<span class="w">                                </span><span class="p">[],</span><span class="w"> </span><span class="p">[],</span><span class="w"> </span><span class="k">...</span>
+<span class="w">                                </span><span class="n">delta</span><span class="p">,</span><span class="w"> </span><span class="n">regul_mode</span><span class="p">,</span><span class="w"> </span><span class="k">...</span>
+<span class="w">                                </span><span class="n">nCGD</span><span class="p">,</span><span class="w"> </span><span class="n">ve_max</span><span class="p">,</span><span class="w"> </span><span class="k">...</span>
+<span class="w">                                </span><span class="n">nIter</span><span class="p">,</span><span class="w"> </span><span class="n">witnessInfo</span><span class="w">  </span><span class="p">);</span>
+
+
+<span class="n">bmImage</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+</pre></div>
+</div>
+<a class="reference internal image-reference" href="_images/data_3_sensitivaMorph.gif"><img alt="_images/data_3_sensitivaMorph.gif" class="align-center" src="_images/data_3_sensitivaMorph.gif" style="width: 100%;" />
+</a>
+<div style="margin-bottom: 30px;"></div></li>
+<li><p><strong>Estimation of deformation fields</strong></p>
+<div class="highlight-matlab notranslate"><div class="highlight"><pre><span></span><span class="n">maxPixDisplacement</span><span class="w">  </span><span class="p">=</span><span class="w"> </span><span class="mi">10</span><span class="p">;</span>
+<span class="n">nIter</span><span class="w">               </span><span class="p">=</span><span class="w"> </span><span class="mi">500</span><span class="p">;</span>
+<span class="n">reg_file</span><span class="w">            </span><span class="p">=</span><span class="w"> </span><span class="p">[];</span>
+<span class="n">reg_mask</span><span class="w">            </span><span class="p">=</span><span class="w"> </span><span class="p">[];</span>
+
+<span class="n">h</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="n">x</span><span class="p">;</span>
+<span class="p">[</span><span class="n">DF_to_prev</span><span class="p">,</span><span class="w"> </span><span class="n">imReg_to_prev</span><span class="p">]</span><span class="w">    </span><span class="p">=</span><span class="w"> </span><span class="n">bmImDeformFieldChain_imRegDemons23</span><span class="p">(</span><span class="w">  </span><span class="n">h</span><span class="p">,</span><span class="w"> </span><span class="n">frSize</span><span class="p">,</span><span class="w"> </span><span class="s">&#39;curr_to_prev&#39;</span><span class="p">,</span><span class="w"> </span><span class="n">nIter</span><span class="p">,</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="n">reg_file</span><span class="p">,</span><span class="w"> </span><span class="n">reg_mask</span><span class="p">,</span><span class="w"> </span><span class="n">maxPixDisplacement</span><span class="p">);</span>
+</pre></div>
+</div>
+</li>
+<li><p><strong>Evalutation of deformation matrices</strong></p>
+<div class="highlight-matlab notranslate"><div class="highlight"><pre><span></span><span class="p">[</span><span class="n">Tu</span><span class="p">,</span><span class="w"> </span><span class="n">Tut</span><span class="p">]</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="n">bmImDeformField2SparseMat</span><span class="p">(</span><span class="n">DF_to_prev</span><span class="p">,</span><span class="w"> </span><span class="n">N_u</span><span class="p">,</span><span class="w"> </span><span class="p">[],</span><span class="w"> </span><span class="nb">true</span><span class="p">);</span>
+</pre></div>
+</div>
+</li>
+<li><p><strong>Regularized least-square reconstruction with motion-corrected temporal</strong> <span class="math notranslate nohighlight">\(l_2\)</span>- <strong>regularization for non-cartesian data (SensitivaMorphosia_chain)</strong></p>
+<div class="highlight-matlab notranslate"><div class="highlight"><pre><span></span><span class="n">file_label</span><span class="w">      </span><span class="p">=</span><span class="w"> </span><span class="s">&#39;sensitivaMorphosia_chain_DF&#39;</span><span class="p">;</span><span class="w"> </span><span class="c">% label to name the file containing the result</span>
+<span class="n">frSize</span><span class="w">          </span><span class="p">=</span><span class="w"> </span><span class="n">N_u</span><span class="p">;</span>
+<span class="n">nCGD</span><span class="w">            </span><span class="p">=</span><span class="w"> </span><span class="mi">4</span><span class="p">;</span>
+<span class="n">nIter</span><span class="w">           </span><span class="p">=</span><span class="w"> </span><span class="mi">30</span><span class="p">;</span>
+
+<span class="n">delta</span><span class="w">           </span><span class="p">=</span><span class="w"> </span><span class="mi">15</span><span class="p">;</span>
+
+<span class="n">regul_mode</span><span class="w">      </span><span class="p">=</span><span class="w"> </span><span class="s">&#39;normal&#39;</span><span class="p">;</span>
+
+<span class="n">witness_ind</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="mi">1</span><span class="p">:</span><span class="mi">5</span><span class="p">:</span><span class="n">nIter</span><span class="p">;</span>
+<span class="n">witnessInfo</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="n">bmWitnessInfo</span><span class="p">(</span><span class="n">file_label</span><span class="p">,</span><span class="w"> </span><span class="n">witness_ind</span><span class="p">);</span>
+
+
+
+<span class="n">x</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="n">bmSensitivaMorphosia_chain</span><span class="p">(</span><span class="w">  </span><span class="n">x0</span><span class="p">,</span><span class="w"> </span><span class="k">...</span>
+<span class="w">                                </span><span class="n">y</span><span class="p">,</span><span class="w"> </span><span class="n">ve</span><span class="p">,</span><span class="w"> </span><span class="n">C</span><span class="p">,</span><span class="w"> </span><span class="k">...</span>
+<span class="w">                                </span><span class="n">Gu</span><span class="p">,</span><span class="w"> </span><span class="n">Gut</span><span class="p">,</span><span class="w"> </span><span class="n">frSize</span><span class="p">,</span><span class="w"> </span><span class="k">...</span>
+<span class="w">                                </span><span class="n">Tu</span><span class="p">,</span><span class="w"> </span><span class="n">Tut</span><span class="p">,</span><span class="w"> </span><span class="k">...</span>
+<span class="w">                                </span><span class="n">delta</span><span class="p">,</span><span class="w"> </span><span class="n">regul_mode</span><span class="p">,</span><span class="w"> </span><span class="k">...</span>
+<span class="w">                                </span><span class="n">nCGD</span><span class="p">,</span><span class="w"> </span><span class="n">ve_max</span><span class="p">,</span><span class="w"> </span><span class="k">...</span>
+<span class="w">                                </span><span class="n">nIter</span><span class="p">,</span><span class="w"> </span><span class="n">witnessInfo</span><span class="w">  </span><span class="p">);</span>
+
+
+<span class="n">bmImage</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+</pre></div>
+</div>
+<a class="reference internal image-reference" href="_images/data_3_sensitivaMorph_DF.gif"><img alt="_images/data_3_sensitivaMorph_DF.gif" class="align-center" src="_images/data_3_sensitivaMorph_DF.gif" style="width: 100%;" />
+</a>
+<div style="margin-bottom: 30px;"></div></li>
+<li><p><strong>Regularized least-square reconstruction with backward and forward (non-motion-corrected) temporal</strong> <span class="math notranslate nohighlight">\(l_2\)</span>- <strong>regularization for non-cartesian data (SensitivaDuoMorphosia_chain)</strong></p>
+<div class="highlight-matlab notranslate"><div class="highlight"><pre><span></span><span class="n">file_label</span><span class="w">      </span><span class="p">=</span><span class="w"> </span><span class="s">&#39;sensitivaDuoMorphosia_chain&#39;</span><span class="p">;</span><span class="w"> </span><span class="c">% label to name the file containing the result</span>
+<span class="n">frSize</span><span class="w">          </span><span class="p">=</span><span class="w"> </span><span class="n">N_u</span><span class="p">;</span>
+<span class="n">nCGD</span><span class="w">            </span><span class="p">=</span><span class="w"> </span><span class="mi">4</span><span class="p">;</span>
+<span class="n">nIter</span><span class="w">           </span><span class="p">=</span><span class="w"> </span><span class="mi">30</span><span class="p">;</span>
+
+<span class="n">delta</span><span class="w">           </span><span class="p">=</span><span class="w"> </span><span class="mi">5</span><span class="p">;</span>
+
+<span class="n">regul_mode</span><span class="w">      </span><span class="p">=</span><span class="w"> </span><span class="s">&#39;normal&#39;</span><span class="p">;</span>
+
+<span class="n">witness_ind</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="mi">1</span><span class="p">:</span><span class="mi">5</span><span class="p">:</span><span class="n">nIter</span><span class="p">;</span>
+<span class="n">witnessInfo</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="n">bmWitnessInfo</span><span class="p">(</span><span class="n">file_label</span><span class="p">,</span><span class="w"> </span><span class="n">witness_ind</span><span class="p">);</span>
+
+
+
+<span class="n">x</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="n">bmSensitivaDuoMorphosia_chain</span><span class="p">(</span><span class="w">  </span><span class="n">x0</span><span class="p">,</span><span class="w"> </span><span class="k">...</span>
+<span class="w">                                    </span><span class="n">y</span><span class="p">,</span><span class="w"> </span><span class="n">ve</span><span class="p">,</span><span class="w"> </span><span class="n">C</span><span class="p">,</span><span class="w"> </span><span class="k">...</span>
+<span class="w">                                    </span><span class="n">Gu</span><span class="p">,</span><span class="w"> </span><span class="n">Gut</span><span class="p">,</span><span class="w"> </span><span class="n">frSize</span><span class="p">,</span><span class="w"> </span><span class="k">...</span>
+<span class="w">                                    </span><span class="p">[],</span><span class="w"> </span><span class="p">[],</span><span class="w"> </span><span class="p">[],</span><span class="w"> </span><span class="p">[],</span><span class="w"> </span><span class="k">...</span>
+<span class="w">                                    </span><span class="n">delta</span><span class="p">,</span><span class="w"> </span><span class="n">regul_mode</span><span class="p">,</span><span class="w"> </span><span class="k">...</span>
+<span class="w">                                    </span><span class="n">nCGD</span><span class="p">,</span><span class="w"> </span><span class="n">ve_max</span><span class="p">,</span><span class="w"> </span><span class="k">...</span>
+<span class="w">                                    </span><span class="n">nIter</span><span class="p">,</span><span class="w"> </span><span class="n">witnessInfo</span><span class="w">  </span><span class="p">);</span>
+
+
+<span class="n">bmImage</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+</pre></div>
+</div>
+<a class="reference internal image-reference" href="_images/data_3_sensitivaDuoMorph.gif"><img alt="_images/data_3_sensitivaDuoMorph.gif" class="align-center" src="_images/data_3_sensitivaDuoMorph.gif" style="width: 100%;" />
+</a>
+<div style="margin-bottom: 30px;"></div></li>
+<li><p><strong>Estimation of deformation fields</strong></p>
+<div class="highlight-matlab notranslate"><div class="highlight"><pre><span></span><span class="n">maxPixDisplacement</span><span class="w">  </span><span class="p">=</span><span class="w"> </span><span class="mi">10</span><span class="p">;</span>
+<span class="n">nIter</span><span class="w">               </span><span class="p">=</span><span class="w"> </span><span class="mi">500</span><span class="p">;</span>
+<span class="n">reg_file</span><span class="w">            </span><span class="p">=</span><span class="w"> </span><span class="p">[];</span>
+<span class="n">reg_mask</span><span class="w">            </span><span class="p">=</span><span class="w"> </span><span class="p">[];</span>
+
+<span class="n">h</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="n">x</span><span class="p">;</span>
+<span class="p">[</span><span class="n">DF_to_prev</span><span class="p">,</span><span class="w"> </span><span class="n">imReg_to_prev</span><span class="p">]</span><span class="w">    </span><span class="p">=</span><span class="w"> </span><span class="n">bmImDeformFieldChain_imRegDemons23</span><span class="p">(</span><span class="w">  </span><span class="n">h</span><span class="p">,</span><span class="w"> </span><span class="n">frSize</span><span class="p">,</span><span class="w"> </span><span class="s">&#39;curr_to_prev&#39;</span><span class="p">,</span><span class="w"> </span><span class="n">nIter</span><span class="p">,</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="n">reg_file</span><span class="p">,</span><span class="w"> </span><span class="n">reg_mask</span><span class="p">,</span><span class="w"> </span><span class="n">maxPixDisplacement</span><span class="p">);</span>
+<span class="p">[</span><span class="n">DF_to_next</span><span class="p">,</span><span class="w"> </span><span class="n">imReg_to_next</span><span class="p">]</span><span class="w">    </span><span class="p">=</span><span class="w"> </span><span class="n">bmImDeformFieldChain_imRegDemons23</span><span class="p">(</span><span class="w">  </span><span class="n">h</span><span class="p">,</span><span class="w"> </span><span class="n">frSize</span><span class="p">,</span><span class="w"> </span><span class="s">&#39;curr_to_next&#39;</span><span class="p">,</span><span class="w"> </span><span class="n">nIter</span><span class="p">,</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="n">reg_file</span><span class="p">,</span><span class="w"> </span><span class="n">reg_mask</span><span class="p">,</span><span class="w"> </span><span class="n">maxPixDisplacement</span><span class="p">);</span>
+</pre></div>
+</div>
+</li>
+<li><p><strong>Evaluation of deformation matrices</strong></p>
+<div class="highlight-matlab notranslate"><div class="highlight"><pre><span></span><span class="p">[</span><span class="n">Tu1</span><span class="p">,</span><span class="w"> </span><span class="n">Tu1t</span><span class="p">]</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="n">bmImDeformField2SparseMat</span><span class="p">(</span><span class="n">DF_to_prev</span><span class="p">,</span><span class="w"> </span><span class="n">N_u</span><span class="p">,</span><span class="w"> </span><span class="p">[],</span><span class="w"> </span><span class="nb">true</span><span class="p">);</span>
+<span class="p">[</span><span class="n">Tu2</span><span class="p">,</span><span class="w"> </span><span class="n">Tu2t</span><span class="p">]</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="n">bmImDeformField2SparseMat</span><span class="p">(</span><span class="n">DF_to_next</span><span class="p">,</span><span class="w"> </span><span class="n">N_u</span><span class="p">,</span><span class="w"> </span><span class="p">[],</span><span class="w"> </span><span class="nb">true</span><span class="p">);</span>
+</pre></div>
+</div>
+</li>
+<li><p><strong>Regularized least-square reconstruction with backward and ofrward motion-corrected temporal</strong> <span class="math notranslate nohighlight">\(l_2\)</span>- <strong>regularization for non-cartesian data (SensitivaDuoMorphosia_chain)</strong></p>
+<div class="highlight-matlab notranslate"><div class="highlight"><pre><span></span><span class="n">file_label</span><span class="w">      </span><span class="p">=</span><span class="w"> </span><span class="s">&#39;sensitivaDuoMorphosia_chain_DF&#39;</span><span class="p">;</span><span class="w"> </span><span class="c">% label to name the file containing the result</span>
+<span class="n">frSize</span><span class="w">          </span><span class="p">=</span><span class="w"> </span><span class="n">N_u</span><span class="p">;</span>
+<span class="n">nCGD</span><span class="w">            </span><span class="p">=</span><span class="w"> </span><span class="mi">4</span><span class="p">;</span>
+<span class="n">nIter</span><span class="w">           </span><span class="p">=</span><span class="w"> </span><span class="mi">30</span><span class="p">;</span>
+
+<span class="n">delta</span><span class="w">           </span><span class="p">=</span><span class="w"> </span><span class="mi">15</span><span class="p">;</span>
+
+<span class="n">regul_mode</span><span class="w">      </span><span class="p">=</span><span class="w"> </span><span class="s">&#39;normal&#39;</span><span class="p">;</span>
+
+<span class="n">witness_ind</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="mi">1</span><span class="p">:</span><span class="mi">5</span><span class="p">:</span><span class="n">nIter</span><span class="p">;</span>
+<span class="n">witnessInfo</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="n">bmWitnessInfo</span><span class="p">(</span><span class="n">file_label</span><span class="p">,</span><span class="w"> </span><span class="n">witness_ind</span><span class="p">);</span>
+
+
+
+<span class="n">x</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="n">bmSensitivaDuoMorphosia_chain</span><span class="p">(</span><span class="w">  </span><span class="n">x0</span><span class="p">,</span><span class="w"> </span><span class="k">...</span>
+<span class="w">                                    </span><span class="n">y</span><span class="p">,</span><span class="w"> </span><span class="n">ve</span><span class="p">,</span><span class="w"> </span><span class="n">C</span><span class="p">,</span><span class="w"> </span><span class="k">...</span>
+<span class="w">                                    </span><span class="n">Gu</span><span class="p">,</span><span class="w"> </span><span class="n">Gut</span><span class="p">,</span><span class="w"> </span><span class="n">frSize</span><span class="p">,</span><span class="w"> </span><span class="k">...</span>
+<span class="w">                                    </span><span class="n">Tu1</span><span class="p">,</span><span class="w"> </span><span class="n">Tu1t</span><span class="p">,</span><span class="w"> </span><span class="n">Tu1</span><span class="p">,</span><span class="w"> </span><span class="n">Tu1t</span><span class="p">,</span><span class="w"> </span><span class="k">...</span>
+<span class="w">                                    </span><span class="n">delta</span><span class="p">,</span><span class="w"> </span><span class="n">regul_mode</span><span class="p">,</span><span class="w"> </span><span class="k">...</span>
+<span class="w">                                    </span><span class="n">nCGD</span><span class="p">,</span><span class="w"> </span><span class="n">ve_max</span><span class="p">,</span><span class="w"> </span><span class="k">...</span>
+<span class="w">                                    </span><span class="n">nIter</span><span class="p">,</span><span class="w"> </span><span class="n">witnessInfo</span><span class="w">  </span><span class="p">);</span>
+
+
+<span class="n">bmImage</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+</pre></div>
+</div>
+<a class="reference internal image-reference" href="_images/data_3_sensitivaDuoMorph_DF.gif"><img alt="_images/data_3_sensitivaDuoMorph_DF.gif" class="align-center" src="_images/data_3_sensitivaDuoMorph_DF.gif" style="width: 100%;" />
+</a>
+<div style="margin-bottom: 30px;"></div></li>
+</ol>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="tutorial_2.html" class="btn btn-neutral float-left" title="Tutorial 2 : Some static, iterative, non-cartesian reconstructions" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="4_thermodynInfo.html" class="btn btn-neutral float-right" title="Sketching a Classical Thermodynamic Theory of Information for MRI Reconstructions" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2023, Bastien Milani.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

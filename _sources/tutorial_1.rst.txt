@@ -17,12 +17,37 @@ The script contains the following section.
 
         myCurrent_script_file = matlab.desktop.editor.getActiveFilename; 
         d = fileparts(myCurrent_script_file); 
-        load([d, filesep, '..', filesep, 'demo_data', filesep, 'demo_data_1']);         
+        load([d, filesep, '..', filesep, 'demo_data', filesep, 'demo_data_1']); 
+
+
+    You can plot the sampling trajectory `t` to have an idea of how good the data are sampled. 
+    You may get someting as follows:      
+
+    .. image:: ./images/t_radial_fullySamp.png
+        :width: 100 %
+        :align: center
+
+    .. raw:: html
+
+        <div style="margin-bottom: 30px;"></div>
+
+    This trajectory contains 256 lines of 512 points each covering a disk homogeneously. There is no well known notion
+    of "full sampling" for non-cartesian (non-uniform) trejectories for the simple reason that there exist no well known 
+    sampling theorem for non-cartesian trajectory. 
+    
+    We will however qualify informally a non-cartesian trajectory as **fully sampled** with respect to a k-space 
+    step-size :math:`\Delta k` if the trajectory is sufficiently well sampled so that the 
+    interpolation of the non-cartesian data on a cartesian gridd of step-size
+    :math:`\Delta k` is very close to fully sampled data. Just keep in mind that it is a somewhat abusive language. 
+
+    This being said, we will considere that the above trajectory is fully sampled for a field of view (FoV) of
+    *600 mm* (i.e. :math:`\Delta k = \frac{1}{600} \frac{1}{mm}`)  
+
 
 2. **Gridded-zeropadded reconstruction without coil combination**
 
-    The reconstruction function for gridded-zero-padded reconstruction in *Monalisa* is called
-    `bmMathilda`. In abscence of coil-sensitivity estimation *C*, the function can be called as follows:  
+    The reconstruction for gridded-zero-padded reconstruction in *Monalisa* is called *Mathilda*
+    (function `bmMathilda`). In abscence of coil-sensitivity estimation *C*, the function can be called as follows:  
 
     .. code-block:: matlab
 
@@ -75,7 +100,7 @@ You did your first image reconstruction with Monalisa ! That is an event.
 We want to take that opportunity to introduce a few basic important definitions and some vocabulary of Monalisa. We will do that by
 giving first a brief description of each argument passed to Mathilda:   
 
-    - `y`       : List of data vectors. Each entry of that table is complex-vamued. We shape it in the size `nPt x nCh` when passed to a reconstruction function, where `nPt` stands for 'number of points' and `nCh` for 'number of channels'. 
+    - `y`       : List of data vectors. Each entry of that table is complex-valued. We shape it in the size `nPt x nCh` when passed to a reconstruction function, where `nPt` stands for 'number of points' and `nCh` for 'number of channels'. 
     - `t`       : List of k-space trajectory points. Each entry is real-valued. We shape it usually in the size `frDim x nPt` or a reshapable size. Here stands `frDim` for 'frame dimension' and can be 1, 2 or 3. It is the number of spatial dimensions in the image. 
     - `ve`      : List of volume element. Each entry is real-valued. There is one volume element for each point of the k-space trajectory and can be considered to be 1 divided by the k-space density compensation.  
     - `C`       : List of estimated coil-sensitivity maps. Each entry is complex-valued. There is one map for each channel. Each map has `frDim` dimension.  

@@ -19,7 +19,7 @@
     <script src="_static/js/theme.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="next" title="Sketching a Classical Thermodynamic Theory of Information for MRI Reconstructions" href="4_thermodynInfo.html" />
+    <link rel="next" title="Tutorial 3 : Iterative CINE reconstructions with 1 temporal dimension for non-cartesian data" href="tutorial_3.html" />
     <link rel="prev" title="Tutorial 1 : A first gridded-zero-padded reconstrcution for non-cartesian data" href="tutorial_1.html" /> 
 </head>
 
@@ -43,12 +43,13 @@
 </div>
         </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
               <ul class="current">
-<li class="toctree-l1"><a class="reference internal" href="1_installation.html">Instalation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="1_installation.html">Installation</a></li>
 <li class="toctree-l1"><a class="reference internal" href="2_introduction.html">Introduction</a></li>
 <li class="toctree-l1 current"><a class="reference internal" href="3_tutorials.html">Tutorials</a><ul class="current">
 <li class="toctree-l2"><a class="reference internal" href="tutorial_0.html">Tutorial 0 : testing of the installation and of the multi-threading</a></li>
 <li class="toctree-l2"><a class="reference internal" href="tutorial_1.html">Tutorial 1 : A first gridded-zero-padded reconstrcution for non-cartesian data</a></li>
 <li class="toctree-l2 current"><a class="current reference internal" href="#">Tutorial 2 : Some static, iterative, non-cartesian reconstructions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tutorial_3.html">Tutorial 3 : Iterative CINE reconstructions with 1 temporal dimension for non-cartesian data</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="4_thermodynInfo.html">Sketching a Classical Thermodynamic Theory of Information for MRI Reconstructions</a></li>
@@ -105,6 +106,12 @@ the demonstration data in order to load it.</p>
 </div>
 <p>This first section also creates a folder <code class="docutils literal notranslate"><span class="pre">recon_folder</span></code> and set it as current directory in order to store the results of the iterative reconstructions.
 This folder is created just one level higher than the <code class="docutils literal notranslate"><span class="pre">monalisa</span></code> folder.</p>
+<p>You can plot the sampling trajectory <cite>t</cite> to have an idea of how good the data are sampled.
+You may get someting as follows:</p>
+<a class="reference internal image-reference" href="_images/t_radial_partialSamp.png"><img alt="_images/t_radial_partialSamp.png" class="align-center" src="_images/t_radial_partialSamp.png" style="width: 100%;" />
+</a>
+<div style="margin-bottom: 30px;"></div><p>This trajectory contains only 52 of the 256 original lines (20 %), still with 512 points each. It is
+obviously not fully sampled.</p>
 </div></blockquote>
 </li>
 <li><p><strong>Evaluating the initial image for iterative reconstructions</strong></p>
@@ -262,7 +269,7 @@ That means that the regularization is the <em>l2</em>-norm of the spatial deriva
           </div>
           <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
         <a href="tutorial_1.html" class="btn btn-neutral float-left" title="Tutorial 1 : A first gridded-zero-padded reconstrcution for non-cartesian data" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
-        <a href="4_thermodynInfo.html" class="btn btn-neutral float-right" title="Sketching a Classical Thermodynamic Theory of Information for MRI Reconstructions" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="tutorial_3.html" class="btn btn-neutral float-right" title="Tutorial 3 : Iterative CINE reconstructions with 1 temporal dimension for non-cartesian data" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
     </div>
 
   <hr/>
