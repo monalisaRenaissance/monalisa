@@ -85,23 +85,18 @@
 <h1>Tutorial 3 : Iterative CINE reconstructions with 1 temporal dimension for non-cartesian data<a class="headerlink" href="#tutorial-3-iterative-cine-reconstructions-with-1-temporal-dimension-for-non-cartesian-data" title="Link to this heading"></a></h1>
 <p>The code of this tutorial is written in the file <cite>demo_script_3.m</cite> in the demonstration folder.
 As any demonstration script, you can open it and run it right away.</p>
-<p>We describe here how to call the iterative CINE reconstructions of Monalisa for 1 temporal dimension
+<p>We describe here how to call the iterative CINE reconstructions of Monalisa for images with 1 temporal dimension
 for non-cartesian data. They are called <strong>TevaMorphosia_chain</strong>, <strong>TevaDuoMorphosia_chain</strong>, <strong>SensitivaMorphosia_chain</strong> and
-<strong>SensitivaDuoMorphosia_chain</strong>.
-These reconstructions are quit efficient….</p>
+<strong>SensitivaDuoMorphosia_chain</strong>.</p>
+<p>In contrast to spatially regularized reconstruction, the present temporally regularized reconstructions are quite efficient
+as demonstrated in publication ???cite publications???. They could be realistic candidates to be tested for clinical use (yet keep in mind
+that the content of Monalisa cannot be used for any diagnostic purpose as it is an experimental project only).</p>
 <p>The script contains the following section.</p>
-<blockquote>
-<div><p>You can plot the sampling trajectory <cite>t</cite> to have an idea of how good the data are sampled.
-You may get someting as follows:</p>
-<a class="reference internal image-reference" href="_images/data_3_t_partialSamp.gif"><img alt="_images/data_3_t_partialSamp.gif" class="align-center" src="_images/data_3_t_partialSamp.gif" style="width: 60%;" />
-</a>
-<div style="margin-bottom: 30px;"></div><p>This lis of trajectories contains in average 15% of the 256 original lines, still with 512 points each. It is
-obviously not fully sampled.</p>
-</div></blockquote>
 <ol class="arabic">
 <li><p><strong>Initialisation</strong></p>
 <blockquote>
-<div><div class="highlight-matlab notranslate"><div class="highlight"><pre><span></span><span class="c">% Loading demonstration data</span>
+<div><p>The initialization section loads the demonstration data and creates a folder to store the reconstruction results.</p>
+<div class="highlight-matlab notranslate"><div class="highlight"><pre><span></span><span class="c">% Loading demonstration data</span>
 <span class="n">myCurrent_script_file</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="n">matlab</span><span class="p">.</span><span class="n">desktop</span><span class="p">.</span><span class="n">editor</span><span class="p">.</span><span class="n">getActiveFilename</span><span class="p">;</span>
 <span class="n">d</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="nb">fileparts</span><span class="p">(</span><span class="n">myCurrent_script_file</span><span class="p">);</span>
 <span class="nb">load</span><span class="p">([</span><span class="n">d</span><span class="p">,</span><span class="w"> </span><span class="nb">filesep</span><span class="p">,</span><span class="w"> </span><span class="s">&#39;..&#39;</span><span class="p">,</span><span class="w"> </span><span class="nb">filesep</span><span class="p">,</span><span class="w"> </span><span class="s">&#39;demo_data&#39;</span><span class="p">,</span><span class="w"> </span><span class="nb">filesep</span><span class="p">,</span><span class="w"> </span><span class="s">&#39;demo_data_3&#39;</span><span class="p">]);</span>
@@ -114,9 +109,18 @@ obviously not fully sampled.</p>
 <span class="nb">cd</span><span class="p">(</span><span class="s">&#39;recon_folder&#39;</span><span class="p">)</span>
 </pre></div>
 </div>
+<p>Among other things, the loaded data contains a list of trajectory <cite>t</cite>. There is one trajectory for each frame.
+You can plot the sampling trajectory <cite>t</cite> for each frame to have an idea of how good the data are sampled.
+You may get someting as follows:</p>
+<a class="reference internal image-reference" href="_images/data_3_t_partialSamp.gif"><img alt="_images/data_3_t_partialSamp.gif" class="align-center" src="_images/data_3_t_partialSamp.gif" style="width: 60%;" />
+</a>
+<div style="margin-bottom: 30px;"></div><p>This list of trajectories contains in average 15% of the 256 original lines, still with 512 points each. It is
+obviously not fully sampled for a FoV of <cite>600 mm</cite>. This different trajectories (one for each frame) will be called <em>trajectory bins</em>.</p>
+<p>We will often use the word <em>bin</em> to designate a pack of data that belongs to one image frame among other. The data lst <cite>y</cite> is also made of
+several <em>data bins</em>, one for each frame.</p>
 </div></blockquote>
 </li>
-<li><p><strong>Resizing `C`, computing `ve` and permuting `y`</strong></p>
+<li><p><strong>Resizing</strong> <cite>C</cite> <strong>, computing</strong> <cite>ve</cite> <strong>and permuting</strong> <cite>y</cite></p>
 <blockquote>
 <div><div class="highlight-matlab notranslate"><div class="highlight"><pre><span></span><span class="c">% resizing C</span>
 <span class="n">C</span><span class="w">       </span><span class="p">=</span><span class="w"> </span><span class="n">bmImResize</span><span class="p">(</span><span class="n">C</span><span class="p">,</span><span class="w"> </span><span class="p">[</span><span class="mi">48</span><span class="p">,</span><span class="w"> </span><span class="mi">48</span><span class="p">],</span><span class="w"> </span><span class="n">N_u</span><span class="p">);</span>
@@ -151,7 +155,8 @@ obviously not fully sampled.</p>
 </div>
 <a class="reference internal image-reference" href="_images/data_3_mathilda.gif"><img alt="_images/data_3_mathilda.gif" class="align-center" src="_images/data_3_mathilda.gif" style="width: 100%;" />
 </a>
-<div style="margin-bottom: 30px;"></div></div></blockquote>
+<p>Left is the reconstructed image and right the ground-truth.</p>
+</div></blockquote>
 </li>
 <li><p><strong>Evaluating gridding matrices</strong></p>
 <blockquote>
@@ -192,7 +197,8 @@ obviously not fully sampled.</p>
 </div>
 <a class="reference internal image-reference" href="_images/data_3_tevaMorph.gif"><img alt="_images/data_3_tevaMorph.gif" class="align-center" src="_images/data_3_tevaMorph.gif" style="width: 100%;" />
 </a>
-<div style="margin-bottom: 30px;"></div></div></blockquote>
+<p>Left is the reconstructed image and right the ground-truth.</p>
+</div></blockquote>
 </li>
 <li><p><strong>Estimation of deformation fields</strong></p>
 <blockquote>
@@ -246,7 +252,8 @@ obviously not fully sampled.</p>
 </div>
 <a class="reference internal image-reference" href="_images/data_3_tevaMorph_DF.gif"><img alt="_images/data_3_tevaMorph_DF.gif" class="align-center" src="_images/data_3_tevaMorph_DF.gif" style="width: 100%;" />
 </a>
-<div style="margin-bottom: 30px;"></div></div></blockquote>
+<p>Left is the reconstructed image and right the ground-truth.</p>
+</div></blockquote>
 </li>
 <li><p><strong>Regularized least-square reconstruction with backward and forward (non-motion-corrected) temporal</strong> <span class="math notranslate nohighlight">\(l_1\)</span>- <strong>regularization for non-cartesian data (TevaDuoMorphosia_chain)</strong></p>
 <blockquote>
@@ -280,7 +287,8 @@ obviously not fully sampled.</p>
 </div>
 <a class="reference internal image-reference" href="_images/data_3_tevaDuoMorph.gif"><img alt="_images/data_3_tevaDuoMorph.gif" class="align-center" src="_images/data_3_tevaDuoMorph.gif" style="width: 100%;" />
 </a>
-<div style="margin-bottom: 30px;"></div></div></blockquote>
+<p>Left is the reconstructed image and right the ground-truth.</p>
+</div></blockquote>
 </li>
 <li><p><strong>Estimation of deformation fields</strong></p>
 <div class="highlight-matlab notranslate"><div class="highlight"><pre><span></span><span class="n">maxPixDisplacement</span><span class="w">  </span><span class="p">=</span><span class="w"> </span><span class="mi">10</span><span class="p">;</span>
@@ -331,7 +339,8 @@ obviously not fully sampled.</p>
 </div>
 <a class="reference internal image-reference" href="_images/data_3_tevaDuoMorph_DF.gif"><img alt="_images/data_3_tevaDuoMorph_DF.gif" class="align-center" src="_images/data_3_tevaDuoMorph_DF.gif" style="width: 100%;" />
 </a>
-<div style="margin-bottom: 30px;"></div></li>
+<p>Left is the reconstructed image and right the ground-truth.</p>
+</li>
 <li><p><strong>Regularized least-square reconstruction with (non-motion-corrected) temporal</strong> <span class="math notranslate nohighlight">\(l_2\)</span>- <strong>regularization for non-cartesian data (SensitivaMorphosia_chain)</strong></p>
 <div class="highlight-matlab notranslate"><div class="highlight"><pre><span></span><span class="n">file_label</span><span class="w">      </span><span class="p">=</span><span class="w"> </span><span class="s">&#39;sensitivaMorphosia_chain&#39;</span><span class="p">;</span><span class="w"> </span><span class="c">% label to name the file containing the result</span>
 <span class="n">frSize</span><span class="w">          </span><span class="p">=</span><span class="w"> </span><span class="n">N_u</span><span class="p">;</span>
@@ -361,7 +370,8 @@ obviously not fully sampled.</p>
 </div>
 <a class="reference internal image-reference" href="_images/data_3_sensitivaMorph.gif"><img alt="_images/data_3_sensitivaMorph.gif" class="align-center" src="_images/data_3_sensitivaMorph.gif" style="width: 100%;" />
 </a>
-<div style="margin-bottom: 30px;"></div></li>
+<p>Left is the reconstructed image and right the ground-truth.</p>
+</li>
 <li><p><strong>Estimation of deformation fields</strong></p>
 <div class="highlight-matlab notranslate"><div class="highlight"><pre><span></span><span class="n">maxPixDisplacement</span><span class="w">  </span><span class="p">=</span><span class="w"> </span><span class="mi">10</span><span class="p">;</span>
 <span class="n">nIter</span><span class="w">               </span><span class="p">=</span><span class="w"> </span><span class="mi">500</span><span class="p">;</span>
@@ -407,7 +417,8 @@ obviously not fully sampled.</p>
 </div>
 <a class="reference internal image-reference" href="_images/data_3_sensitivaMorph_DF.gif"><img alt="_images/data_3_sensitivaMorph_DF.gif" class="align-center" src="_images/data_3_sensitivaMorph_DF.gif" style="width: 100%;" />
 </a>
-<div style="margin-bottom: 30px;"></div></li>
+<p>Left is the reconstructed image and right the ground-truth.</p>
+</li>
 <li><p><strong>Regularized least-square reconstruction with backward and forward (non-motion-corrected) temporal</strong> <span class="math notranslate nohighlight">\(l_2\)</span>- <strong>regularization for non-cartesian data (SensitivaDuoMorphosia_chain)</strong></p>
 <div class="highlight-matlab notranslate"><div class="highlight"><pre><span></span><span class="n">file_label</span><span class="w">      </span><span class="p">=</span><span class="w"> </span><span class="s">&#39;sensitivaDuoMorphosia_chain&#39;</span><span class="p">;</span><span class="w"> </span><span class="c">% label to name the file containing the result</span>
 <span class="n">frSize</span><span class="w">          </span><span class="p">=</span><span class="w"> </span><span class="n">N_u</span><span class="p">;</span>
@@ -437,7 +448,8 @@ obviously not fully sampled.</p>
 </div>
 <a class="reference internal image-reference" href="_images/data_3_sensitivaDuoMorph.gif"><img alt="_images/data_3_sensitivaDuoMorph.gif" class="align-center" src="_images/data_3_sensitivaDuoMorph.gif" style="width: 100%;" />
 </a>
-<div style="margin-bottom: 30px;"></div></li>
+<p>Left is the reconstructed image and right the ground-truth.</p>
+</li>
 <li><p><strong>Estimation of deformation fields</strong></p>
 <div class="highlight-matlab notranslate"><div class="highlight"><pre><span></span><span class="n">maxPixDisplacement</span><span class="w">  </span><span class="p">=</span><span class="w"> </span><span class="mi">10</span><span class="p">;</span>
 <span class="n">nIter</span><span class="w">               </span><span class="p">=</span><span class="w"> </span><span class="mi">500</span><span class="p">;</span>
@@ -485,7 +497,8 @@ obviously not fully sampled.</p>
 </div>
 <a class="reference internal image-reference" href="_images/data_3_sensitivaDuoMorph_DF.gif"><img alt="_images/data_3_sensitivaDuoMorph_DF.gif" class="align-center" src="_images/data_3_sensitivaDuoMorph_DF.gif" style="width: 100%;" />
 </a>
-<div style="margin-bottom: 30px;"></div></li>
+<p>Left is the reconstructed image and right the ground-truth.</p>
+</li>
 </ol>
 </section>
 
