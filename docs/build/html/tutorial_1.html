@@ -128,7 +128,33 @@ a fiew of them:</p>
 <a class="reference internal image-reference" href="_images/coil_images_demo_1.png"><img alt="_images/coil_images_demo_1.png" class="align-center" src="_images/coil_images_demo_1.png" style="width: 100%;" />
 </a>
 <div style="margin-bottom: 30px;"></div><p>There is one image for each coil (i.e. each channel). This is why we call these images the “coil-images”. In some sense, if a coil was an eye,
-its coil-image would be the image that this coil “sees”. You can combine all coil-images by a sum-of-squares operation but
+its coil-image would be the image that this coil “sees”.</p>
+<p>The function call of <em>Mathilda</em> as written in the section abbove can be described mathematically as a discrete (approximative inverse) non-uniform
+Fourier transform for each coil. To describe it with mathematical symbols, we will call <span class="math notranslate nohighlight">\(\acute{y}_c\)</span> the data vector
+of coil number <span class="math notranslate nohighlight">\(c\)</span> (or channel number:math:<cite>c</cite>) and we will write <span class="math notranslate nohighlight">\(\acute{x}_c^{\#}\)</span> the (unkown) ground-truth coil-image of
+coil number <span class="math notranslate nohighlight">\(c\)</span> sampled on the Cartisian image gridd. Image <span class="math notranslate nohighlight">\(\acute{x}_c^{\#}\)</span> is the coil-image number <span class="math notranslate nohighlight">\(c\)</span> that we would like to
+ideally obtain. In the following, the word <em>channel</em> will be used interchangebly with the world <em>coil</em> and <span class="math notranslate nohighlight">\(nCh\)</span> will mean <em>number of channels</em>.</p>
+<p>As justified by the signal equation, the approximative link between <span class="math notranslate nohighlight">\(\acute{x}_c^{\#}\)</span> and <span class="math notranslate nohighlight">\(\acute{y}_c\)</span> is a discrete non-uniform Fourier transform
+that we will write <span class="math notranslate nohighlight">\(\acute{F}_c\)</span>:</p>
+<div class="math notranslate nohighlight">
+\[\acute{y}_c =  \acute{F}_c \cdot \acute{x}_c^{\#}\]</div>
+<p>There is one linear map <span class="math notranslate nohighlight">\(\acute{F}_c\)</span> for each coil and they are all identical.
+We have however labeled them with index <span class="math notranslate nohighlight">\(c\)</span> to consruct one identical copy of that Fourier transform for each coil.
+The index <span class="math notranslate nohighlight">\(c\)</span> goes from <span class="math notranslate nohighlight">\(1\)</span> to <span class="math notranslate nohighlight">\(nCh\)</span> (which stands for <em>number of channels</em>).</p>
+<p>The most important thing to know about <span class="math notranslate nohighlight">\(\acute{F}_c\)</span> is that it has no inverse in general. So far the author knows, the only special case
+where <span class="math notranslate nohighlight">\(\acute{F}_c\)</span> has an inverse is when the sampling trajectory is uniform (Cartesian) fully sampled. Then becomes <span class="math notranslate nohighlight">\(\acute{F}_c\)</span> the
+usual uniform discrete Fourier transform with a well defined inverse. But for non-cartesian data, <span class="math notranslate nohighlight">\(\acute{F}_c\)</span> has usually no inverse,
+and even if it could have some in very special cases, we will not take time to construct one because it would be of no help for practical cases.
+We considere that <span class="math notranslate nohighlight">\(\acute{F}_c\)</span> has therefore not inverse.</p>
+<p>Instead of building an inverse (which is anywhay not possible most of the time), we build a linear map, that is easy to implement, and that behave
+approximately like an inverse when the data are well sampled. We will write it <span class="math notranslate nohighlight">\(\acute{F}_c^{\sim 1}\)</span> and by our description it holds</p>
+<div class="math notranslate nohighlight">
+\[\acute{F}_c^{\sim 1} \cdot \acute{F}_c \approx  id\]</div>
+<p>The function <em>Mathilda</em> realizes such a map <span class="math notranslate nohighlight">\(\acute{F}_c^{\sim 1}\)</span> for non-cartesian data. We give as argument a list of data vectors
+<span class="math notranslate nohighlight">\(\acute{y}_1, ..., \acute{y}_{nCh}\)</span> and it returns a list of coil-images <span class="math notranslate nohighlight">\(\acute{x}_1, ..., \acute{x}_{nCh}\)</span> which verify</p>
+<div class="math notranslate nohighlight">
+\[\acute{x}_c =  \acute{F}_c^{\sim 1} \cdot \acute{y}_c \approx \acute{F}_c^{\sim 1} \cdot \acute{F}_c \cdot \acute{x}_c^{\#} \approx \acute{x}_c^{\#}\]</div>
+<p>You can combine the obtained coil-images <span class="math notranslate nohighlight">\(\acute{x}_1, ..., \acute{x}_{nCh}\)</span> by a sum-of-squares operation but
 then the phase would be lost and the result would not spacially homogeneous. You need a coil-sensitivity estimation in order to combine them properly as
 in the next section.</p>
 </div></blockquote>
