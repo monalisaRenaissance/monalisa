@@ -23,7 +23,14 @@ load([d, filesep, '..', filesep, 'demo_data', filesep, 'demo_data_1']);
 x = bmMathilda(y, t, ve, [], N_u, N_u, dK_u);
 bmImage(x); 
 
+%% a look at coil-sensitivity maps
+
+bmImage(cat(2, real(C), imag(C)))
+
+
 %% gridded-zero-padded reconstruction with coil combination
 
 x = bmMathilda(y, t, ve, C, N_u, N_u, dK_u);
+
+bmImage(angle(x))
 bmImage(x); 

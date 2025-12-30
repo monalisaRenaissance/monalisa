@@ -72,13 +72,34 @@ The script contains the following section.
     in the next section. 
 
 
-3. **Gridded-zeropadded reconstruction with coil combination**
+3. **A look at coil-sensitivity maps**
 
-    If a coil-sensitivity estimation *C* is present, it can be passed to *Mathilda* as follows: 
+    If a coil-sensitivity estimation *C* is present, it can be passed to *Mathilda* to perform a coil-combination. First take a look at the list of coil-sensitivity
+    maps that are provided on the demonstration data. You can view it by typing
+
+    .. code-block:: matlab
+
+        bmImage(cat(2, real(C), imag(C))); 
+
+    The real part of the coil-sensitivities will appear on the left, and the imaginary part on the right. Us the up- and down-arrows to brows through the different
+    coil-sensitivity maps. Here are a few examples of coil-sensitivities you will see : 
+
+    .. image:: ./images/data_2_coil_sense.png
+        :width: 100 %
+        :align: center
+
+    On that figure, we displayed the real-part on the top and the imaginary part on the bottom line. 
+
+
+4. **Gridded-zeropadded reconstruction with coil combination**
+
+    You can then call *Mathilda* by passing the coil-sensitivity list `C` as argument as follows: 
 
     .. code-block:: matlab
 
         x = bmMathilda(y, t, ve, C, N_u, N_u, dK_u);
+        
+        bmImage(angle(x));
         bmImage(x); 
 
     The obtained image is the a coil-combined image of all coil-images obtained at step 2 and it magnitude and phase looks as follows: 
@@ -93,19 +114,20 @@ The script contains the following section.
 
     The coil-combination is performed by applying the coil-sensitivity pseudo-inverse to the list of coil-images. 
 
-**Further Explanation**
+Further Explanation
+-------------------
 
 You did your first image reconstruction with Monalisa ! That is an event. 
 
 We want to take that opportunity to introduce a few basic important definitions and some vocabulary of Monalisa. We will do that by
 giving first a brief description of each argument passed to Mathilda:   
 
-    - `y`       : List of data vectors. Each entry of that table is complex-valued. We shape it in the size `nPt x nCh` when passed to a reconstruction function, where `nPt` stands for 'number of points' and `nCh` for 'number of channels'. 
-    - `t`       : List of k-space trajectory points. Each entry is real-valued. We shape it usually in the size `frDim x nPt` or a reshapable size. Here stands `frDim` for 'frame dimension' and can be 1, 2 or 3. It is the number of spatial dimensions in the image. 
-    - `ve`      : List of volume element. Each entry is real-valued. There is one volume element for each point of the k-space trajectory and can be considered to be 1 divided by the k-space density compensation.  
-    - `C`       : List of estimated coil-sensitivity maps. Each entry is complex-valued. There is one map for each channel. Each map has `frDim` dimension.  
-    - `N_u`     : This is the grid-size of the k-space Cartesian grid used for regridding. It is a vector with `frDim` components. In our example it was `[512, 512]`. 
-    - `dK_u`    : This is the grid-spacing of the k-space Cartesian grid used for regridding. It is a vector with `frDim` components. In our case, `frDim` equals 2 and we will write `dK_u` as `[dKx, dKy]`. The field of view (FoV) resulting of that grid is `[1/dKx, 1/dKy]`.  
+    - **y**       : List of data vectors. Each entry of that table is complex-valued. We shape it in the size `nPt x nCh` when passed to a reconstruction function, where `nPt` stands for 'number of points' and `nCh` for 'number of channels'. 
+    - **t**       : List of k-space trajectory points. Each entry is real-valued. We shape it usually in the size `frDim x nPt` or a reshapable size. Here stands `frDim` for 'frame dimension' and can be 1, 2 or 3. It is the number of spatial dimensions in the image. 
+    - **ve**      : List of volume element. Each entry is real-valued. There is one volume element for each point of the k-space trajectory and can be considered to be 1 divided by the k-space density compensation.  
+    - **C**       : List of estimated coil-sensitivity maps. Each entry is complex-valued. There is one map for each channel. Each map has `frDim` dimension.  
+    - **N_u**     : This is the grid-size of the k-space Cartesian grid used for regridding. It is a vector with `frDim` components. In our example it was `[512, 512]`. 
+    - **dK_u**    : This is the grid-spacing of the k-space Cartesian grid used for regridding. It is a vector with `frDim` components. In our case, `frDim` equals 2 and we will write `dK_u` as `[dKx, dKy]`. The field of view (FoV) resulting of that grid is `[1/dKx, 1/dKy]`.  
 
 
 Another quantity that is not explicitely present among that list is the *frame-size* that we write `frSize`. It is a vector with `frDim` entries like `N_u` and `dK_u`. The frame-size

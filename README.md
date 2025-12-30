@@ -5,7 +5,7 @@ The Monalisa toolbox is devoted to the reconstruction of both non-Cartesian and 
 
 ## Installation
 
-The intallation is detailed [here](https://monalisarenaissance.github.io/monalisa/1_instalation.html) on the documentation webpage. For short, here are the main steps: 
+The intallation is detailed [here](https://monalisarenaissance.github.io/monalisa/1_installation.html) on the documentation webpage. For short, here are the main steps: 
 
 1. Create a folder with a name such as "monalisaRenaissance", open a terminal and go into that folder. Then copy the URL from the green button `<> Code` here above and type in your terminal: 
 
