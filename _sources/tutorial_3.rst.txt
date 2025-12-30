@@ -82,7 +82,7 @@ Initial image
     For example, before resizing the coil-sensitivity numer 23 is of size *48 x 48* as in the following figure: 
 
     .. image:: ./images/data_3_C_48.png
-        :width: 60 %
+        :width: 100 %
         :align: center
 
     .. raw:: html
@@ -92,7 +92,7 @@ Initial image
     After resizing, the same coil-sensitivity map has the same size like the image we want to reconstruct (i.e. *512 x 512*): 
 
     .. image:: ./images/data_3_C_512.png
-        :width: 60 %
+        :width: 100 %
         :align: center
 
     .. raw:: html
