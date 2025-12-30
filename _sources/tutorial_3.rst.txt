@@ -50,8 +50,9 @@ Initial image
     This list of trajectories contains in average 15% of the 256 original lines, still with 512 points each. It is
     obviously not fully sampled for a FoV of `600 mm`. This different trajectories (one for each frame) will be called *trajectory bins*. 
 
-    We will often use the word *bin* to designate a pack of data that belongs to one image frame among other. The data lst `y` is also made of
-    several *data bins*, one for each frame.  
+    We will often use the word *bin* to designate a pack of data that belongs to one image frame among other. The data list `y` is also made of
+    several *data bins*, one for each frame. Since each bin (trejectory bin or data bin ...) can have a different size, we use cell-arrays to store a list
+    that is made of different bin. That is why `t` and `y` are cell arrays. The list of volume elements `ve` is also a cell-array for the same reason.  
 
 
 2. **Resizing** `C` **, computing** `ve` **and permuting** `y`
@@ -75,6 +76,28 @@ Initial image
         for i = 1:nFr
             y{i} = bmPermuteToCol(y{i}); 
         end
+
+    Resising the coil-sensitivity maps `C` is common in Monalisa since we usually estimate them with a low spatial resolution and frame-size, and we also store them
+    with a small size to save disk-space and data-transfer time. Just before the reconstruction we resize then `C` to the frame-size as performed in the section above. 
+    For example, before resizing the coil-sensitivity numer 23 is of size *48 x 48* as in the following figure: 
+
+    .. image:: ./images/data_3_C_48.png
+        :width: 60 %
+        :align: center
+
+    .. raw:: html
+
+        <div style="margin-bottom: 30px;"></div>
+    
+    After resizing, the same coil-sensitivity map has the same size like the image we want to reconstruct (i.e. *512 x 512*): 
+
+    .. image:: ./images/data_3_C_512.png
+        :width: 60 %
+        :align: center
+
+    .. raw:: html
+
+        <div style="margin-bottom: 30px;"></div> 
 
 
 3. **Evaluating the initial image for further iterative reconstructions**
