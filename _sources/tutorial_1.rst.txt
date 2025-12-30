@@ -67,7 +67,47 @@ The script contains the following section.
 
 
     There is one image for each coil (i.e. each channel). This is why we call these images the "coil-images". In some sense, if a coil was an eye, 
-    its coil-image would be the image that this coil "sees". You can combine all coil-images by a sum-of-squares operation but
+    its coil-image would be the image that this coil "sees". 
+    
+    The function call of *Mathilda* as written in the section abbove can be described mathematically as a discrete (approximative inverse) non-uniform 
+    Fourier transform for each coil. To describe it with mathematical symbols, we will call :math:`\acute{y}_c` the data vector
+    of coil number :math:`c` (or channel number:math:`c`) and we will write :math:`\acute{x}_c^{\#}` the (unkown) ground-truth coil-image of 
+    coil number :math:`c` sampled on the Cartisian image gridd. Image :math:`\acute{x}_c^{\#}` is the coil-image number :math:`c` that we would like to 
+    ideally obtain. In the following, the word *channel* will be used interchangebly with the world *coil* and :math:`nCh` will mean *number of channels*.  
+
+    As justified by the signal equation, the approximative link between :math:`\acute{x}_c^{\#}` and :math:`\acute{y}_c` is a discrete non-uniform Fourier transform
+    that we will write :math:`\acute{F}_c`: 
+    
+    .. math ::
+
+        \acute{y}_c =  \acute{F}_c \cdot \acute{x}_c^{\#}
+    
+    There is one linear map :math:`\acute{F}_c` for each coil and they are all identical. 
+    We have however labeled them with index :math:`c` to consruct one identical copy of that Fourier transform for each coil. 
+    The index :math:`c` goes from :math:`1` to :math:`nCh` (which stands for *number of channels*). 
+    
+    The most important thing to know about :math:`\acute{F}_c` is that it has no inverse in general. So far the author knows, the only special case
+    where :math:`\acute{F}_c` has an inverse is when the sampling trajectory is uniform (Cartesian) fully sampled. Then becomes :math:`\acute{F}_c` the 
+    usual uniform discrete Fourier transform with a well defined inverse. But for non-cartesian data, :math:`\acute{F}_c` has usually no inverse, 
+    and even if it could have some in very special cases, we will not take time to construct one because it would be of no help for practical cases. 
+    We considere that :math:`\acute{F}_c` has therefore not inverse.  
+    
+    Instead of building an inverse (which is anywhay not possible most of the time), we build a linear map, that is easy to implement, and that behave 
+    approximately like an inverse when the data are well sampled. We will write it :math:`\acute{F}_c^{\sim 1}` and by our description it holds 
+    
+    .. math ::
+
+        \acute{F}_c^{\sim 1} \cdot \acute{F}_c \approx  id
+
+    The function *Mathilda* realizes such a map :math:`\acute{F}_c^{\sim 1}` for non-cartesian data. We give as argument a list of data vectors
+    :math:`\acute{y}_1, ..., \acute{y}_{nCh}` and it returns a list of coil-images :math:`\acute{x}_1, ..., \acute{x}_{nCh}` which verify
+
+    .. math ::
+
+        \acute{x}_c =  \acute{F}_c^{\sim 1} \cdot \acute{y}_c \approx \acute{F}_c^{\sim 1} \cdot \acute{F}_c \cdot \acute{x}_c^{\#} \approx \acute{x}_c^{\#}
+   
+    
+    You can combine the obtained coil-images :math:`\acute{x}_1, ..., \acute{x}_{nCh}` by a sum-of-squares operation but
     then the phase would be lost and the result would not spacially homogeneous. You need a coil-sensitivity estimation in order to combine them properly as 
     in the next section. 
 
