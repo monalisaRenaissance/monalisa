@@ -124,8 +124,9 @@ You may get someting as follows:</p>
 </a>
 <div style="margin-bottom: 30px;"></div><p>This list of trajectories contains in average 15% of the 256 original lines, still with 512 points each. It is
 obviously not fully sampled for a FoV of <cite>600 mm</cite>. This different trajectories (one for each frame) will be called <em>trajectory bins</em>.</p>
-<p>We will often use the word <em>bin</em> to designate a pack of data that belongs to one image frame among other. The data lst <cite>y</cite> is also made of
-several <em>data bins</em>, one for each frame.</p>
+<p>We will often use the word <em>bin</em> to designate a pack of data that belongs to one image frame among other. The data list <cite>y</cite> is also made of
+several <em>data bins</em>, one for each frame. Since each bin (trejectory bin or data bin …) can have a different size, we use cell-arrays to store a list
+that is made of different bin. That is why <cite>t</cite> and <cite>y</cite> are cell arrays. The list of volume elements <cite>ve</cite> is also a cell-array for the same reason.</p>
 </div></blockquote>
 </li>
 <li><p><strong>Resizing</strong> <cite>C</cite> <strong>, computing</strong> <cite>ve</cite> <strong>and permuting</strong> <cite>y</cite></p>
@@ -149,7 +150,15 @@ several <em>data bins</em>, one for each frame.</p>
 <span class="k">end</span>
 </pre></div>
 </div>
-</div></blockquote>
+<p>Resising the coil-sensitivity maps <cite>C</cite> is common in Monalisa since we usually estimate them with a low spatial resolution and frame-size, and we also store them
+with a small size to save disk-space and data-transfer time. Just before the reconstruction we resize then <cite>C</cite> to the frame-size as performed in the section above.
+For example, before resizing the coil-sensitivity numer 23 is of size <em>48 x 48</em> as in the following figure:</p>
+<a class="reference internal image-reference" href="_images/data_3_C_48.png"><img alt="_images/data_3_C_48.png" class="align-center" src="_images/data_3_C_48.png" style="width: 60%;" />
+</a>
+<div style="margin-bottom: 30px;"></div><p>After resizing, the same coil-sensitivity map has the same size like the image we want to reconstruct (i.e. <em>512 x 512</em>):</p>
+<a class="reference internal image-reference" href="_images/data_3_C_512.png"><img alt="_images/data_3_C_512.png" class="align-center" src="_images/data_3_C_512.png" style="width: 60%;" />
+</a>
+<div style="margin-bottom: 30px;"></div></div></blockquote>
 </li>
 <li><p><strong>Evaluating the initial image for further iterative reconstructions</strong></p>
 <blockquote>
