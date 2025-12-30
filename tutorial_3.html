@@ -50,7 +50,13 @@
 <li class="toctree-l2"><a class="reference internal" href="tutorial_0.html">Tutorial 0 : testing of the installation and of the multi-threading</a></li>
 <li class="toctree-l2"><a class="reference internal" href="tutorial_1.html">Tutorial 1 : A first gridded-zero-padded reconstrcution for non-cartesian data</a></li>
 <li class="toctree-l2"><a class="reference internal" href="tutorial_2.html">Tutorial 2 : Some static, iterative, non-cartesian reconstructions</a></li>
-<li class="toctree-l2 current"><a class="current reference internal" href="#">Tutorial 3 : Iterative CINE reconstructions with 1 temporal dimension for non-cartesian data</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">Tutorial 3 : Iterative CINE reconstructions with 1 temporal dimension for non-cartesian data</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#initial-image">Initial image</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#l-1-regularized-least-square-reconstruction-with-1-temporal-dimension-for-non-cartesian-data"><span class="math notranslate nohighlight">\(l_1\)</span>-regularized least-square reconstruction with 1 temporal dimension for non-cartesian data</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#l-2-regularized-least-square-reconstruction-with-1-temporal-dimension-for-non-cartesian-data"><span class="math notranslate nohighlight">\(l_2\)</span>-regularized least-square reconstruction with 1 temporal dimension for non-cartesian data</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#further-explanation">Further explanation</a></li>
+</ul>
+</li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="4_thermodynInfo.html">Sketching a Classical Thermodynamic Theory of Information for MRI Reconstructions</a></li>
@@ -92,6 +98,8 @@ for non-cartesian data. They are called <strong>TevaMorphosia_chain</strong>, <s
 as demonstrated in publication ???cite publications???. They could be realistic candidates to be tested for clinical use (yet keep in mind
 that the content of Monalisa cannot be used for any diagnostic purpose as it is an experimental project only).</p>
 <p>The script contains the following section.</p>
+<section id="initial-image">
+<h2>Initial image<a class="headerlink" href="#initial-image" title="Link to this heading"></a></h2>
 <ol class="arabic">
 <li><p><strong>Initialisation</strong></p>
 <blockquote>
@@ -165,6 +173,11 @@ several <em>data bins</em>, one for each frame.</p>
 </div>
 </div></blockquote>
 </li>
+</ol>
+</section>
+<section id="l-1-regularized-least-square-reconstruction-with-1-temporal-dimension-for-non-cartesian-data">
+<h2><span class="math notranslate nohighlight">\(l_1\)</span>-regularized least-square reconstruction with 1 temporal dimension for non-cartesian data<a class="headerlink" href="#l-1-regularized-least-square-reconstruction-with-1-temporal-dimension-for-non-cartesian-data" title="Link to this heading"></a></h2>
+<ol class="arabic" start="5">
 <li><p><strong>Regularized least-square reconstruction with (non-motion-corrected) temporal</strong> <span class="math notranslate nohighlight">\(l_1\)</span>- <strong>regularization for non-cartesian data (TevaMorphosia_chain)</strong></p>
 <blockquote>
 <div><div class="highlight-matlab notranslate"><div class="highlight"><pre><span></span><span class="n">file_label</span><span class="w">      </span><span class="p">=</span><span class="w"> </span><span class="s">&#39;tevaMorphosia_chain&#39;</span><span class="p">;</span><span class="w"> </span><span class="c">% label to name the file containing the result</span>
@@ -341,6 +354,11 @@ several <em>data bins</em>, one for each frame.</p>
 </a>
 <p>Left is the reconstructed image and right the ground-truth.</p>
 </li>
+</ol>
+</section>
+<section id="l-2-regularized-least-square-reconstruction-with-1-temporal-dimension-for-non-cartesian-data">
+<h2><span class="math notranslate nohighlight">\(l_2\)</span>-regularized least-square reconstruction with 1 temporal dimension for non-cartesian data<a class="headerlink" href="#l-2-regularized-least-square-reconstruction-with-1-temporal-dimension-for-non-cartesian-data" title="Link to this heading"></a></h2>
+<ol class="arabic" start="13">
 <li><p><strong>Regularized least-square reconstruction with (non-motion-corrected) temporal</strong> <span class="math notranslate nohighlight">\(l_2\)</span>- <strong>regularization for non-cartesian data (SensitivaMorphosia_chain)</strong></p>
 <div class="highlight-matlab notranslate"><div class="highlight"><pre><span></span><span class="n">file_label</span><span class="w">      </span><span class="p">=</span><span class="w"> </span><span class="s">&#39;sensitivaMorphosia_chain&#39;</span><span class="p">;</span><span class="w"> </span><span class="c">% label to name the file containing the result</span>
 <span class="n">frSize</span><span class="w">          </span><span class="p">=</span><span class="w"> </span><span class="n">N_u</span><span class="p">;</span>
@@ -500,6 +518,13 @@ several <em>data bins</em>, one for each frame.</p>
 <p>Left is the reconstructed image and right the ground-truth.</p>
 </li>
 </ol>
+</section>
+<section id="further-explanation">
+<h2>Further explanation<a class="headerlink" href="#further-explanation" title="Link to this heading"></a></h2>
+<blockquote>
+<div><p>blablabla</p>
+</div></blockquote>
+</section>
 </section>
 
 

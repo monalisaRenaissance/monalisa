@@ -14,6 +14,9 @@ that the content of Monalisa cannot be used for any diagnostic purpose as it is 
 
 The script contains the following section. 
 
+Initial image
+-------------
+
 1. **Initialisation**
 
     The initialization section loads the demonstration data and creates a folder to store the reconstruction results. 
@@ -97,6 +100,9 @@ The script contains the following section.
 
         [Gu, Gut] = bmTraj2SparseMat(t, ve, N_u, dK_u);
 
+
+:math:`l_1`-regularized least-square reconstruction with 1 temporal dimension for non-cartesian data
+----------------------------------------------------------------------------------------------------
 
 5. **Regularized least-square reconstruction with (non-motion-corrected) temporal** :math:`l_1`- **regularization for non-cartesian data (TevaMorphosia_chain)**
 
@@ -290,6 +296,8 @@ The script contains the following section.
 
     Left is the reconstructed image and right the ground-truth.
 
+:math:`l_2`-regularized least-square reconstruction with 1 temporal dimension for non-cartesian data
+----------------------------------------------------------------------------------------------------
 
 13. **Regularized least-square reconstruction with (non-motion-corrected) temporal** :math:`l_2`- **regularization for non-cartesian data (SensitivaMorphosia_chain)**
 
@@ -474,3 +482,10 @@ The script contains the following section.
         :align: center
 
     Left is the reconstructed image and right the ground-truth.
+
+
+Further explanation
+-------------------
+
+
+    blablabla
