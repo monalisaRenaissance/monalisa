@@ -6,7 +6,7 @@
   <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Tutorial 1 : A first gridded-zero-padded reconstrcution for non-cartesian data &mdash; Monalisa Renaissance  documentation</title>
+  <title>Tutorial 1 : A gridded-zero-padded reconstrcution for non-cartesian data &mdash; Monalisa Renaissance  documentation</title>
       <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=b86133f3" />
       <link rel="stylesheet" type="text/css" href="_static/css/theme.css?v=e59714d7" />
 
@@ -48,7 +48,7 @@
 <li class="toctree-l1"><a class="reference internal" href="2_introduction.html">Introduction</a></li>
 <li class="toctree-l1 current"><a class="reference internal" href="3_tutorials.html">Tutorials</a><ul class="current">
 <li class="toctree-l2"><a class="reference internal" href="tutorial_0.html">Tutorial 0 : testing of the installation and of the multi-threading</a></li>
-<li class="toctree-l2 current"><a class="current reference internal" href="#">Tutorial 1 : A first gridded-zero-padded reconstrcution for non-cartesian data</a><ul>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">Tutorial 1 : A gridded-zero-padded reconstrcution for non-cartesian data</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="#further-explanation">Further Explanation</a></li>
 </ul>
 </li>
@@ -74,7 +74,7 @@
   <ul class="wy-breadcrumbs">
       <li><a href="index.html" class="icon icon-home" aria-label="Home"></a></li>
           <li class="breadcrumb-item"><a href="3_tutorials.html">Tutorials</a></li>
-      <li class="breadcrumb-item active">Tutorial 1 : A first gridded-zero-padded reconstrcution for non-cartesian data</li>
+      <li class="breadcrumb-item active">Tutorial 1 : A gridded-zero-padded reconstrcution for non-cartesian data</li>
       <li class="wy-breadcrumbs-aside">
             <a href="_sources/tutorial_1.rst.txt" rel="nofollow"> View page source</a>
       </li>
@@ -84,8 +84,8 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
              
-  <section id="tutorial-1-a-first-gridded-zero-padded-reconstrcution-for-non-cartesian-data">
-<h1>Tutorial 1 : A first gridded-zero-padded reconstrcution for non-cartesian data<a class="headerlink" href="#tutorial-1-a-first-gridded-zero-padded-reconstrcution-for-non-cartesian-data" title="Link to this heading"></a></h1>
+  <section id="tutorial-1-a-gridded-zero-padded-reconstrcution-for-non-cartesian-data">
+<h1>Tutorial 1 : A gridded-zero-padded reconstrcution for non-cartesian data<a class="headerlink" href="#tutorial-1-a-gridded-zero-padded-reconstrcution-for-non-cartesian-data" title="Link to this heading"></a></h1>
 <p>The present script is written in the file <cite>demo_script_1.m</cite> in the demonstration folder. You can open it and run it right away.</p>
 <p>We present here <strong>Mathilda</strong>: a non-iterative reconstruction for non-cartesian data. When using Monalisa, this is usually the reconstruction we start with to make a first image of the
 data we want to work on.</p>
@@ -131,20 +131,21 @@ a fiew of them:</p>
 its coil-image would be the image that this coil “sees”.</p>
 <p>The function call of <em>Mathilda</em> as written in the section abbove can be described mathematically as a discrete (approximative inverse) non-uniform
 Fourier transform for each coil. To describe it with mathematical symbols, we will call <span class="math notranslate nohighlight">\(\acute{y}_c\)</span> the data vector
-of coil number <span class="math notranslate nohighlight">\(c\)</span> (or channel number:math:<cite>c</cite>) and we will write <span class="math notranslate nohighlight">\(\acute{x}_c^{\#}\)</span> the (unkown) ground-truth coil-image of
+of coil number <span class="math notranslate nohighlight">\(c\)</span> (or channel number <span class="math notranslate nohighlight">\(c\)</span>) and we will write <span class="math notranslate nohighlight">\(\acute{x}_c^{\#}\)</span> the (unkown) ground-truth coil-image of
 coil number <span class="math notranslate nohighlight">\(c\)</span> sampled on the Cartisian image gridd. Image <span class="math notranslate nohighlight">\(\acute{x}_c^{\#}\)</span> is the coil-image number <span class="math notranslate nohighlight">\(c\)</span> that we would like to
 ideally obtain. In the following, the word <em>channel</em> will be used interchangebly with the world <em>coil</em> and <span class="math notranslate nohighlight">\(nCh\)</span> will mean <em>number of channels</em>.</p>
-<p>As justified by the signal equation, the approximative link between <span class="math notranslate nohighlight">\(\acute{x}_c^{\#}\)</span> and <span class="math notranslate nohighlight">\(\acute{y}_c\)</span> is a discrete non-uniform Fourier transform
+<p>As justified by the signal equation, the approximative link between <span class="math notranslate nohighlight">\(\acute{x}_c^{\#}\)</span> and <span class="math notranslate nohighlight">\(\acute{y}_c\)</span> is a discrete Fourier transform
 that we will write <span class="math notranslate nohighlight">\(\acute{F}_c\)</span>:</p>
 <div class="math notranslate nohighlight">
-\[\acute{y}_c =  \acute{F}_c \cdot \acute{x}_c^{\#}\]</div>
+\[\acute{y}_c \approx  \acute{F}_c \cdot \acute{x}_c^{\#}\]</div>
+<p>That Fourier transform can be uniform or non-uniform depending on the trajectory. In the present case it is non-uniform because the trajectory is radial.</p>
 <p>There is one linear map <span class="math notranslate nohighlight">\(\acute{F}_c\)</span> for each coil and they are all identical.
-We have however labeled them with index <span class="math notranslate nohighlight">\(c\)</span> to consruct one identical copy of that Fourier transform for each coil.
+We have however labeled them with index <span class="math notranslate nohighlight">\(c\)</span> to consruct one identical copy of that discrete Fourier transform for each coil.
 The index <span class="math notranslate nohighlight">\(c\)</span> goes from <span class="math notranslate nohighlight">\(1\)</span> to <span class="math notranslate nohighlight">\(nCh\)</span> (which stands for <em>number of channels</em>).</p>
 <p>The most important thing to know about <span class="math notranslate nohighlight">\(\acute{F}_c\)</span> is that it has no inverse in general. So far the author knows, the only special case
 where <span class="math notranslate nohighlight">\(\acute{F}_c\)</span> has an inverse is when the sampling trajectory is uniform (Cartesian) fully sampled. Then becomes <span class="math notranslate nohighlight">\(\acute{F}_c\)</span> the
-usual uniform discrete Fourier transform with a well defined inverse. But for non-cartesian data, <span class="math notranslate nohighlight">\(\acute{F}_c\)</span> has usually no inverse,
-and even if it could have some in very special cases, we will not take time to construct one because it would be of no help for practical cases.
+usual uniform discrete Fourier transform with a well defined inverse. But for non-cartesian data as it is the case here, <span class="math notranslate nohighlight">\(\acute{F}_c\)</span> has usually no inverse,
+and even if it could have some in very special cases, we will not take time to construct one because it would be of no help for practical interest.
 We considere that <span class="math notranslate nohighlight">\(\acute{F}_c\)</span> has therefore not inverse.</p>
 <p>Instead of building an inverse (which is anywhay not possible most of the time), we build a linear map, that is easy to implement, and that behave
 approximately like an inverse when the data are well sampled. We will write it <span class="math notranslate nohighlight">\(\acute{F}_c^{\sim 1}\)</span> and by our description it holds</p>
@@ -175,17 +176,74 @@ coil-sensitivity maps. Here are a few examples of coil-sensitivities you will se
 </li>
 <li><p><strong>Gridded-zeropadded reconstruction with coil combination</strong></p>
 <blockquote>
-<div><p>You can then call <em>Mathilda</em> by passing the coil-sensitivity list <cite>C</cite> as argument as follows:</p>
+<div><p>You can call <em>Mathilda</em> by passing the coil-sensitivity list <cite>C</cite> as argument as follows:</p>
 <div class="highlight-matlab notranslate"><div class="highlight"><pre><span></span><span class="n">x</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="n">bmMathilda</span><span class="p">(</span><span class="n">y</span><span class="p">,</span><span class="w"> </span><span class="n">t</span><span class="p">,</span><span class="w"> </span><span class="n">ve</span><span class="p">,</span><span class="w"> </span><span class="n">C</span><span class="p">,</span><span class="w"> </span><span class="n">N_u</span><span class="p">,</span><span class="w"> </span><span class="n">N_u</span><span class="p">,</span><span class="w"> </span><span class="n">dK_u</span><span class="p">);</span>
 
 <span class="n">bmImage</span><span class="p">(</span><span class="nb">angle</span><span class="p">(</span><span class="n">x</span><span class="p">));</span>
 <span class="n">bmImage</span><span class="p">(</span><span class="n">x</span><span class="p">);</span>
 </pre></div>
 </div>
-<p>The obtained image is the a coil-combined image of all coil-images obtained at step 2 and it magnitude and phase looks as follows:</p>
+<p>The obtained image is the a coil-combined image of all coil-images obtained at step 2 and its magnitude and phase looks as follows:</p>
 <a class="reference internal image-reference" href="_images/magn_phase_demo_1.png"><img alt="_images/magn_phase_demo_1.png" class="align-center" src="_images/magn_phase_demo_1.png" style="width: 100%;" />
 </a>
-<div style="margin-bottom: 30px;"></div><p>The coil-combination is performed by applying the coil-sensitivity pseudo-inverse to the list of coil-images.</p>
+<div style="margin-bottom: 30px;"></div><p>The coil-combination is performed by applying the coil-sensitivity pseudo-inverse to the list of coil-images and this may deserve a bit of explanation.
+Let be <span class="math notranslate nohighlight">\(x\)</span> the final image to reconstruct i.e. the complex valued image that represent the steady-sate transverse magnetisation at echo time
+(that would have existed during the MR experiment if imaging gradient were absent). A consequence of the signal equation is that the link between <span class="math notranslate nohighlight">\(x\)</span> and
+the coil image <span class="math notranslate nohighlight">\(\acute{x}_c\)</span> is</p>
+<div class="math notranslate nohighlight">
+\[\acute{x}_c \approx  C_c \cdot x\]</div>
+<p>Here is <span class="math notranslate nohighlight">\(C_c\)</span> the coil-sensitivity map number <span class="math notranslate nohighlight">\(c\)</span> represented as a diagonal matrix with compex valued entries:</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}C_c =   \begin{pmatrix}
+        C_{c, 1} &amp; 0   &amp; \cdots &amp; 0   \\
+        0   &amp; C_{c, 2} &amp; \cdots &amp; 0   \\
+        \vdots &amp; \vdots &amp; \ddots &amp; \vdots \\
+        0   &amp; 0   &amp; \cdots &amp; C_{c, nVox}
+        \end{pmatrix}\end{split}\]</div>
+<p>Here are <span class="math notranslate nohighlight">\(C_{c, 1}, ..., C_{c, nVox}\)</span> the complex values of <span class="math notranslate nohighlight">\(C_c\)</span> listed in column major order from <span class="math notranslate nohighlight">\(1\)</span> to the total
+number of voxels in the frame <span class="math notranslate nohighlight">\(nVox\)</span>. We will admin that non of the diagonal entries of <span class="math notranslate nohighlight">\(C_c\)</span> is zero, which can always be
+satisfied in practice during the estimation of <span class="math notranslate nohighlight">\(C_c\)</span>. This ensure that each <span class="math notranslate nohighlight">\(C_c\)</span> is invertible.</p>
+<p>A common strategy to estimate <span class="math notranslate nohighlight">\(x\)</span> is then to pick the one that approaches as good as possible all
+<span class="math notranslate nohighlight">\(\acute{x}_c\)</span> when multiplied by <span class="math notranslate nohighlight">\(C_c\)</span>, for each <span class="math notranslate nohighlight">\(c\)</span> from <span class="math notranslate nohighlight">\(1\)</span> to <span class="math notranslate nohighlight">\(nCh\)</span>, in term of squared 2-norm:</p>
+<div class="math notranslate nohighlight">
+\[x  = \underset{x' \in \mathbb{C}^{nVox} }{\operatorname{argmin}} \frac{1}{2} \sum_{c = 1}^{nCh} \| C_c x' - \acute{x}_c \|_{2}^2\]</div>
+<p>The can be rewritten more concisely by defining the list of coil-images <span class="math notranslate nohighlight">\(\acute{x}\)</span> and the coil-sensitivity matrix <span class="math notranslate nohighlight">\(C\)</span> as follows.
+To define <span class="math notranslate nohighlight">\(\acute{x}\)</span>, we catenate vertically all coil-images vectors <span class="math notranslate nohighlight">\(\acute{x}_1, ..., \acute{x}_{nCh}\)</span>:</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\acute{x} :=  \begin{pmatrix}
+        \acute{x}_1  \\
+        \vdots \\
+        \acute{x}_{nCh}
+        \end{pmatrix}\end{split}\]</div>
+<p>Similarly we define <span class="math notranslate nohighlight">\(C\)</span> as a block matrix by catenating vertically all coil-sensitivity matrices <span class="math notranslate nohighlight">\(C_1, ..., C_{nCh}\)</span>:</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}C :=  \begin{pmatrix}
+        C_1  \\
+        \vdots \\
+        C_{nCh}
+        \end{pmatrix}\end{split}\]</div>
+<p>Note that because each <span class="math notranslate nohighlight">\(C_c\)</span> is invertible, the block matrix <span class="math notranslate nohighlight">\(C\)</span> has linearly independent columns. In other words, it has
+full column rank.</p>
+<p>The link between <span class="math notranslate nohighlight">\(x\)</span> and the list of coil-images can now be written simulataneously for all channels as</p>
+<div class="math notranslate nohighlight">
+\[\acute{x} \approx  C \cdot x\]</div>
+<p>or alternatively</p>
+<div class="math notranslate nohighlight">
+\[C \cdot x - \acute{x} \approx  0\]</div>
+<p>We coinsider then the l2-norm of one vector of vertically catenated vectors as the sum of the l2-norms of the individual vectors.
+It follows</p>
+<div class="math notranslate nohighlight">
+\[\| C x - \acute{x} \|_{2}^2 \approx  0\]</div>
+<p>which motivates to set</p>
+<div class="math notranslate nohighlight">
+\[x  = \underset{x' \in \mathbb{C}^{nVox} }{\operatorname{argmin}} \frac{1}{2} \| C x' - \acute{x} \|_{2}^2\]</div>
+<p>This is nothing else than the consice version of the first <em>argmin</em>-problem above. Because <span class="math notranslate nohighlight">\(C\)</span> has full column rank, this optimization
+problem as a unique solution. One can show as an exercise that seting the derivative of the above objective funtion equal to zero leads to</p>
+<div class="math notranslate nohighlight">
+\[x  = (C^* \cdot C )^{-1} C^* \cdot \acute{x}\]</div>
+<p>Thank to the very simple structure of <span class="math notranslate nohighlight">\(C\)</span>, the right-hand side can be efficiently eveluated. The matrix <span class="math notranslate nohighlight">\((C^* \cdot C )^{-1} C^*\)</span>
+is a particular case of (Moore-Penrose) pseudo inverse: it is the pseudo inverse of a matrix with full column rank (here matrix <span class="math notranslate nohighlight">\(C\)</span> for instance).
+The evaluation of that pseudo-inverse on a list of coil-images is implemented in function <code class="docutils literal notranslate"><span class="pre">bmCoilSense_pinv</span></code>.</p>
 </div></blockquote>
 </li>
 </ol>
@@ -204,8 +262,10 @@ giving first a brief description of each argument passed to Mathilda:</p>
 <li><p><strong>dK_u</strong>    : This is the grid-spacing of the k-space Cartesian grid used for regridding. It is a vector with <cite>frDim</cite> components. In our case, <cite>frDim</cite> equals 2 and we will write <cite>dK_u</cite> as <cite>[dKx, dKy]</cite>. The field of view (FoV) resulting of that grid is <cite>[1/dKx, 1/dKy]</cite>.</p></li>
 </ul>
 </div></blockquote>
-<p>Another quantity that is not explicitely present among that list is the <em>frame-size</em> that we write <cite>frSize</cite>. It is a vector with <cite>frDim</cite> entries like <cite>N_u</cite> and <cite>dK_u</cite>. The frame-size
-epresses the spatial size of the finale reconstructed image(s). In the present case (and actually in almost all our example), we have set the frame size equal to <cite>N_u</cite>.</p>
+<p>Another quantity that is not explicitely present among that list is the <em>frame-size</em> that we write <cite>frSize</cite>.
+It is a vector with <cite>frDim</cite> entries like <cite>N_u</cite> and <cite>dK_u</cite>. The frame-size epresses the spatial size of the finale
+reconstructed image(s). In the present case (and actually in almost all our example), we have set the
+frame size equal to <cite>N_u</cite>.</p>
 </section>
 </section>
 
