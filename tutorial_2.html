@@ -8,14 +8,15 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Tutorial 2 : Some static, iterative, non-cartesian reconstructions &mdash; Monalisa Renaissance  documentation</title>
       <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=b86133f3" />
-      <link rel="stylesheet" type="text/css" href="_static/css/theme.css?v=e59714d7" />
+      <link rel="stylesheet" type="text/css" href="_static/css/theme.css?v=9edc463e" />
 
   
       <script src="_static/jquery.js?v=5d32c60e"></script>
       <script src="_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
       <script src="_static/documentation_options.js?v=5929fcd5"></script>
-      <script src="_static/doctools.js?v=9bcbadda"></script>
-      <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+      <script src="_static/doctools.js?v=fd6eb6e6"></script>
+      <script src="_static/sphinx_highlight.js?v=6ffebe34"></script>
+      <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@4/tex-mml-chtml.js"></script>
     <script src="_static/js/theme.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
@@ -44,11 +45,14 @@
         </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
               <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="1_installation.html">Installation</a></li>
-<li class="toctree-l1"><a class="reference internal" href="2_introduction.html">Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="2_th_background.html">Theoretical Background</a></li>
 <li class="toctree-l1 current"><a class="reference internal" href="3_tutorials.html">Tutorials</a><ul class="current">
 <li class="toctree-l2"><a class="reference internal" href="tutorial_0.html">Tutorial 0 : testing of the installation and of the multi-threading</a></li>
 <li class="toctree-l2"><a class="reference internal" href="tutorial_1.html">Tutorial 1 : A gridded-zero-padded reconstrcution for non-cartesian data</a></li>
 <li class="toctree-l2 current"><a class="current reference internal" href="#">Tutorial 2 : Some static, iterative, non-cartesian reconstructions</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#introduction">Introduction</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#initialisation-initial-image-and-gridding-matrices">Initialisation, initial image and gridding matrices</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#the-reconstructions">The reconstructions</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#further-explanation">Further Explanation</a></li>
 </ul>
 </li>
@@ -85,10 +89,98 @@
              
   <section id="tutorial-2-some-static-iterative-non-cartesian-reconstructions">
 <h1>Tutorial 2 : Some static, iterative, non-cartesian reconstructions<a class="headerlink" href="#tutorial-2-some-static-iterative-non-cartesian-reconstructions" title="Link to this heading"></a></h1>
+<section id="introduction">
+<h2>Introduction<a class="headerlink" href="#introduction" title="Link to this heading"></a></h2>
 <p>The code of this tutorial is written in the file <cite>demo_script_2.m</cite> in the demonstration folder. As any demonstration script, you can open it and run it right away.</p>
 <p>We describe here how to call the static iterative reconstructions of Monalisa for non-cartesian data. They are called <strong>Sensa</strong>, <strong>Steva</strong> and <strong>Sensitiva</strong>.
 These reconstructions are not very efficient in practice but are of historical and theoretical interest. In particular, you can start from them to try
 coding novel reconstructions.</p>
+<p>A non-iterative reconstruction maps any possible data-set to a reconstructed image in one step (or a few ones). In contrast to iterative reconstructions
+(or at least conventional iterative reconstruction), there is no model involved in non-iterative reconstruction: no map modeling the measured data
+as a function of the reconstructed image is involved.</p>
+<p>In contrast, iterative reconstructions make use of a model that takes as argument a candidate image and maps it to some modeled data.
+The goal of the game is to find the candidate image for which the modeled data is as close as possible to the measured data, with respect to some predefined
+notion of distance as explained hereafter.</p>
+<p>The model involved in <em>Monalisa</em> is the same linear model like in all modern reconstruction: it is the composition of the coil-sensitivity matrix <span class="math notranslate nohighlight">\(C\)</span> and of the
+discrete Fourier transform (uniform or not) <span class="math notranslate nohighlight">\(F\)</span> that we define hereafter. Of note, some non-linear model exist but they model the transverse magnetization
+non-linearly as a function of other parameters (like proton densitiy, relaxtation rates…) and then model the data by applying <span class="math notranslate nohighlight">\(FC\)</span> to the modeled image.
+The linear model <span class="math notranslate nohighlight">\(FC\)</span> is thus still part of non-linear models.</p>
+<p>We have defined the coil-sensitivity matrix <span class="math notranslate nohighlight">\(C\)</span> in the previous tutorial, as well as the discret Fourier transform <span class="math notranslate nohighlight">\(\acute{F}_c\)</span> for each channel
+individualy. We defined here the discret Fourier transform (DFT) <span class="math notranslate nohighlight">\(F\)</span> for all channels simultaneously by the block matrix</p>
+<blockquote>
+<div><div class="math notranslate nohighlight">
+\[\begin{split}F =   \begin{pmatrix}
+        \acute{F}_1 &amp; 0   &amp; \cdots &amp; 0   \\
+        0   &amp; \acute{F}_2 &amp; \cdots &amp; 0   \\
+        \vdots &amp; \vdots &amp; \ddots &amp; \vdots \\
+        0   &amp; 0   &amp; \cdots &amp; \acute{F}_{nCh}
+        \end{pmatrix}\end{split}\]</div>
+</div></blockquote>
+<p>There is therefore one block for each channel. There are all identical because the <span class="math notranslate nohighlight">\(\acute{F}_c\)</span>’s’ are different only by their symbole.
+We also define the measured data vector <span class="math notranslate nohighlight">\(y_0\)</span> by catenating vertically all vectors <span class="math notranslate nohighlight">\(\acute{y}_{0, 1}, ..., \acute{y}_{0, nCh}\)</span>:</p>
+<blockquote>
+<div><div class="math notranslate nohighlight">
+\[\begin{split}y_0 =   \begin{pmatrix}
+        \acute{y}_{0, 1} \\
+        \acute{y}_{0, 2}   \\
+        \vdots \\
+        \acute{y}_{0, nCh}
+        \end{pmatrix}\end{split}\]</div>
+</div></blockquote>
+<p>As explained in the previous tutorial, the measured data <span class="math notranslate nohighlight">\(\acute{y}_{0, c}\)</span> is approximatively given by</p>
+<blockquote>
+<div><div class="math notranslate nohighlight">
+\[\acute{y}_{0, c} \approx \acute{F}_c \cdot \acute{x}_c^{\#} \approx \acute{F}_c \cdot C_c \cdot x^{\#}\]</div>
+</div></blockquote>
+<p>where <span class="math notranslate nohighlight">\(x^{\#}\)</span> is the ground-truth image that we idealy would like to reconstruct. We can now rewrite it for all channels simultaneously as</p>
+<blockquote>
+<div><div class="math notranslate nohighlight">
+\[y_0 \approx F \cdot \acute{x} \approx F \cdot C \cdot x^{\#}\]</div>
+</div></blockquote>
+<p>Since all norms are equivalent on <span class="math notranslate nohighlight">\(\mathbb{C}^n\)</span>, we can reformulate that approximation as</p>
+<blockquote>
+<div><div class="math notranslate nohighlight">
+\[\|  F \cdot C \cdot x^{\#} - y_0 \|_{Y,2}^2 \approx 0\]</div>
+</div></blockquote>
+<p>where <span class="math notranslate nohighlight">\(\| \cdot \|_{Y,2}\)</span> can be for the moment any 2-norm defined on the data space <span class="math notranslate nohighlight">\(Y\)</span>. It is the norm that provides the
+predefined distance mentioned above. For short, we will now write <span class="math notranslate nohighlight">\(FC\)</span> instead of <span class="math notranslate nohighlight">\(F \cdot C\)</span>.</p>
+<p>The true image <span class="math notranslate nohighlight">\(x^{\#}\)</span> will remain unkown. The goal of the reconstruction process will instead consist in finding among all candidate images
+<span class="math notranslate nohighlight">\(x \in X\)</span> the one(s) that best satisfy the above approximation. We will call <span class="math notranslate nohighlight">\(\hat{x}\)</span> that best match (which recall the notation of estimators in
+statistics) and we will hope that it is close to <span class="math notranslate nohighlight">\(x^{\#}\)</span>. Mathematically, the reconstruciton consists then in solving <em>argmin</em>-problem:</p>
+<blockquote>
+<div><div class="math notranslate nohighlight">
+\[\text{Find } \hat{x} \in S^{LSQ} := \underset{x \in X }{\operatorname{argmin}} \frac{1}{2} \| F  C  x - y_0 \|_{Y, 2}^2\]</div>
+</div></blockquote>
+<p>We wrote here <span class="math notranslate nohighlight">\(S^{LSQ}\)</span> the set of minimizers of the squared norm function</p>
+<blockquote>
+<div><div class="math notranslate nohighlight">
+\[x \longmapsto \frac{1}{2} \| F C x - y_0 \|_{Y, 2}^2\]</div>
+</div></blockquote>
+<p>It is the solution set of the <em>argmin</em>-problem just mentioned. We can show that it is never empty (there is always at leats one solution) and is an affine space
+parallel to <span class="math notranslate nohighlight">\(Ker(FC)\)</span> (the kernel of the the map <span class="math notranslate nohighlight">\(FC\)</span>). It follows that there is either a unique solution, in which case <span class="math notranslate nohighlight">\(Ker(FC) = \{0\}\)</span>,
+or infinitely many, in which case the solution set is an entire afine space. If there is a unique solution, we say that the data are fully sampled.
+If there is infinitely many (which is the usual case in practice for non-cartesian trajectories),
+we say that the data are partially- (or under-) sampled. This terminology is kind of abusive because full or partial sampling is not directly linked to the data themself,
+it is rather directly linked to <span class="math notranslate nohighlight">\(FC\)</span>, that is, to the sampling trajectory and the coil-sensitivity maps, independently of the data.</p>
+<p>The reconstruction process cannot solely consist in identifying the solution set <span class="math notranslate nohighlight">\(S^{LSQ}\)</span> because we have to provide one image to radiologists
+(not an infinite collection). A solution <span class="math notranslate nohighlight">\(\hat{x}\)</span> must then be chosen among all sotuions of that set. A process that consists in
+choosing one solution among other in a solution set is called a <em>regularization</em> (or <em>regularization process</em>).
+In practice, the solving of the above <em>argmin</em>-problem is done by chosing an initial candidate image <span class="math notranslate nohighlight">\(x_0\)</span> and then by performing the
+conjugate-gradient descent algorithm with <span class="math notranslate nohighlight">\(x_0\)</span> as initiail image. This leads in a finit number of steps to one single solution
+<span class="math notranslate nohighlight">\(\hat{x}\)</span> of <span class="math notranslate nohighlight">\(S^{SLQ}\)</span>. That method is known in the area of MRI reconstruction as the iterative-SENSE reconstruction
+(or conjugate-gradient SENSE or CG-SENSE). Since the method leads to a single solution of the solution set, it is inherently regularized.
+It can be shown (???ref. Math. Lang. for MRI recon.???) that the obtained solution <span class="math notranslate nohighlight">\(\hat{x}\)</span> is actually the orthogonal projection of the initial
+candidate image <span class="math notranslate nohighlight">\(x_0\)</span> onto the affine space <span class="math notranslate nohighlight">\(S^{LSQ}\)</span>. The regularization is then performed at the instant when the initial image
+<span class="math notranslate nohighlight">\(x_0\)</span> is chosen. Some readers probably have guess that an orthogonal projection in the space of images needs an notion of orthogonality, and thus of
+inner-product on the space of images. We will come back to that point a bit later. We shall just point out that in the case where the initial image <span class="math notranslate nohighlight">\(x_0\)</span>
+is chosen to be the zero-image (tha value 0 in each voxel), then leads the conjugate-gradient descent to the image with smallest 2-norm among all elements of
+<span class="math notranslate nohighlight">\(S^{LSQ}\)</span>. This is also equal to the Moore-Penrose pseudo inverse of <span class="math notranslate nohighlight">\(FC\)</span> applied to the measured data <span class="math notranslate nohighlight">\(y_0\)</span>.</p>
+<p>The result <span class="math notranslate nohighlight">\(\hat{x}\)</span> of the iterative-SENSE can however be quite far away from the unkown ideal target <span class="math notranslate nohighlight">\(x^{\#}\)</span>. This depends on the initial
+guess <span class="math notranslate nohighlight">\(x_0\)</span> which is most of the time arbitrary or chosen more or less randomly. There is no accepted method to choose it optimally.
+The attempt to fix that problem was probably the next step in the historical development of MRI reconstructions.</p>
+</section>
+<section id="initialisation-initial-image-and-gridding-matrices">
+<h2>Initialisation, initial image and gridding matrices<a class="headerlink" href="#initialisation-initial-image-and-gridding-matrices" title="Link to this heading"></a></h2>
 <p>The script contains the following section.</p>
 <ol class="arabic">
 <li><p><strong>Initialization</strong></p>
@@ -145,6 +237,11 @@ We will call both <em>Gridding matrices</em>. We evaluate them as follows.</p>
 </div>
 </div></blockquote>
 </li>
+</ol>
+</section>
+<section id="the-reconstructions">
+<h2>The reconstructions<a class="headerlink" href="#the-reconstructions" title="Link to this heading"></a></h2>
+<ol class="arabic" start="4">
 <li><p><strong>The least-square reconstruction: iterative-SENSE (Sensa)</strong></p>
 <blockquote>
 <div><p>The iterative-SENSE implementation of Monalisa is called ‘Sensa’. It solves a non-regularized least-square porblem and is called as follows.</p>
@@ -265,6 +362,7 @@ That means that the regularization is the <em>l2</em>-norm of the spatial deriva
 <div style="margin-bottom: 30px;"></div></div></blockquote>
 </li>
 </ol>
+</section>
 <section id="further-explanation">
 <h2>Further Explanation<a class="headerlink" href="#further-explanation" title="Link to this heading"></a></h2>
 <p>blablabla</p>

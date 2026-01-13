@@ -8,15 +8,15 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Tutorial 1 : A gridded-zero-padded reconstrcution for non-cartesian data &mdash; Monalisa Renaissance  documentation</title>
       <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=b86133f3" />
-      <link rel="stylesheet" type="text/css" href="_static/css/theme.css?v=e59714d7" />
+      <link rel="stylesheet" type="text/css" href="_static/css/theme.css?v=9edc463e" />
 
   
       <script src="_static/jquery.js?v=5d32c60e"></script>
       <script src="_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
       <script src="_static/documentation_options.js?v=5929fcd5"></script>
-      <script src="_static/doctools.js?v=9bcbadda"></script>
-      <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
-      <script async="async" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+      <script src="_static/doctools.js?v=fd6eb6e6"></script>
+      <script src="_static/sphinx_highlight.js?v=6ffebe34"></script>
+      <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@4/tex-mml-chtml.js"></script>
     <script src="_static/js/theme.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
@@ -45,10 +45,13 @@
         </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
               <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="1_installation.html">Installation</a></li>
-<li class="toctree-l1"><a class="reference internal" href="2_introduction.html">Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="2_th_background.html">Theoretical Background</a></li>
 <li class="toctree-l1 current"><a class="reference internal" href="3_tutorials.html">Tutorials</a><ul class="current">
 <li class="toctree-l2"><a class="reference internal" href="tutorial_0.html">Tutorial 0 : testing of the installation and of the multi-threading</a></li>
 <li class="toctree-l2 current"><a class="current reference internal" href="#">Tutorial 1 : A gridded-zero-padded reconstrcution for non-cartesian data</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#introduction">Introduction</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#initialization">Initialization</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#reconstructions">Reconstructions</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#further-explanation">Further Explanation</a></li>
 </ul>
 </li>
@@ -86,9 +89,14 @@
              
   <section id="tutorial-1-a-gridded-zero-padded-reconstrcution-for-non-cartesian-data">
 <h1>Tutorial 1 : A gridded-zero-padded reconstrcution for non-cartesian data<a class="headerlink" href="#tutorial-1-a-gridded-zero-padded-reconstrcution-for-non-cartesian-data" title="Link to this heading"></a></h1>
+<section id="introduction">
+<h2>Introduction<a class="headerlink" href="#introduction" title="Link to this heading"></a></h2>
 <p>The present script is written in the file <cite>demo_script_1.m</cite> in the demonstration folder. You can open it and run it right away.</p>
-<p>We present here <strong>Mathilda</strong>: a non-iterative reconstruction for non-cartesian data. When using Monalisa, this is usually the reconstruction we start with to make a first image of the
-data we want to work on.</p>
+<p>We present here <strong>Mathilda</strong>: a non-iterative reconstruction for non-cartesian data. When using Monalisa,
+this is usually the reconstruction we start with to make a first image of the data we want to work on.</p>
+</section>
+<section id="initialization">
+<h2>Initialization<a class="headerlink" href="#initialization" title="Link to this heading"></a></h2>
 <p>The script contains the following section.</p>
 <ol class="arabic">
 <li><p><strong>Initialization</strong></p>
@@ -115,6 +123,11 @@ interpolation of the non-cartesian data on a cartesian gridd of step-size
 <em>600 mm</em> (i.e. <span class="math notranslate nohighlight">\(\Delta k = \frac{1}{600} \frac{1}{mm}\)</span>)</p>
 </div></blockquote>
 </li>
+</ol>
+</section>
+<section id="reconstructions">
+<h2>Reconstructions<a class="headerlink" href="#reconstructions" title="Link to this heading"></a></h2>
+<ol class="arabic" start="2">
 <li><p><strong>Gridded-zeropadded reconstruction without coil combination</strong></p>
 <blockquote>
 <div><p>The reconstruction for gridded-zero-padded reconstruction in <em>Monalisa</em> is called <em>Mathilda</em>
@@ -200,9 +213,10 @@ the coil image <span class="math notranslate nohighlight">\(\acute{x}_c\)</span>
         \vdots &amp; \vdots &amp; \ddots &amp; \vdots \\
         0   &amp; 0   &amp; \cdots &amp; C_{c, nVox}
         \end{pmatrix}\end{split}\]</div>
-<p>Here are <span class="math notranslate nohighlight">\(C_{c, 1}, ..., C_{c, nVox}\)</span> the complex values of <span class="math notranslate nohighlight">\(C_c\)</span> listed in column major order from <span class="math notranslate nohighlight">\(1\)</span> to the total
-number of voxels in the frame <span class="math notranslate nohighlight">\(nVox\)</span>. We will admin that non of the diagonal entries of <span class="math notranslate nohighlight">\(C_c\)</span> is zero, which can always be
-satisfied in practice during the estimation of <span class="math notranslate nohighlight">\(C_c\)</span>. This ensure that each <span class="math notranslate nohighlight">\(C_c\)</span> is invertible.</p>
+<p>Here are <span class="math notranslate nohighlight">\(C_{c, 1}, ..., C_{c, nVox}\)</span> the complex values of the coil-sensitivity map number <span class="math notranslate nohighlight">\(c\)</span> listed in column major order
+from <span class="math notranslate nohighlight">\(1\)</span> to the total number of voxels in the frame <span class="math notranslate nohighlight">\(nVox\)</span>. We will admit that non of the diagonal entries
+of <span class="math notranslate nohighlight">\(C_c\)</span> is zero, which can always be satisfied in practice during the estimation of <span class="math notranslate nohighlight">\(C_c\)</span>.
+This ensures that each <span class="math notranslate nohighlight">\(C_c\)</span> is invertible.</p>
 <p>A common strategy to estimate <span class="math notranslate nohighlight">\(x\)</span> is then to pick the one that approaches as good as possible all
 <span class="math notranslate nohighlight">\(\acute{x}_c\)</span> when multiplied by <span class="math notranslate nohighlight">\(C_c\)</span>, for each <span class="math notranslate nohighlight">\(c\)</span> from <span class="math notranslate nohighlight">\(1\)</span> to <span class="math notranslate nohighlight">\(nCh\)</span>, in term of squared 2-norm:</p>
 <div class="math notranslate nohighlight">
@@ -242,11 +256,13 @@ problem as a unique solution. One can show as an exercise that seting the deriva
 <div class="math notranslate nohighlight">
 \[x  = (C^* \cdot C )^{-1} C^* \cdot \acute{x}\]</div>
 <p>Thank to the very simple structure of <span class="math notranslate nohighlight">\(C\)</span>, the right-hand side can be efficiently eveluated. The matrix <span class="math notranslate nohighlight">\((C^* \cdot C )^{-1} C^*\)</span>
-is a particular case of (Moore-Penrose) pseudo inverse: it is the pseudo inverse of a matrix with full column rank (here matrix <span class="math notranslate nohighlight">\(C\)</span> for instance).
+is a particular case of (Moore-Penrose) pseudo inverse: it is the pseudo inverse of a matrix with full column rank (here matrix <span class="math notranslate nohighlight">\(C\)</span> for instance) in the
+case where the involved inner-product are the standard ones (the ones that induce the stanard 2-norm).
 The evaluation of that pseudo-inverse on a list of coil-images is implemented in function <code class="docutils literal notranslate"><span class="pre">bmCoilSense_pinv</span></code>.</p>
 </div></blockquote>
 </li>
 </ol>
+</section>
 <section id="further-explanation">
 <h2>Further Explanation<a class="headerlink" href="#further-explanation" title="Link to this heading"></a></h2>
 <p>You did your first image reconstruction with Monalisa ! That is an event.</p>

@@ -40,7 +40,7 @@ or commercial usage must be done in collaboration with lincensors (see the LICEN
    :maxdepth: 3
 
    1_installation
-   2_introduction
+   2_th_background
    3_tutorials
    4_thermodynInfo
 

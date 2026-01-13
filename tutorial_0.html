@@ -8,14 +8,14 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Tutorial 0 : testing of the installation and of the multi-threading &mdash; Monalisa Renaissance  documentation</title>
       <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=b86133f3" />
-      <link rel="stylesheet" type="text/css" href="_static/css/theme.css?v=e59714d7" />
+      <link rel="stylesheet" type="text/css" href="_static/css/theme.css?v=9edc463e" />
 
   
       <script src="_static/jquery.js?v=5d32c60e"></script>
       <script src="_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
       <script src="_static/documentation_options.js?v=5929fcd5"></script>
-      <script src="_static/doctools.js?v=9bcbadda"></script>
-      <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+      <script src="_static/doctools.js?v=fd6eb6e6"></script>
+      <script src="_static/sphinx_highlight.js?v=6ffebe34"></script>
     <script src="_static/js/theme.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
@@ -44,9 +44,14 @@
         </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
               <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="1_installation.html">Installation</a></li>
-<li class="toctree-l1"><a class="reference internal" href="2_introduction.html">Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="2_th_background.html">Theoretical Background</a></li>
 <li class="toctree-l1 current"><a class="reference internal" href="3_tutorials.html">Tutorials</a><ul class="current">
-<li class="toctree-l2 current"><a class="current reference internal" href="#">Tutorial 0 : testing of the installation and of the multi-threading</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">Tutorial 0 : testing of the installation and of the multi-threading</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#introduction">Introduction</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#sparse-matrix-vector-multiplication">Sparse matrix-vector multiplication</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#further-explanation">Further explanation</a></li>
+</ul>
+</li>
 <li class="toctree-l2"><a class="reference internal" href="tutorial_1.html">Tutorial 1 : A gridded-zero-padded reconstrcution for non-cartesian data</a></li>
 <li class="toctree-l2"><a class="reference internal" href="tutorial_2.html">Tutorial 2 : Some static, iterative, non-cartesian reconstructions</a></li>
 <li class="toctree-l2"><a class="reference internal" href="tutorial_3.html">Tutorial 3 : Iterative CINE reconstructions with 1 temporal dimension for non-cartesian data</a></li>
@@ -82,10 +87,15 @@
              
   <section id="tutorial-0-testing-of-the-installation-and-of-the-multi-threading">
 <h1>Tutorial 0 : testing of the installation and of the multi-threading<a class="headerlink" href="#tutorial-0-testing-of-the-installation-and-of-the-multi-threading" title="Link to this heading"></a></h1>
+<section id="introduction">
+<h2>Introduction<a class="headerlink" href="#introduction" title="Link to this heading"></a></h2>
 <p>The present script is written in the file <cite>demo_script_0.m</cite> in the demonstration folder. Just open it in your matlab and run it.
 It is a basic example that tests the sparse matrix-vector multiplication with multi-threading (one thread per channel). This script is kind
 of the test of the installation. If it runs smooths like described here, then you can consider the toolbox is installed. Just make sure you
 have at least 32 Go of memory to run that script.</p>
+</section>
+<section id="sparse-matrix-vector-multiplication">
+<h2>Sparse matrix-vector multiplication<a class="headerlink" href="#sparse-matrix-vector-multiplication" title="Link to this heading"></a></h2>
 <ol class="arabic">
 <li><p><strong>Initialization</strong></p>
 <blockquote>
@@ -159,6 +169,24 @@ reconstruct your first MR images.</p>
 </div></blockquote>
 </li>
 </ol>
+</section>
+<section id="further-explanation">
+<h2>Further explanation<a class="headerlink" href="#further-explanation" title="Link to this heading"></a></h2>
+<p>For the moment, there are four kinds of sparse matrices involved in <em>Monalisa</em> : gridding matrices, their transpose matrices,
+deformation matrices (which are actually also akind of gridding matrices), and their transpose matrices.</p>
+<p>A gridding matrix will usually be written <code class="docutils literal notranslate"><span class="pre">Gu</span></code> and its transpose <code class="docutils literal notranslate"><span class="pre">Gut</span></code>. The task of a matrix <code class="docutils literal notranslate"><span class="pre">Gu</span></code> is to gridd some
+data living on a Cartesian gridd onto a non-cartesian trajectory. The operation performed by <code class="docutils literal notranslate"><span class="pre">Gut</span></code> sent data living on the
+non-cartesian trajectory back onto the Cartesian gridd, but it is NOT the inverse operation of <code class="docutils literal notranslate"><span class="pre">Gu</span></code>. Matrix <code class="docutils literal notranslate"><span class="pre">Gut</span></code>
+is the transpose of <code class="docutils literal notranslate"><span class="pre">Gu</span></code>, not the inverse. The gridding matrices are not unitatry. Gridding matrices have in general no inverse.
+We emplemented in <em>Monalisa</em> another sparse matrix which behaves approximately like an inverse of <code class="docutils literal notranslate"><span class="pre">Gut</span></code> in case the non-cartesian
+trajectory is well sampled. We write usually this matrix <code class="docutils literal notranslate"><span class="pre">Gn</span></code>. If you multiply an image vectory by <code class="docutils literal notranslate"><span class="pre">Gu</span></code> and then again by <code class="docutils literal notranslate"><span class="pre">Gn</span></code>,
+you will get approximlately the original image vector if you non-cartesian trajectory is well sampled.</p>
+<p>All what was said for <code class="docutils literal notranslate"><span class="pre">Gu</span></code> and <code class="docutils literal notranslate"><span class="pre">Gut</span></code> is also true for <code class="docutils literal notranslate"><span class="pre">Tu</span></code> and <code class="docutils literal notranslate"><span class="pre">Tut</span></code>. The deformation matrices are just a special
+case of gridding matrices for which the non-cartesian trajectory has exactly as many points as the number of
+voxels in the Cartesian grid. Given an image vector, multiplying it with <code class="docutils literal notranslate"><span class="pre">Tu</span></code> will deforme it. Multiplying it with an approximative
+inverse of <code class="docutils literal notranslate"><span class="pre">Tu</span></code>, that we usually call <code class="docutils literal notranslate"><span class="pre">Tn</span></code>, will bring it back close to the original image. This cannot be achieved with <code class="docutils literal notranslate"><span class="pre">Tut</span></code>,
+which is the transpose matrix of <code class="docutils literal notranslate"><span class="pre">Tu</span></code>, not its inverse.</p>
+</section>
 </section>
 
 
