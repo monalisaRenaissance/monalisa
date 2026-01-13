@@ -1,0 +1,488 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="./">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Some Notions of MRI Physics &mdash; Monalisa Renaissance  documentation</title>
+      <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="_static/css/theme.css?v=e59714d7" />
+
+  
+      <script src="_static/jquery.js?v=5d32c60e"></script>
+      <script src="_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="_static/documentation_options.js?v=5929fcd5"></script>
+      <script src="_static/doctools.js?v=9bcbadda"></script>
+      <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+      <script async="async" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script src="_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="The Discret Reconstruction Problems" href="2_2_recon_problem.html" />
+    <link rel="prev" title="Theoretical Background" href="2_th_background.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="index.html" class="icon icon-home">
+            Monalisa Renaissance
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="1_installation.html">Installation</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="2_th_background.html">Theoretical Background</a><ul class="current">
+<li class="toctree-l2 current"><a class="current reference internal" href="#">Some Notions of MRI Physics</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#the-vec-m">The <span class="math notranslate nohighlight">\(\vec{M}\)</span></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#the-vec-b-0">The <span class="math notranslate nohighlight">\(\vec{B}_0\)</span></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#thermal-equilibrium">Thermal Equilibrium</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#the-vec-b-1">The <span class="math notranslate nohighlight">\(\vec{B}_1\)</span></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#the-larmor-frequency">The Larmor Frequency</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#the-selection-of-the-resonating-nuclei">The selection of the resonating nuclei</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#excitation-of-resonating-nuclei">Excitation of resonating nuclei</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#free-relaxation">Free relaxation</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#reciprocity-principle">Reciprocity principle</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#steady-state">Steady State</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#signal-equation">Signal equation</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="2_2_recon_problem.html">The Discret Reconstruction Problems</a></li>
+<li class="toctree-l2"><a class="reference internal" href="2_3_algorithms.html">Algorithms</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="3_tutorials.html">Tutorials</a></li>
+<li class="toctree-l1"><a class="reference internal" href="4_thermodynInfo.html">Sketching a Classical Thermodynamic Theory of Information for MRI Reconstructions</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">Monalisa Renaissance</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="2_th_background.html">Theoretical Background</a></li>
+      <li class="breadcrumb-item active">Some Notions of MRI Physics</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="_sources/2_1_MRI_physics.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="some-notions-of-mri-physics">
+<h1>Some Notions of MRI Physics<a class="headerlink" href="#some-notions-of-mri-physics" title="Link to this heading"></a></h1>
+<section id="the-vec-m">
+<h2>The <span class="math notranslate nohighlight">\(\vec{M}\)</span><a class="headerlink" href="#the-vec-m" title="Link to this heading"></a></h2>
+<p>The reconstructions in <em>Monalisa</em> are currently concerned with classical reconstructions only. By “classical”, we mean among other things that the image
+we reconstruct is a measurment in each voxel center of a complex-valued physical quantity that has the unit of a magnetization: it is a quantity of magnetic
+dipol moment per unit volume. This measured complex valued quantity is more or less related to the physical magnetisation that would be
+present in the sample at certain time points (echo times) during a virtual MRI experiment in which k-space encoding gradient fields were disabled,
+as explained more in details hereafter. Understanding the content of an MRI image as reconstructed by our toolbox implies therefore to describe
+what is the <em>magnetisation</em>, and how it is related to the voxel values of the reconstructed image.</p>
+<p>We begin by the concept of <em>magnetization</em>. This concept originates from the classical electrodynamics,
+but is actually the macroscopic manifestation of microscopic particles and electric currents that behaves according to
+the laws of quantum mechanic. Since a formal description of magnetization from its quantum origin is out of the scope of this blog, we will
+limit ourself to the description of some properties of the macroscopic magnetisation that are sufficient to interpret an image as
+reconstructed by our functions.</p>
+<p>First of all, the magnetization in the sample is a time dependent vector field.
+To be precise it is a pseudo vector field because of the way it transforms by a change of frame.
+But we don’t do any change of frame here. For us it is just a vector field. We will write
+<span class="math notranslate nohighlight">\(\vec{M}(\vec{r}, t)\)</span> the magnetization at position <span class="math notranslate nohighlight">\(\vec{r}\)</span> at time <span class="math notranslate nohighlight">\(t\)</span>. For the moment, we will set the
+origin of space at the iso-center of the scanner: the point where all gradient fields are always zero. A position
+vector <span class="math notranslate nohighlight">\(\vec{r}\)</span> is therefore the vector that starts at the iso-center and reach the position in question.</p>
+<p>Second, the vector valued function <span class="math notranslate nohighlight">\(\vec{M}(\cdot, \cdot)\)</span> must be chosen so that the magnetic dipole moment <span class="math notranslate nohighlight">\(\vec{m}(t)\)</span>,
+at time <span class="math notranslate nohighlight">\(t\)</span>, of a small piece of the sample with volume <span class="math notranslate nohighlight">\(\delta V\)</span> is well approximated by the expression</p>
+<blockquote>
+<div><div class="math notranslate nohighlight">
+\[\vec{m}(t) \approx \int_{\delta V} \vec{M}(\vec{r}, t)   d^{3}r\]</div>
+</div></blockquote>
+<p>If you prefere a different view angle, we can assume that such a function exist and we call it the <em>(macroscopic) magnetization</em>.</p>
+<p>A third (weired) property of magnetization is that it is not uniquely defined. That is the main reason why the author
+renounced to give a formal definition of <span class="math notranslate nohighlight">\(\vec{M}(\cdot, \cdot)\)</span>. It is possible that there exist none.
+A definition present in traditional text books relies on the assumption that the microscopic origin
+of magnetization are small classical dipole moments: given a collection of magnetic dipoles with magnetic
+moments <span class="math notranslate nohighlight">\(\vec{\mu}_1(t), \vec{\mu}_2(t), ...\)</span> located at positions <span class="math notranslate nohighlight">\(\vec{r}_1, \vec{r}_2, ...\)</span>, the magnetization at
+position <span class="math notranslate nohighlight">\(\vec{r}\)</span> is then defined by</p>
+<blockquote>
+<div><div class="math notranslate nohighlight">
+\[\vec{M}(\vec{r}, t) := \frac{1}{\Delta V} \sum_{\vec{r}_i \in \Delta V} \vec{\mu}_i(t)\]</div>
+</div></blockquote>
+<p>where <span class="math notranslate nohighlight">\(\Delta V\)</span> is a small volume that contains position <span class="math notranslate nohighlight">\(\vec{r}\)</span>, which is small enough so that all
+external fields in that volume are almost constant, and which is large enought so that it constains a very large number microscopic
+dipoles. The problem is that definition does not dictates the shape of <span class="math notranslate nohighlight">\(\Delta V\)</span> nor its magnitude so that <span class="math notranslate nohighlight">\(\vec{M}(\vec{r}, t)\)</span>
+is not uniquely defined. Alternatively, as usually done in lessons of macroscopic electrodynamic, the macroscopic quantities
+can be defined by a weighted average of the microscopic quantities. We choose for that a non-negative valued well behaved (at least integrable)
+weight function of space <span class="math notranslate nohighlight">\(w(\cdot)\)</span> that is mostly non-zero arround the spatial origin and diseapear elsewhere.
+We define then the macroscopic magnetization as</p>
+<blockquote>
+<div><div class="math notranslate nohighlight">
+\[\vec{M}(\vec{r}, t) := \frac{1}{\int_{\mathbb{R}^3} w(\vec{r}') d^3r'} \int_{\mathbb{R}^3} \vec{\mu}(\vec{r}', t) w(\vec{r} - \vec{r}') d^3r'\]</div>
+</div></blockquote>
+<p>where the microscopic dipole density is <span class="math notranslate nohighlight">\(\vec{\mu}(\cdot, \cdot)\)</span> is given by</p>
+<blockquote>
+<div><div class="math notranslate nohighlight">
+\[\vec{\mu}(\vec{r}, t) := \sum_i \vec{\mu}_i(t) \delta(\vec{r} - \vec{r}_i)\]</div>
+</div></blockquote>
+<p>with <span class="math notranslate nohighlight">\(\vec{r}_i\)</span> being the position of dipole <span class="math notranslate nohighlight">\(\vec{\mu}_i\)</span>. This average is consistent with the previous one since setting
+<span class="math notranslate nohighlight">\(w(\cdot)\)</span> equal to 1 inside <span class="math notranslate nohighlight">\(\Delta V\)</span> and zero outside in the weighted average leads to the first (non-weighted) average.
+But again, this definition of <span class="math notranslate nohighlight">\(\vec{M}(\cdot, \cdot)\)</span> depends on the choice of the weight function <span class="math notranslate nohighlight">\(w(\cdot)\)</span> which allows some
+freedom. The author does not know how to interpretate this apparent freedom in the definition of <span class="math notranslate nohighlight">\(\vec{M}(\vec{r}, t)\)</span>. One possibility is that
+any well chosen function <span class="math notranslate nohighlight">\(w(\cdot)\)</span> or volum <span class="math notranslate nohighlight">\(\Delta V\)</span> acoodring to the criteria mentioned above can do the job because they would lead to
+very close notions of macroscopic magnetization. Another possibility is that given an experiment that estimates <span class="math notranslate nohighlight">\(\vec{M}(\vec{r}, t)\)</span>, then
+there exist a function <span class="math notranslate nohighlight">\(w(\cdot)\)</span> or volum <span class="math notranslate nohighlight">\(\Delta V\)</span> which depends on the experimental aparatus
+and which lead to the notion of magnetisation that is estimated by the experiment.
+If you have an idea write me an email, let’s drink a coffee, let’s get sick together…
+We have say anough on the definition of <em>magnetization</em> for the purpose of reconstruction.</p>
+</section>
+<section id="the-vec-b-0">
+<h2>The <span class="math notranslate nohighlight">\(\vec{B}_0\)</span><a class="headerlink" href="#the-vec-b-0" title="Link to this heading"></a></h2>
+<p>We want to arrive to the point where we can link the magnetization of a sample to the complex valued quantity measured by the imaging of that sample.
+But that way is still long. To reach that goal, we will try to describe the MRI experiment and as first in that direction, we chose
+to describe the main static magnetic field <span class="math notranslate nohighlight">\(\vec{B}_0\)</span> that is maintained my the main magnet of the scanner.</p>
+<p>One of the major component of any MRI scanner is a large magnet made either of permanent magnets or some superconductor wires carrying a strong direct
+electric current. Whatever is the nature of that magnet, its task is to maintain a very strong static external magnetic field in a region of a
+few centimeter in dimater arround the iso-center (the point where all gradient fields are always zero) and we will call that region the “volume of interest”.
+It is where all necessary condition for the MRI experiment to happen will approximately be met and it is therefore were the sample is placed.
+We will call <span class="math notranslate nohighlight">\(\vec{B}_0\)</span> the strong static magnetic field generated by the main magnet of the machine.
+It should be idealy spatially constant in the volume of interest (and it is as long as the scanner is empty),
+but since the sample has a different magnetic susceptibility than air, the field lines are always bended in space once the sample is in place and
+the <span class="math notranslate nohighlight">\(\vec{B}_0\)</span> is not spatially constant, despite all efforts of the engineer who developed
+methods (called “shimming”) to compensate for those inhomogeneities. We therefore write the spatial dependence of <span class="math notranslate nohighlight">\(\vec{B}_0\)</span> explicitely
+by writing <span class="math notranslate nohighlight">\(\vec{B}_0(\vec{r})\)</span>. For convenience, we also define <span class="math notranslate nohighlight">\(P(\vec{r})\)</span> to be the only plan through postion <span class="math notranslate nohighlight">\(\vec{r}\)</span> and
+which is perpendicular to <span class="math notranslate nohighlight">\(\vec{B}_0(\vec{r})\)</span>.</p>
+</section>
+<section id="thermal-equilibrium">
+<h2>Thermal Equilibrium<a class="headerlink" href="#thermal-equilibrium" title="Link to this heading"></a></h2>
+<p>Before a sample is placed inside the volume of interest, it must have a zero (macroscopic) magnetization. If your sample, or a part of it, has
+a non-zero magnetization even in absence of external magnetic field, it means that the sample contains a feromagnetic
+material and all feromagnetic materials MUST reamin outside the MRI scanner room in order to not create a deadly acident.
+For security reason, we also insist on the fact that feromagnetic materials with zero magnetization also MUST stay outside the MRI
+scanner room because they will become a potentially deadly magnet as soon as the static magnetic field of the MRI machine will induce a non-zero
+magnetization inside them. And since we are mentioning a few security rules, also make sure that the sample contains no metal because
+any piece of metal present in the MRI scanner may become extremely hot during the MRI experiment. Now that we are safe,
+we can begin the experiment by placing a non-fermagnetic and non-metalic sample in the volume of interest, like a cat or a hedgehog.</p>
+<p>During the next second or next few seconds after the sample is put in place, thermal equilibrium will establish.
+In order to simplify the description, we will assume that the sample remains static with repect to the iso-center of the MRI scanner.
+We will therefore place the sample in the volume of interest and ask the sample to not move.
+As part of that transition to thermal equilibrium, each part of the sample will acquire a small but significant non-zero magnetization. The microscopic
+origin of magnetization includes the microscopic motion of charges (such as the motion of electrons) and the intrinsic magnetic moments of microscopic particles
+that we call <em>spins</em>. The magnetization originates from the combination of all contributions. In the context of MRI however, the detectable magnetization
+is exclusively genereted by nuclei. One may argue that part of that magnetization can be transferd to nuclei from eletron spins but we
+neglect magntization transfer here. We will therefore neglect any magnetiation contribution that originates from other things than nuclei.</p>
+<p>The non-zero magnetization due to the spins of nuclei and which appears as part of the transition to thermal equilibrium results from
+the phenomenon of spin-latice relaxation. It is often explained that the spins of some nulei align parallel to <span class="math notranslate nohighlight">\(\vec{B}_0(\vec{r})\)</span> and the others
+align anti-parallel to <span class="math notranslate nohighlight">\(\vec{B}_0(\vec{r})\)</span>, and that the excess of spins in one direction is responsible for the non-zero magnetization
+that establish during the transition to thermal equilibrium. This is however not accurate. In fact, if a single nucleus with non-zero spin is placed
+in empty space in absence of external magnetic field, and if we suddenly turn on a constant static magnetic field, the spin of the nucleus will
+not aligne or anti-aligne with that field. Instead, the expectation value of its magnetic moment will precess arround the direction of the magnetic field.
+It is the interaction between the spins of nuclei and the external magnetic field, together with the interaction between the nuclear spins and
+their environment (called the “latice” in the context of MRI) which aligne or anti align the spins with the external magnetic field. Spin-latice relaxation
+needs therefore the presence of the lattice to happen, which explains its name.</p>
+<p>Finally, the reason why more spins will align in one direction than in the other
+(with respect to the direction of <span class="math notranslate nohighlight">\(\vec{B}_0(\vec{r})\)</span>) can be explained by the (temperature dependent) Botlzmann energy distribution of the spins,
+since the hamiltonian of nuclei with non-zero spin contains a term that couples to the external magnetic field.
+But zooming into that box will not help us to better understand the basis of reconstruction.</p>
+</section>
+<section id="the-vec-b-1">
+<h2>The <span class="math notranslate nohighlight">\(\vec{B}_1\)</span><a class="headerlink" href="#the-vec-b-1" title="Link to this heading"></a></h2>
+<p>The next step of the MRI experiment is to produce a radio-frequency (RF) eletromagnetic wave inside the volume of interest, which have certain properties
+that will allow energy to be exchanged between that eletromagnetic wave and some of the nulei with non-zero spins present in the sample by the phenomenon of
+nuclear magnetic resonance (NMR). This RF eletromagnetic wave is usually turned on during some very brief time intervals. It is why it is often called a plused RF
+electromagnetic wave, or pulsed RF electromagnetic field. We will call it “pulsed RF wave” for short.</p>
+<p>The nuclei of the sample that exchange energy with that pulsed RF wave by NMR will be called “resonating nuclei” in the present text.
+Only those nuclei that satisfies a specific condition described here after will be resonating nuclei.
+The magnetic component of the pulsed RF wave at position <span class="math notranslate nohighlight">\(\vec{r}\)</span> at time <span class="math notranslate nohighlight">\(t\)</span> will be
+written <span class="math notranslate nohighlight">\(\vec{B}_1(\vec{r}, t)\)</span>. We will further write <span class="math notranslate nohighlight">\(\vec{B}_{1, \perp}(\vec{r}, t)\)</span> the orthogonal projection
+of <span class="math notranslate nohighlight">\(\vec{B}_1(\vec{r}, t)\)</span> onto the plan <span class="math notranslate nohighlight">\(P(\vec{r})\)</span>. A necessary condition for NMR to happen with the nuclei at position <span class="math notranslate nohighlight">\(\vec{r}\)</span>
+is that <span class="math notranslate nohighlight">\(\vec{B}_{1, \perp}(\vec{r}, t)\)</span> is non-zero. We chose further a right-handed orthonormal vector basis of the 3-dimensional physical space of positions
+by chosing three orthogonal unit vectors <span class="math notranslate nohighlight">\(\hat{e}_x, \hat{e}_y, \hat{e}_z\)</span>. We chose it so, that <span class="math notranslate nohighlight">\(\hat{e}_z\)</span> is perpendicular to the plan <span class="math notranslate nohighlight">\(P\)</span> and so
+that <span class="math notranslate nohighlight">\(\hat{e}_x\)</span> and <span class="math notranslate nohighlight">\(\hat{e}_y\)</span> lies in that plan. We don’t specify how we chose them, we only assume that we can make such a choice.
+Of note, the three basis vectors can have a different orientation at different positions <span class="math notranslate nohighlight">\(\vec{r}\)</span> because the plan <span class="math notranslate nohighlight">\(P\)</span> changes across space.
+But this is not a problem. We can now decompose <span class="math notranslate nohighlight">\(\vec{B}_{1, \perp}(\vec{r}, t)\)</span> as coordinate <span class="math notranslate nohighlight">\(B_{1, x}(\vec{r}, t)\)</span> in the
+<span class="math notranslate nohighlight">\(\hat{e}_x\)</span> direction and another <span class="math notranslate nohighlight">\(B_{1, y}(\vec{r}, t)\)</span> in the <span class="math notranslate nohighlight">\(\hat{e}_y\)</span> direction.</p>
+<p>The mentioned necessary condition for NMR to happens will be refined to a necessary and sufficient condition in the sequel. But formulating that new
+condition requires the definition of the time-frequency spectrum of <span class="math notranslate nohighlight">\(\vec{B}_{1, \perp}(\vec{r}, \cdot)\)</span> and it is why we have to define it here.</p>
+<p>For that purpose, it is extremely convenient to write <span class="math notranslate nohighlight">\(\vec{B}_{1, \perp}(\vec{r}, t)\)</span> as a complex number <span class="math notranslate nohighlight">\(B_{1, \perp}(\vec{r}, t)\)</span>
+that we define as</p>
+<blockquote>
+<div><div class="math notranslate nohighlight">
+\[B_{1, \perp}(\vec{r}, t) := B_{1, x}(\vec{r}, t) + i \cdot B_{1, y}(\vec{r}, t)\]</div>
+</div></blockquote>
+<p>where <span class="math notranslate nohighlight">\(i\)</span> is the square root of <span class="math notranslate nohighlight">\(-1\)</span>. Assuming that the function <span class="math notranslate nohighlight">\(B_{1, \perp}(\vec{r}, \cdot)\)</span> is squared integrable,
+we can then write it as the Fourier inverse of its tempral Fourier transform <span class="math notranslate nohighlight">\(\mathcal{F}B_{1, \perp}(\vec{r}, \cdot)\)</span>:</p>
+<blockquote>
+<div><div class="math notranslate nohighlight">
+\[B_{1, \perp}(\vec{r}, t) = \int_{\mathbb{R}} d\nu \  \mathcal{F}B_{1, \perp}(\vec{r}, \nu) \cdot e^{i2\pi \nu t}\]</div>
+</div></blockquote>
+<p>The temporal Fourier transform <span class="math notranslate nohighlight">\(\mathcal{F}B_{1, \perp}(\vec{r}, \cdot)\)</span> is the temporal frequency spectrum of <span class="math notranslate nohighlight">\(B_{1, \perp}(\vec{r}, \cdot)\)</span>.
+The above expression gives <span class="math notranslate nohighlight">\(\vec{B}_{1, \perp}\)</span> in terms of complex valued quantities but this is just a convenient notation in our presentation.
+In fact, the real-valued components of <span class="math notranslate nohighlight">\(\vec{B}_{1, \perp}\)</span> can be written in term of real-valued component as</p>
+<blockquote>
+<div><div class="math notranslate nohighlight">
+\[\begin{split}\vec{B}_{1, \perp}(\vec{r}, t) = \int_{\mathbb{R}} d\nu \  \left| \mathcal{F}B_{1, \perp}(\vec{r}, \nu) \right| \cdot \begin{pmatrix} cos(2\pi \nu t + \phi(\vec{r}, \nu)) \\ sin(2\pi \nu t + \phi(\vec{r}, \nu)) \end{pmatrix}\end{split}\]</div>
+</div></blockquote>
+<p>where <span class="math notranslate nohighlight">\(\left| \mathcal{F}B_{1, \perp}(\vec{r}, \nu) \right|\)</span> is the magnitude of <span class="math notranslate nohighlight">\(\mathcal{F}B_{1, \perp}(\vec{r}, \nu)\)</span> and
+<span class="math notranslate nohighlight">\(\phi(\vec{r}, \nu)\)</span> its phase. The column coordinate vector has to be here interpreted in the vector basis <span class="math notranslate nohighlight">\((\hat{e}_x, \hat{e}_y)\)</span> and
+its physical meaning is as a rotating magnetic field of unit magnitude which rotates with time-frequency <span class="math notranslate nohighlight">\(\nu\)</span> arround <span class="math notranslate nohighlight">\(\vec{B}_0(\vec{r})\)</span>
+according to right-hand rule for <span class="math notranslate nohighlight">\(\nu\)</span> positive, and according to the left-hand rule for <span class="math notranslate nohighlight">\(\nu\)</span> negative. The integral is thus clearly
+a superposition of rotating magnetic fields that rotates with constant frequency, each being weighted by the
+magitude <span class="math notranslate nohighlight">\(\left| \mathcal{F}B_{1, \perp}(\vec{r}, \nu) \right|\)</span> and dephased by the phase <span class="math notranslate nohighlight">\(\phi(\vec{r}, \nu)\)</span>.</p>
+<p>To the rotation arround <span class="math notranslate nohighlight">\(\vec{B}_0(\vec{r})\)</span> with time-frequency <span class="math notranslate nohighlight">\(\nu\)</span> corresponds the frequency vector <span class="math notranslate nohighlight">\(\vec{\nu}\)</span> related to <span class="math notranslate nohighlight">\(\nu\)</span> by</p>
+<blockquote>
+<div><div class="math notranslate nohighlight">
+\[\vec{\nu} = \nu \cdot \hat{e}_z\]</div>
+</div></blockquote>
+<p>We will call <span class="math notranslate nohighlight">\(\vec{\nu}\)</span> the “vectorial frequency” and <span class="math notranslate nohighlight">\(\nu\)</span> the “scalar frequency”. If we just say “frequency”, the reader has to guess from the
+context which one it is. The scalar frequency can also be recovered from the vectorial one by the relation</p>
+<blockquote>
+<div><div class="math notranslate nohighlight">
+\[\nu = \vec{\nu} \cdot \hat{e}_z\]</div>
+</div></blockquote>
+<p>A positive value of <span class="math notranslate nohighlight">\(\nu\)</span> corresponds to a rotation arround <span class="math notranslate nohighlight">\(\vec{B}_0(\vec{r})\)</span> according to right hand rule (counter clockwise).
+This corresponds to a vector <span class="math notranslate nohighlight">\(\vec{\nu}\)</span> parallel to <span class="math notranslate nohighlight">\(\vec{B}_0(\vec{r})\)</span>.
+Conversely, a negative value of <span class="math notranslate nohighlight">\(\nu\)</span> corresponds to a rotation arround <span class="math notranslate nohighlight">\(\vec{B}_0(\vec{r})\)</span> according to left hand rule (clockwise).
+This corresponds to a vector <span class="math notranslate nohighlight">\(\vec{\nu}\)</span> anti-parallel to <span class="math notranslate nohighlight">\(\vec{B}_0(\vec{r})\)</span>.</p>
+<p>We used the time-frequency <span class="math notranslate nohighlight">\(\nu\)</span> for our definitions instead of the angular velocity <span class="math notranslate nohighlight">\(\omega\)</span> in order to avoid the <span class="math notranslate nohighlight">\(2 \pi\)</span> factors
+in front of the Fourier integrals, which is purely a matter of taste. In the sequel, we will also make use of the angular velocity beause the
+Larmor frequencies explained hereafter are traditionally given in terms of angular velocities. Fortunately, <span class="math notranslate nohighlight">\(\nu\)</span> and <span class="math notranslate nohighlight">\(\omega\)</span> are identical
+up to a factor. It holds:</p>
+<blockquote>
+<div><div class="math notranslate nohighlight">
+\[\omega = 2 \ \pi \cdot \nu\]</div>
+</div></blockquote>
+<p>an accordingly for their vectorial counter-parts:</p>
+<blockquote>
+<div><div class="math notranslate nohighlight">
+\[\vec{\omega} = 2 \ \pi \cdot \vec{\nu}\]</div>
+</div></blockquote>
+<p>To terminate this subsection on <span class="math notranslate nohighlight">\(\vec{B}_1\)</span>, we shall finally mention that the spatial homogeneity of the reconstructed image will
+depend on the spatial configuration of <span class="math notranslate nohighlight">\(\vec{B}_{1, \perp}(\vec{r}, t)\)</span> over the sample. This spatial configuration depends of course of
+the design of the coil that emits the pulse RF wave, and also on the position of sample with respect to that coil.
+But less intuitively, the spatial configuration of <span class="math notranslate nohighlight">\(\vec{B}_{1, \perp}(\vec{r}, t)\)</span> also depends on the <span class="math notranslate nohighlight">\(\vec{B}_0(\vec{r})\)</span> since
+<span class="math notranslate nohighlight">\(\vec{B}_{1, \perp}(\vec{r}, t)\)</span> is the orthogonal projection of <span class="math notranslate nohighlight">\(\vec{B}_1(\vec{r}, t)\)</span> onto <span class="math notranslate nohighlight">\(P\)</span>.
+If <span class="math notranslate nohighlight">\(\vec{B}_0(\vec{r})\)</span> changes, by re-shimming for example, then will <span class="math notranslate nohighlight">\(\vec{B}_{1, \perp}(\vec{r}, t)\)</span> also change.</p>
+</section>
+<section id="the-larmor-frequency">
+<h2>The Larmor Frequency<a class="headerlink" href="#the-larmor-frequency" title="Link to this heading"></a></h2>
+<p>Formulating a necessary and sufficient condition fot NMR to happens also involves the Larmor frequency of the nuclei present in the sample and
+therefore their gyromagnetic ratio. To each type of nuclei, nature have associated a real-valued constant <span class="math notranslate nohighlight">\(\gamma\)</span> , called “gyromagnetic ratio”,
+which depends on the type of nuclei (one <span class="math notranslate nohighlight">\(\gamma\)</span> for H, one other for He, …). The Larmor frequency of a nucleus at
+position <span class="math notranslate nohighlight">\(\vec{r}\)</span> is then given by its <span class="math notranslate nohighlight">\(\gamma\)</span> and by the local static magnetic field experienced by the nucleus at
+position <span class="math notranslate nohighlight">\(\vec{r}\)</span>. This local static magnetic field can be decomposed as the sum
+of a macroscopic component, that we defined as <span class="math notranslate nohighlight">\(\vec{B}_0(\vec{r})\)</span>, and a microscopic component that we will write <span class="math notranslate nohighlight">\(\vec{B}^{micro}_0(\vec{r})\)</span>.
+Some authors decide to absorbe <span class="math notranslate nohighlight">\(\vec{B}^{micro}_0(\vec{r})\)</span> in the definition of <span class="math notranslate nohighlight">\(\vec{B}_0(\vec{r})\)</span>, in which case <span class="math notranslate nohighlight">\(\vec{B}_0(\vec{r})\)</span> is
+the local (not spatialy average) static magnetic field. Here we do the choice to define <span class="math notranslate nohighlight">\(\vec{B}_0(\vec{r})\)</span> as the macroscopic magnetic field (including
+the effect of magnetic suceptibility) and we <span class="math notranslate nohighlight">\(\vec{B}^{micro}_0(\vec{r})\)</span> to be the difference between <span class="math notranslate nohighlight">\(\vec{B}_0(\vec{r})\)</span> and the
+local static magnetic field. The local (not spatially averaged) static magnetic field experienced by a nucleus at position <span class="math notranslate nohighlight">\(\vec{r}\)</span> is thus</p>
+<blockquote>
+<div><div class="math notranslate nohighlight">
+\[\vec{B}_0(\vec{r}) + \vec{B}^{micro}_0(\vec{r})\]</div>
+</div></blockquote>
+<p>without defining a new symbo for it. The contribution <span class="math notranslate nohighlight">\(\vec{B}^{micro}_0(\vec{r})\)</span> is mainly due to the electronic environment of the nucleus and
+it depends therefore on the type of molecule the nucleus belongs to. But in any case, as explained in conventional textbooks, we will assume that
+<span class="math notranslate nohighlight">\(\vec{B}^{micro}_0(\vec{r})\)</span> is either parallel or anti-parallel to <span class="math notranslate nohighlight">\(\vec{B}_0(\vec{r})\)</span>, which can be physically justified by the movment of electrons
+induced by <span class="math notranslate nohighlight">\(\vec{B}_0(\vec{r})\)</span>. It follows that <span class="math notranslate nohighlight">\(\vec{B}^{micro}_0(\vec{r})\)</span> either reinforce or weaken <span class="math notranslate nohighlight">\(\vec{B}_0(\vec{r})\)</span> arround the nuclus.</p>
+<p>In the context of our definitions, the Larmor frequency <span class="math notranslate nohighlight">\(\vec{\omega}_L(\vec{r})\)</span> of a nucleus is given by</p>
+<blockquote>
+<div><div class="math notranslate nohighlight">
+\[\vec{\omega}_L(\vec{r}) = \gamma \cdot (\vec{B}_0(\vec{r}) + \vec{B}^{micro}_0(\vec{r}))\]</div>
+</div></blockquote>
+<p>This is a vector quantity. However, we can assigne it to real scalar quantity by projecting it on the axis that supports <span class="math notranslate nohighlight">\(\hat{e}_z\)</span>.
+We define the scalar Larmor frequency <span class="math notranslate nohighlight">\(\omega_L(\vec{r})\)</span> as</p>
+<blockquote>
+<div><div class="math notranslate nohighlight">
+\[\omega_L(\vec{r}) := \vec{\omega}_L(\vec{r}) \cdot \hat{e}_z\]</div>
+</div></blockquote>
+<p>By further defining the scalar quantities</p>
+<blockquote>
+<div><div class="math notranslate nohighlight">
+\[\omega_{L, 0}(\vec{r}) := \gamma \cdot \vec{B}_0(\vec{r}) \cdot \hat{e}_z\]</div>
+</div></blockquote>
+<p>and</p>
+<blockquote>
+<div><div class="math notranslate nohighlight">
+\[\Delta\omega_L(\vec{r}) := \gamma \cdot \vec{B}^{micro}_0(\vec{r}) \cdot \hat{e}_z\]</div>
+</div></blockquote>
+<p>we obtained</p>
+<blockquote>
+<div><div class="math notranslate nohighlight">
+\[\omega_L(\vec{r}) := \omega_{L, 0}(\vec{r}) + \Delta\omega_L(\vec{r})\]</div>
+</div></blockquote>
+<p>The real value (positive or negative) <span class="math notranslate nohighlight">\(\Delta\omega_L(\vec{r})\)</span> is called “chemical shift” because it is mainly due to the electronic
+environment of the nucleus.</p>
+<p>As explained in the last sub-section, any angular velocity (vectorial or scalar) is directly related to a temporal frequency by a <span class="math notranslate nohighlight">\(2\pi\)</span> factor.
+It is a tradition to call the quantities <span class="math notranslate nohighlight">\(\omega_L(\vec{r})\)</span> and <span class="math notranslate nohighlight">\(\vec{\omega_L}(\vec{r})\)</span> “Larmor frequencies” although they should actually be
+called “Larmor angular velocities”. We will continue that tradition, but we will keep in mind the the corresponding frequencies are given by</p>
+<blockquote>
+<div><div class="math notranslate nohighlight">
+\[\vec{\nu}_L(\vec{r}) = \vec{\omega_L}(\vec{r})/(2\pi)\]</div>
+</div></blockquote>
+<p>and</p>
+<blockquote>
+<div><div class="math notranslate nohighlight">
+\[\nu_L(\vec{r}) = \omega_L(\vec{r})/(2\pi)\]</div>
+</div></blockquote>
+<p>At that point, we have introduced all ingredients needed to formulat a necessary and sufficient condition for NMR to happen between some nuclei
+present in the sample and the pulsed RF wave.
+As already mentioneld, a necessary condition for NMR to happens between a nucleus at position <span class="math notranslate nohighlight">\(\vec{r}\)</span> and the pulsed RF wave was that
+the component <span class="math notranslate nohighlight">\(\vec{B}_{1, \perp}(\vec{r}, t)\)</span> is non-zero. The necessary and sufficient condition is a refinment:
+a nucleus with Larmor frequency <span class="math notranslate nohighlight">\(\vec{\omega}_L(\vec{r})\)</span> will resonate with a pulsed RF wave exactly if
+the time-frequency spectrum <span class="math notranslate nohighlight">\(\mathcal{F}B_{1, \perp}(\vec{r}, \cdot)\)</span> is significantly non zero at the time-frequency <span class="math notranslate nohighlight">\(\nu\)</span> which
+is in a sufficiently close neighborhod of the frequency <span class="math notranslate nohighlight">\(\omega_L/(2 \pi)\)</span>. This can be written mathematically as</p>
+<blockquote>
+<div><div class="math notranslate nohighlight">
+\[\| \mathcal{F}B_{1, \perp}(\vec{r}, \nu) \| &gt; 0 \text{  for  } \nu \approx \omega_L/(2 \pi)\]</div>
+</div></blockquote>
+<p>At this point, the reader may ask why the condition is not simply that <span class="math notranslate nohighlight">\(\mathcal{F}B_{1, \perp}(\vec{r}, \cdot)\)</span> is non-zero at frequency
+<span class="math notranslate nohighlight">\(\omega_L/(2 \pi)\)</span>. This would in fact be a sufficient condition but not a necessary one. The situation is not simple.
+If we consider that all nuclei in a small part of the sample localized arround position <span class="math notranslate nohighlight">\(\vec{r}\)</span> all have exactly the Larmor
+frequency <span class="math notranslate nohighlight">\(\omega_L\)</span>, and if we assume that <span class="math notranslate nohighlight">\(\vec{B}_{1, \perp}(\vec{r}, \cdot)\)</span> contains exactly one rotating component, with
+a sharply defined frequency <span class="math notranslate nohighlight">\(\nu\)</span>, the Bloch formalism (see hereafter) shows that resonance will still happens if <span class="math notranslate nohighlight">\(\nu\)</span> does not equal
+<span class="math notranslate nohighlight">\(\omega_L/(2 \pi)\)</span> but it sufficiently close to it. We admit that we do not
+define what we mean by “sufficiently close”, but defining that would need a lot of space and would not serve our purpose of MRI reconstruction.
+This being said said, it is however true that the closer would <span class="math notranslate nohighlight">\(\nu\)</span> be to <span class="math notranslate nohighlight">\(\omega_L/(2 \pi)\)</span>, the stronger would be the rate of energy
+exchange between the nuclei and the pulsed RF wave via NMR.</p>
+<p>We also point out that the condition of <span class="math notranslate nohighlight">\(\nu\)</span> being close to <span class="math notranslate nohighlight">\(\omega_L/(2 \pi)\)</span> can equivalently be written for the corresponding
+vectorial quantities as</p>
+<blockquote>
+<div><div class="math notranslate nohighlight">
+\[\vec{\nu} \approx \vec{\omega}_L/(2\pi)\]</div>
+</div></blockquote>
+<p>which is more esthetical since it is independent of the chossen vector basis (an equation between two vectors is true in one basis exactly if it is true
+in any basis). We also remark that all vectors <span class="math notranslate nohighlight">\(\vec{B}_0(\vec{r}), \vec{B}^{micro}_0(\vec{r}), \vec{\omega}_L(\vec{r}), \vec{\nu}(\vec{r}), ...\)</span> are
+perpendicular to the plan <span class="math notranslate nohighlight">\(P(\vec{r})\)</span>, and are therefore all multiples of <span class="math notranslate nohighlight">\(\hat{e}_z\)</span>. In particular, all vector frequencies are on that line.
+Two vector frequencies are therefore equal (or close) exactly if their component along <span class="math notranslate nohighlight">\(\hat{e}_z\)</span> is equal (or close).</p>
+<p>In practice, as explained in the next sub-section, the spectrum <span class="math notranslate nohighlight">\(\mathcal{F}B_{1, \perp}(\vec{r}, \cdot)\)</span> can be controled to some extent by
+the designe of the pulsed RF wave. In conventional MRI, the pulsed RF wave is designed so that the magnitude of
+<span class="math notranslate nohighlight">\(\mathcal{F}B_{1, \perp}(\vec{r}, \cdot)\)</span> if essentially non-zero in an interval centered on a main frequency that we will call
+<span class="math notranslate nohighlight">\(\nu_{RF}\)</span>. We will write <span class="math notranslate nohighlight">\(\Delta \nu_{RF}\)</span> the width of that interval and we will call it the “band width” of the pulsed RF wave.
+For the purpose of MRI, we typically expect that the magnitude of <span class="math notranslate nohighlight">\(\mathcal{F}B_{1, \perp}(\vec{r}, \cdot)\)</span> has more or less a bell-shaped
+graph with a maximum in <span class="math notranslate nohighlight">\(\nu_{RF}\)</span> and is practically zero outside the interval</p>
+<blockquote>
+<div><div class="math notranslate nohighlight">
+\[[\nu_{RF} - \Delta \nu_{RF}/2, \nu_{RF} + \Delta \nu_{RF}/2]\]</div>
+</div></blockquote>
+<p>In those conditions, the closer to <span class="math notranslate nohighlight">\(\nu_{RF}\)</span> is the Larmor frequency of a nucleus, the higher is the rate of energy exchange between that nucleus and
+the pulsed RF wave via NMR, and the more “on-resonance” we will call that nucleus. Conversely, the more far away from <span class="math notranslate nohighlight">\(\nu_{RF}\)</span> is
+the Larmor frequency of a nucleus, the lower is the rate of energy exchange between that nucleus and the pulsed RF wave via NMR, and the more “off-resonance”
+we will call that nucleus. The resonating nuclei are all of those that have a Larmor frequency <span class="math notranslate nohighlight">\(\omega_L\)</span> in a sufficiently
+close neighborhood of <span class="math notranslate nohighlight">\(2\pi \ \nu_{RF}\)</span>. The meaning of “sufficiently close” depends on the band width of the pulsed RF wave and other things. We
+don’t go further into that for our introduction to MRI reconstruction. As a final remark, we would like to bring to the attention of the reader that
+the condition</p>
+<blockquote>
+<div><div class="math notranslate nohighlight">
+\[\omega_L = 2\pi \nu_{RF}\]</div>
+</div></blockquote>
+<p>is often presented as the “resonance” condition in the context of MRI (in which the graph <span class="math notranslate nohighlight">\(\mathcal{F}B_{1, \perp}(\vec{r}, \cdot)\)</span> is approximately
+a bell-shaped curve centerd in <span class="math notranslate nohighlight">\(\nu_{RF}\)</span>) but is actually oversimplitic because it occults the fact that nulei with Larmor frequency
+in a range arround <span class="math notranslate nohighlight">\(2\pi \nu_{RF}\)</span> will be fairly good in-resonance.</p>
+</section>
+<section id="the-selection-of-the-resonating-nuclei">
+<h2>The selection of the resonating nuclei<a class="headerlink" href="#the-selection-of-the-resonating-nuclei" title="Link to this heading"></a></h2>
+</section>
+<section id="excitation-of-resonating-nuclei">
+<h2>Excitation of resonating nuclei<a class="headerlink" href="#excitation-of-resonating-nuclei" title="Link to this heading"></a></h2>
+</section>
+<section id="free-relaxation">
+<h2>Free relaxation<a class="headerlink" href="#free-relaxation" title="Link to this heading"></a></h2>
+</section>
+<section id="reciprocity-principle">
+<h2>Reciprocity principle<a class="headerlink" href="#reciprocity-principle" title="Link to this heading"></a></h2>
+<p>Now that we have somehow documented what we mean by <span class="math notranslate nohighlight">\(\vec{M}(\vec{r}, t)\)</span>, that we call <em>(macroscopic or bulk) magnetization</em> at position <span class="math notranslate nohighlight">\(\vec{r}\)</span> and
+time <span class="math notranslate nohighlight">\(t\)</span>, we will describe how it links to the voltage meuasured in the coil antennas during the MRI experiment and transit from that link to the signal
+equation, which can be considered as the start point of MRI reconstruction.</p>
+<p>The link between the magnetization in the sample and the voltages measured in the antennas during the experiment is given by one the reciprocity principle
+of classical eletrodynamics:</p>
+<blockquote>
+<div><div class="math notranslate nohighlight">
+\[\Phi_{M, c}(t) = \int_{\text{Sample}} \vec{M}(\vec{r}, t) \cdot \vec{B}^{rec}_c(\vec{r}) d^{3}r\]</div>
+</div></blockquote>
+<p>where <span class="math notranslate nohighlight">\(\Phi_{M, c}\)</span> is the magnetic flux in coil number <span class="math notranslate nohighlight">\(c\)</span>. In that expression is <span class="math notranslate nohighlight">\(\vec{B}^{rec}_c(\cdot)\)</span>
+the <em>reciprocal field</em> or <em>receive field</em> of coil number <span class="math notranslate nohighlight">\(c\)</span>. It is the hypothetical magnetic field strenght that
+would be generated by an direct electric current flowing through the receive coil number <span class="math notranslate nohighlight">\(c\)</span>,
+divided by the intensity of that current. The integration runs over the volume occupied by the sample, that we noted “sample” in
+the above integral.</p>
+<p>By Faraday’s law induction, this statement implies that the real valued voltage measured at time <span class="math notranslate nohighlight">\(t\)</span> in coil
+number <span class="math notranslate nohighlight">\(c\)</span> during the MRI experiment is given by</p>
+<blockquote>
+<div><div class="math notranslate nohighlight">
+\[s_c(t) = -\frac{d}{dt} \int_{\text{Sample}} \vec{M}(\vec{r}, t) \cdot \vec{B}^{rec}_c(\vec{r}) d^{3}r\]</div>
+</div></blockquote>
+</section>
+<section id="steady-state">
+<h2>Steady State<a class="headerlink" href="#steady-state" title="Link to this heading"></a></h2>
+</section>
+<section id="signal-equation">
+<h2>Signal equation<a class="headerlink" href="#signal-equation" title="Link to this heading"></a></h2>
+<p>As exposed in many standart text books, the formula of that principle (which is actually the same formula as in the conventional
+formulaion) can then be transformed many times by the mean of several meaningfull approximations until we get the following signal equation (or one variant of it):</p>
+<blockquote>
+<div><div class="math notranslate nohighlight">
+\[y_c(\vec{k}(t)) =  \int_{\text{Sample}} \vec{x}(\vec{r}, t) \cdot C_c(\vec{r}) \cdot e^{-i2 \pi \cdot \vec{k}(t) \cdot \vec{r}} d^{3}r\]</div>
+</div></blockquote>
+<p>Here is <span class="math notranslate nohighlight">\(\vec{k}(\cdot)\)</span> a time varying spatial-frequency vector, the evolution of which is dictated by the gradient system of the MRI machine.
+The quantity <span class="math notranslate nohighlight">\(\vec{k}(t)\)</span> is therefore a vector made of 3 real components with unit <em>1/m</em>. As spatial frequency vector, it is often called an element
+of <em>k-space</em>, although more traditionaly, the space of those element is called <em>Fourier space</em>. The link between <span class="math notranslate nohighlight">\(\vec{k}(t)\)</span> and the gradient system is</p>
+<blockquote>
+<div><div class="math notranslate nohighlight">
+\[\vec{k}(t) = \frac{\gamma}{2\pi}  \int_{\lfloor t \rfloor}^{t} \vec{G}(\tau) \cdot d\tau\]</div>
+</div></blockquote>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="2_th_background.html" class="btn btn-neutral float-left" title="Theoretical Background" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="2_2_recon_problem.html" class="btn btn-neutral float-right" title="The Discret Reconstruction Problems" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2023, Bastien Milani.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

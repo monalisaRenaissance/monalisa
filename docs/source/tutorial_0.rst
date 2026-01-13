@@ -1,10 +1,17 @@
 Tutorial 0 : testing of the installation and of the multi-threading
 ===================================================================
 
+Introduction
+------------
+
 The present script is written in the file `demo_script_0.m` in the demonstration folder. Just open it in your matlab and run it. 
 It is a basic example that tests the sparse matrix-vector multiplication with multi-threading (one thread per channel). This script is kind
 of the test of the installation. If it runs smooths like described here, then you can consider the toolbox is installed. Just make sure you 
 have at least 32 Go of memory to run that script. 
+
+
+Sparse matrix-vector multiplication
+-----------------------------------
 
 1. **Initialization**
 
@@ -96,4 +103,24 @@ have at least 32 Go of memory to run that script.
     reconstruct your first MR images. 
 
 
-    
+Further explanation
+-------------------
+
+For the moment, there are four kinds of sparse matrices involved in *Monalisa* : gridding matrices, their transpose matrices,
+deformation matrices (which are actually also akind of gridding matrices), and their transpose matrices. 
+
+A gridding matrix will usually be written ``Gu`` and its transpose ``Gut``. The task of a matrix ``Gu`` is to gridd some 
+data living on a Cartesian gridd onto a non-cartesian trajectory. The operation performed by ``Gut`` sent data living on the 
+non-cartesian trajectory back onto the Cartesian gridd, but it is NOT the inverse operation of ``Gu``. Matrix ``Gut``
+is the transpose of ``Gu``, not the inverse. The gridding matrices are not unitatry. Gridding matrices have in general no inverse. 
+We emplemented in *Monalisa* another sparse matrix which behaves approximately like an inverse of ``Gut`` in case the non-cartesian 
+trajectory is well sampled. We write usually this matrix ``Gn``. If you multiply an image vectory by ``Gu`` and then again by ``Gn``, 
+you will get approximlately the original image vector if you non-cartesian trajectory is well sampled. 
+
+All what was said for ``Gu`` and ``Gut`` is also true for ``Tu`` and ``Tut``. The deformation matrices are just a special 
+case of gridding matrices for which the non-cartesian trajectory has exactly as many points as the number of 
+voxels in the Cartesian grid. Given an image vector, multiplying it with ``Tu`` will deforme it. Multiplying it with an approximative 
+inverse of ``Tu``, that we usually call ``Tn``, will bring it back close to the original image. This cannot be achieved with ``Tut``, 
+which is the transpose matrix of ``Tu``, not its inverse. 
+
+

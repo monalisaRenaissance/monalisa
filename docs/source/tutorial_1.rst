@@ -1,10 +1,17 @@
 Tutorial 1 : A gridded-zero-padded reconstrcution for non-cartesian data
 ========================================================================
 
+Introduction
+------------
+
 The present script is written in the file `demo_script_1.m` in the demonstration folder. You can open it and run it right away. 
 
-We present here **Mathilda**: a non-iterative reconstruction for non-cartesian data. When using Monalisa, this is usually the reconstruction we start with to make a first image of the 
-data we want to work on. 
+We present here **Mathilda**: a non-iterative reconstruction for non-cartesian data. When using Monalisa, 
+this is usually the reconstruction we start with to make a first image of the data we want to work on. 
+
+
+Initialization
+--------------
 
 The script contains the following section. 
 
@@ -43,6 +50,9 @@ The script contains the following section.
     This being said, we will considere that the above trajectory is fully sampled for a field of view (FoV) of
     *600 mm* (i.e. :math:`\Delta k = \frac{1}{600} \frac{1}{mm}`)  
 
+
+Reconstructions
+---------------
 
 2. **Gridded-zeropadded reconstruction without coil combination**
 
@@ -177,9 +187,10 @@ The script contains the following section.
                 \end{pmatrix}
             
 
-    Here are :math:`C_{c, 1}, ..., C_{c, nVox}` the complex values of :math:`C_c` listed in column major order from :math:`1` to the total 
-    number of voxels in the frame :math:`nVox`. We will admin that non of the diagonal entries of :math:`C_c` is zero, which can always be
-    satisfied in practice during the estimation of :math:`C_c`. This ensure that each :math:`C_c` is invertible. 
+    Here are :math:`C_{c, 1}, ..., C_{c, nVox}` the complex values of the coil-sensitivity map number :math:`c` listed in column major order 
+    from :math:`1` to the total number of voxels in the frame :math:`nVox`. We will admit that non of the diagonal entries 
+    of :math:`C_c` is zero, which can always be satisfied in practice during the estimation of :math:`C_c`. 
+    This ensures that each :math:`C_c` is invertible. 
     
     A common strategy to estimate :math:`x` is then to pick the one that approaches as good as possible all
     :math:`\acute{x}_c` when multiplied by :math:`C_c`, for each :math:`c` from :math:`1` to :math:`nCh`, in term of squared 2-norm: 
@@ -247,7 +258,8 @@ The script contains the following section.
 
 
     Thank to the very simple structure of :math:`C`, the right-hand side can be efficiently eveluated. The matrix :math:`(C^* \cdot C )^{-1} C^*`
-    is a particular case of (Moore-Penrose) pseudo inverse: it is the pseudo inverse of a matrix with full column rank (here matrix :math:`C` for instance). 
+    is a particular case of (Moore-Penrose) pseudo inverse: it is the pseudo inverse of a matrix with full column rank (here matrix :math:`C` for instance) in the
+    case where the involved inner-product are the standard ones (the ones that induce the stanard 2-norm). 
     The evaluation of that pseudo-inverse on a list of coil-images is implemented in function ``bmCoilSense_pinv``.  
     
 
