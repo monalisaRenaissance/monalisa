@@ -8,9 +8,9 @@
 % nSeg must include the SI because the phyical time-list must include the
 % SI acquisition. SI's are removed from the lineMask before mitosis.
 
-function [  s1_ref, ...
+function [  s_ref, ...
             t_ref, ...
-            Fs1_ref, ...
+            Fs_ref, ...
             nu_ref, ...
             imNav, ...
             ind_shot_min, ...
@@ -18,7 +18,6 @@ function [  s1_ref, ...
             ind_SI_min, ...
             ind_SI_max, ...
             varargout] = bmMriPhi_fromSI_get_standart_reference_signal( rmsSI, ...
-                                                                        nCh, ...
                                                                         N, ...
                                                                         nSeg, ...
                                                                         nShot)
@@ -33,40 +32,41 @@ myFigure = figure(  'Name', 'bmMriPhi_refSignal_from_SI', ...
                 
 
 % initial -----------------------------------------------------------------
-                
+
+rmsSI_mean      = rmsSI(:, :); 
+rmsSI_mean      = mean(rmsSI_mean, 1); 
+rmsSI_mean      = repmat(rmsSI_mean, [size(rmsSI, 1), 1]); 
+rmsSI           = rmsSI./rmsSI_mean; 
+% rmsSI           = rmsSI-rmsSI_mean; rmsSI = rmsSI - min(rmsSI(:)); 
+
 control_flag    = false; 
 shift_flag      = false; 
-escape_flag     = false; 
-s_flag          = false;
-x_flag          = false;
-n_flag          = false;
 s_reverse_flag  = false; 
 
 myColorLimits = [min(rmsSI(:)), max(rmsSI(:))]; 
-
-nLine   = nSeg*nShot;
-
-s1 = []; 
 
 plot_factor = 1; 
 
 mySize_1    = size(rmsSI, 1);
 mySize_2    = size(rmsSI, 2);
 
-s1_ref  = [];
+s_ref   = [];
 t_ref   = [];
+Fs_ref  = [];
 nu_ref  = [];
 
-ind_shot_min = []; 
-ind_shot_max = []; 
+ind_shot_min = 1; 
+ind_shot_max = nShot; 
 
-ind_SI_min = []; 
-ind_SI_max = []; 
+ind_SI_min = max(1, fix(N/2) - fix(N/8)); 
+ind_SI_max = min(N, fix(N/2) + fix(N/8)); 
 
-ind_imNav_min = []; 
-ind_imNav_max = []; 
+ind_imNav_min = 1; 
+ind_imNav_max = N; 
 
-refresh_image;
+s_raw = []; 
+update_s_raw(); 
+refresh_display;
 
 % END_initial -------------------------------------------------------------
 
@@ -76,17 +76,17 @@ uiwait;
 % final -------------------------------------------------------------------
 
 % we work with mirrored-signals
-if ~isempty(s1)
+if ~isempty(s_raw)
     
-    s1_ref = bmMriPhi_fromSI_rawPerShotSignal_to_standartSignal(  s1, ...
-                                                        nSeg, ...
-                                                        nShot, ...
-                                                        ind_shot_min, ...
-                                                        ind_shot_max);     
+    s_ref = bmMriPhi_fromSI_rawPerShotSignal_to_standartSignal( s_raw, ...
+                                                                nSeg, ...
+                                                                nShot, ...
+                                                                ind_shot_min, ...
+                                                                ind_shot_max);     
     
     % We choose time-list with unit step per line
     delta_t     = 1;
-    nLine_ref   = size(s1_ref, 2);
+    nLine_ref   = size(s_ref, 2);
     t_ref       = (-nLine_ref/2:nLine_ref/2-1)*delta_t;
     T_ref       = nLine_ref*delta_t;
     
@@ -95,7 +95,7 @@ if ~isempty(s1)
     nu_ref      = (-nLine_ref/2:nLine_ref/2-1)*delta_nu;
     
     
-    Fs1_ref = bmDFT(s1_ref, t_ref, [], 2, 2);
+    Fs_ref = bmDFT(s_ref, t_ref, [], 2, 2);
 
     
     imNav = bmMriPhi_fromSI_imNav(  rmsSI, ...
@@ -112,7 +112,7 @@ end
 
 
 
-if sum(isnan(s1_ref(:))) > 0
+if sum(isnan(s_ref(:))) > 0
     error('NaN detected in the signal');
     return;
 end
@@ -153,8 +153,8 @@ return;
                 ind_SI_min = ind_SI_max - delta_ind; 
             end
         end
-        update_s1; 
-        refresh_image;
+        update_s_raw; 
+        refresh_display;
     end
 
 
@@ -181,8 +181,8 @@ return;
                     s_reverse_flag  = false;
                     control_flag = false;
                 end
-                update_s1;
-                refresh_image;
+                update_s_raw;
+                refresh_display;
                 
             case 'downarrow'
                 if control_flag
@@ -199,8 +199,8 @@ return;
                         ind_SI_max = ind_SI_min + delta_ind;
                     end
                 end
-                update_s1;
-                refresh_image;
+                update_s_raw;
+                refresh_display;
                 
             case 'uparrow'
                 if control_flag
@@ -217,31 +217,31 @@ return;
                         ind_SI_min = ind_SI_max - delta_ind;
                     end
                 end
-                update_s1;
-                refresh_image;
+                update_s_raw;
+                refresh_display;
                 
             case 'leftarrow'
                 ind_SI_max = ind_SI_max - 1;
                 if ind_SI_max < ind_SI_min
                     ind_SI_max = ind_SI_min;
                 end
-                update_s1;
-                refresh_image;
+                update_s_raw;
+                refresh_display;
                 
             case 'rightarrow'
                 ind_SI_max = ind_SI_max + 1;
                 if ind_SI_max > N
                     ind_SI_max = N;
                 end
-                update_s1;
-                refresh_image;
+                update_s_raw;
+                refresh_display;
             case 'e'
                 if control_flag
                     imcontrast(myFigure);    % DO NOT REFRESH image after this command
                     control_flag = 0;
                 elseif shift_flag
                     myColorLimits = get(gca,'CLim');
-                    refresh_image;
+                    refresh_display;
                     shift_flag = 0;
                 end
         end
@@ -267,131 +267,106 @@ return;
 
     function myClickCallback(src, evnt)
         switch get(gcf,'selectiontype')
-            case 'normal'% left mouse button click
-                
-                
-                if s_flag
-                    p = get_soft_point_from_click;  
-                    ind_shot_min = p(2); 
-                    
+            case 'alt'% right mouse button click
+
+                p = get_soft_point_from_click;
+
+                [choice_ind, choice_flag] = listdlg('SelectionMode','single', ...
+                                                    'ListString', ...
+                                                    {'Left Limit', ...
+                                                    'Right Limit', ...
+                                                    'Bottom Limit', ...
+                                                    'Top Limit', ...
+                                                    'Bottom View Limit', ...
+                                                    'Top View Limit'}); 
+
+                if choice_flag == 0
+                    return;
+                end
+
+                if choice_ind == 1
+                    ind_shot_min = p(2);
                     if ~isempty(ind_shot_max)
                         if ind_shot_min > ind_shot_max
-                            ind_shot_min = ind_shot_max; 
+                            ind_shot_min = ind_shot_max;
                         end
                     end
-                    
-                    s_flag = false; 
-                end
-                
-                
-                if x_flag
-                    p = get_soft_point_from_click;  
-                    ind_SI_min = p(1); 
-                    
-                    if ~isempty(ind_SI_max)
-                        if ind_SI_min > ind_SI_max
-                            ind_SI_min = ind_SI_max; 
-                        end
-                    end
-                    
-                    x_flag = false; 
-                end
-                
-                
-                if n_flag
-                    p = get_soft_point_from_click;
-                    ind_imNav_min = p(1);
-                    
-                    if ~isempty(ind_imNav_max)
-                        if ind_imNav_min > ind_imNav_max
-                            ind_imNav_min = ind_imNav_max;
-                        end
-                    end
-                    
-                    n_flag = false;
-                end
-                
-                
-                
-            case 'alt'% right mouse button click
-                
-                
-                if s_flag
-                    p = get_soft_point_from_click;  
-                    ind_shot_max = p(2); 
-                    
+
+                elseif choice_ind == 2
+                    ind_shot_max = p(2);
                     if ~isempty(ind_shot_min)
                         if ind_shot_max < ind_shot_min
-                            ind_shot_max = ind_shot_min; 
+                            ind_shot_max = ind_shot_min;
+                        end
+                    end
+
+                elseif choice_ind == 3
+                    ind_SI_min = p(1);
+                    if ~isempty(ind_SI_max)
+                        if ind_SI_min > ind_SI_max
+                            ind_SI_min = ind_SI_max;
                         end
                     end
                     
-                    s_flag = false; 
-                end
-                
-                
-                if x_flag
-                    p = get_soft_point_from_click;
+                elseif choice_ind == 4
                     ind_SI_max = p(1);
-                    
                     if ~isempty(ind_SI_min)
                         if ind_SI_max < ind_SI_min
                             ind_SI_max = ind_SI_min;
                         end
                     end
-                    
-                    x_flag = false;
-                end
-                
-                if n_flag
-                    p = get_soft_point_from_click;
+
+                elseif choice_ind == 5
+                    ind_imNav_min = p(1);
+                    if ~isempty(ind_imNav_max)
+                        if ind_imNav_min > ind_imNav_max
+                            ind_imNav_min = ind_imNav_max;
+                        end
+                    end
+
+                elseif choice_ind == 6
                     ind_imNav_max = p(1);
-                    
                     if ~isempty(ind_imNav_min)
                         if ind_imNav_max < ind_imNav_min
                             ind_imNav_max = ind_imNav_min;
                         end
                     end
-                    
-                    n_flag = false;
+
                 end
-                
+
+            case 'normal' % left mouse button click
+                1+1; 
             case 'extend'% right mouse button click
-                if control_flag
-                    1+1; 
-                else
-                    1+1; 
-                end         
+                1+1;          
         end
         
-        update_s1; 
-        refresh_image; 
+        update_s_raw; 
+        refresh_display; 
     end
 
-    function update_s1()
+    function update_s_raw()
        
-        myCondition = true;
-        myCondition = myCondition && ~isempty(ind_SI_min);
-        myCondition = myCondition && ~isempty(ind_SI_max);
-        myCondition = myCondition && ~isempty(ind_shot_min);
-        myCondition = myCondition && ~isempty(ind_shot_max);
-        
-        if myCondition
-            
-            s1 = bmMriPhi_fromSI_get_rawPerShotSignal(  rmsSI, ...
-                                                        ind_SI_min, ...
-                                                        ind_SI_max, ...
-                                                        s_reverse_flag);
-                                    
+        s = rmsSI(ind_SI_min:ind_SI_max,  :);
+        s = mean(s, 1);
+
+
+        s = s - mean(s(:));
+        s = s/std(s(:));
+        if s_reverse_flag
+            s = -s;
         end
         
+        s_raw = s; 
+
+        % [ind_shot_min, ind_shot_max] = bmMriPhi_getIndex_of_firstAndLastExtremum(s_raw); 
+
     end
 
 
 
 
 
-    function refresh_image()
+    function refresh_display()
         
         figure(myFigure);
         imagesc( rmsSI, [0, 3*mean(rmsSI(:))]  );
@@ -400,7 +375,7 @@ return;
         caxis(myColorLimits)
         hold on
 
-        bmMriPhi_fromSI_plot_signal(s1, ind_shot_min, ind_shot_max, ind_SI_min, ind_SI_max, plot_factor); 
+        bmMriPhi_fromSI_plot_signal(s_raw, ind_shot_min, ind_shot_max, ind_SI_min, ind_SI_max, plot_factor); 
         
         if ~isempty(ind_shot_min)
            plot([ind_shot_min, ind_shot_min], [0, mySize_1+1], 'y-') 

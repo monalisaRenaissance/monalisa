@@ -1,0 +1,23 @@
+% Bastien Milani
+% Martigny - 2026
+
+
+function [  s_ref_lowPass, ...
+            s_ref_bandPass, ...
+            lowPass_filter, ...
+            bandPass_filter] = bmMriPhi_frequency_selector( s_ref, ...
+                                                            t_ref, ...
+                                                            Fs_ref, ...
+                                                            nu_ref, ...
+                                                            imNav)
+
+myApp = bmMriPhi_graphical_frequency_selector(s_ref, t_ref, Fs_ref, nu_ref, imNav); 
+
+waitfor(myApp, 'close_flag', true); 
+s_ref_lowPass       = myApp.s_lowPass; 
+s_ref_bandPass      = myApp.s_bandPass; 
+lowPass_filter      = myApp.lowPass_filter; 
+bandPass_filter     = myApp.bandPass_filter; 
+delete(myApp)
+
+end
